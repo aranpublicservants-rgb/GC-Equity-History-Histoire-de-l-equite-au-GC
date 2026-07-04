@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Exclusion to Accountability | De l'exclusion à la responsabilisation</title>
+<meta name="description" content="A documented history of anti-racism, equity, inclusion and accessibility in the Public Service of Canada, 1867 to 2026. Bilingual, plain language, with sources.">
+<style>
+/* ============================================================
+   From Exclusion to Accountability
+   Archival record aesthetic: cool document grey, federal navy,
+   oxide-red thread, mono ledger dates. System fonts only.
+   ============================================================ */
+:root{
+  --paper:#eef1f4;
+  --card:#ffffff;
+  --ink:#10151c;
+  --ink-soft:#3c4653;
+  --federal:#26374a;      /* GC design-system navy */
+  --thread:#a13c2a;       /* oxide red timeline thread */
+  --worked:#1f5f3f;       /* assessment: what changed */
+  --fell:#8c2f1b;         /* assessment: what fell short */
+  --line:#c8cfd8;
+  --chip:#dde4ea;
+  --chip-on:#26374a;
+  --link:#26374a;
+  --focus:#a13c2a;
+  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  --serif:Georgia,'Iowan Old Style','Times New Roman',Times,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:1rem;line-height:1.6;
+}
+body.size-1{font-size:1.125rem}
+body.size-2{font-size:1.25rem}
+
+/* ---------- high contrast mode ---------- */
+body.hc{
+  --paper:#000000;--card:#000000;--ink:#ffffff;--ink-soft:#ffffff;
+  --federal:#ffffff;--thread:#ffd54f;--worked:#7ee2a8;--fell:#ffab91;
+  --line:#ffffff;--chip:#000000;--chip-on:#ffd54f;--link:#ffd54f;--focus:#ffffff;
+}
+body.hc .chip{border:2px solid #fff;color:#fff}
+body.hc .chip[aria-pressed="true"]{background:#ffd54f;color:#000;border-color:#ffd54f}
+body.hc .card,body.hc .net-card,body.hc .person,body.hc .gl-item{border:1px solid #fff}
+body.hc a{color:#ffd54f}
+body.hc .btn{border:2px solid #fff;color:#fff;background:#000}
+body.hc .btn[aria-pressed="true"]{background:#ffd54f;color:#000;border-color:#ffd54f}
+body.hc .masthead,body.hc .era-band{background:#000;border-color:#fff}
+body.hc .assess.worked{border-left-color:#7ee2a8}
+body.hc .assess.fell{border-left-color:#ffab91}
+
+a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:2px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--card);color:var(--ink);padding:.6rem 1rem;z-index:99;border:2px solid var(--thread)}
+.skip:focus{left:.5rem;top:.5rem}
+
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem}
+
+/* ---------- masthead ---------- */
+.masthead{background:var(--federal);color:#fff;border-bottom:6px solid var(--thread)}
+body.hc .masthead{color:#fff;border-bottom:6px solid var(--thread)}
+.masthead .wrap{padding-top:1.6rem;padding-bottom:1.4rem}
+.kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;margin:0 0 .5rem}
+h1.site-title{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,4.4vw,2.6rem);line-height:1.15;margin:0 0 .35rem;max-width:36ch}
+.subtitle{margin:0;font-size:.98rem;max-width:65ch;opacity:.92}
+.masthead a{color:#fff}
+body.hc .masthead a{color:#ffd54f}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1.1rem}
+.btn{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;
+  background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7);
+  border-radius:3px;padding:.42rem .7rem;cursor:pointer;
+}
+.btn[aria-pressed="true"]{background:#fff;color:var(--federal);border-color:#fff}
+.btn:hover{border-color:#fff}
+.ctrl-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-right:.15rem}
+
+/* ---------- intro ---------- */
+.intro{padding:1.8rem 0 1rem}
+.intro p{max-width:70ch;margin:.5rem 0}
+.intro .lede{font-size:1.08rem}
+.notice{
+  background:var(--card);border:1px solid var(--line);border-left:5px solid var(--federal);
+  padding:.85rem 1rem;margin:1.1rem 0;max-width:70ch;font-size:.92rem;
+}
+body.hc .notice{border-left-color:var(--thread)}
+
+/* ---------- era navigation ---------- */
+.era-nav{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);padding:.5rem 0}
+.era-nav .wrap{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.2rem}
+.era-nav a{
+  flex:0 0 auto;font-family:var(--mono);font-size:.74rem;letter-spacing:.03em;
+  text-decoration:none;border:1px solid var(--line);border-radius:3px;
+  padding:.35rem .6rem;background:var(--card);color:var(--ink);white-space:nowrap;
+}
+.era-nav a:hover{border-color:var(--federal)}
+body.hc .era-nav{background:#000;border-bottom:1px solid #fff}
+body.hc .era-nav a{border:1.5px solid #fff;background:#000;color:#fff}
+
+/* ---------- filters ---------- */
+.filters{padding:1rem 0 .4rem}
+.filters h2{font-family:var(--serif);font-weight:400;font-size:1.25rem;margin:.2rem 0 .6rem}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin:.35rem 0 .7rem}
+.chip-row-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);flex-basis:100%;margin-bottom:-.15rem}
+.chip{
+  font-family:var(--sans);font-size:.82rem;border:1px solid var(--line);
+  background:var(--chip);color:var(--ink);border-radius:999px;
+  padding:.32rem .75rem;cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:#fff;border-color:var(--chip-on)}
+.search-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.4rem 0 .6rem}
+.search-row input{
+  flex:1 1 16rem;font:inherit;padding:.5rem .7rem;border:1px solid var(--line);
+  border-radius:3px;background:var(--card);color:var(--ink);min-width:12rem;
+}
+.count{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
+body.hc .count{color:#fff}
+body.hc .search-row input{border:2px solid #fff;background:#000;color:#fff}
+
+/* ---------- timeline ---------- */
+.timeline{padding:.6rem 0 2rem}
+.era-band{
+  margin:2.2rem 0 1.1rem;background:var(--card);border:1px solid var(--line);
+  border-left:6px solid var(--thread);padding:.9rem 1.1rem;
+}
+.era-band .years{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--thread)}
+body.hc .era-band .years{color:#ffd54f}
+.era-band h2{font-family:var(--serif);font-weight:400;font-size:1.45rem;margin:.15rem 0 .3rem}
+.era-band p{margin:.2rem 0 0;max-width:72ch;font-size:.94rem;color:var(--ink-soft)}
+body.hc .era-band p{color:#fff}
+
+.entry{
+  position:relative;margin:0 0 1.15rem;padding-left:1.4rem;
+  border-left:3px solid var(--thread);
+}
+.entry::before{
+  content:"";position:absolute;left:-7px;top:1.15rem;width:11px;height:11px;
+  background:var(--thread);border-radius:1px;
+}
+.card{
+  background:var(--card);border:1px solid var(--line);padding:1rem 1.1rem 1.05rem;
+}
+.card .date{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;color:var(--thread);text-transform:uppercase}
+body.hc .card .date{color:#ffd54f}
+.card h3{font-family:var(--serif);font-weight:400;font-size:1.22rem;line-height:1.25;margin:.2rem 0 .45rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin:0 0 .55rem}
+.tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:2px;padding:.12rem .4rem;color:var(--ink-soft)}
+body.hc .tag{color:#fff;border-color:#fff}
+.card .sum{margin:.2rem 0 .6rem;max-width:72ch}
+.assess{border-left:4px solid;padding:.45rem .8rem;margin:.45rem 0;background:var(--paper);max-width:72ch;font-size:.94rem}
+.assess.worked{border-left-color:var(--worked)}
+.assess.fell{border-left-color:var(--fell)}
+.assess .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.15rem}
+.assess.worked .lab{color:var(--worked)}
+.assess.fell .lab{color:var(--fell)}
+body.hc .assess{background:#000;border-top:1px solid #444;border-bottom:1px solid #444;border-right:1px solid #444}
+.links{margin:.6rem 0 0;font-size:.9rem}
+.links .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:.15rem}
+body.hc .links .lab{color:#fff}
+.links a{display:inline-block;margin:0 .8rem .25rem 0}
+.no-link-note{font-size:.85rem;color:var(--ink-soft);font-style:italic}
+body.hc .no-link-note{color:#fff}
+
+/* ---------- sections ---------- */
+.section{padding:1.6rem 0 1rem;border-top:2px solid var(--line)}
+.section h2{font-family:var(--serif);font-weight:400;font-size:1.7rem;margin:.3rem 0 .4rem}
+.section .section-intro{max-width:72ch;color:var(--ink-soft)}
+body.hc .section .section-intro{color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:.9rem;margin-top:1rem}
+.net-card,.person,.gl-item{background:var(--card);border:1px solid var(--line);padding:.9rem 1rem}
+.net-card h3,.person h3,.gl-item h3{font-family:var(--serif);font-weight:400;font-size:1.08rem;margin:0 0 .35rem}
+.net-card p,.person p,.gl-item p{margin:.25rem 0;font-size:.92rem}
+.net-card .meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--thread)}
+body.hc .net-card .meta{color:#ffd54f}
+
+/* ---------- footer ---------- */
+footer{background:var(--federal);color:#fff;margin-top:2.5rem;border-top:6px solid var(--thread)}
+footer .wrap{padding:1.6rem 1rem 2rem}
+footer a{color:#fff}
+body.hc footer{background:#000;border-top:6px solid #ffd54f}
+body.hc footer a{color:#ffd54f}
+footer p{max-width:75ch;font-size:.9rem}
+
+/* ---------- print: briefing-ready ---------- */
+@media print{
+  body{background:#fff;color:#000;font-size:11pt}
+  .masthead,.era-band{background:#fff!important;color:#000!important;border-color:#000!important}
+  .masthead a{color:#000}
+  .controls,.era-nav,.filters,.skip{display:none!important}
+  .card,.net-card,.person,.gl-item{border:1px solid #000;page-break-inside:avoid}
+  .entry{border-left:2px solid #000}
+  .entry::before{background:#000}
+  a{color:#000}
+  .links a[href]::after{content:" (" attr(href) ")";font-size:8pt;word-break:break-all}
+  footer{background:#fff;color:#000;border-top:2px solid #000}
+  footer a{color:#000}
+}
+@media (max-width:40rem){
+  .card{padding:.85rem .85rem .9rem}
+  .entry{padding-left:1rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker" data-i18n="kicker">An independent documented record · 1867 to 2026</p>
+    <h1 class="site-title" data-i18n="title">From Exclusion to Accountability</h1>
+    <p class="subtitle" data-i18n="subtitle">A history of anti-racism, equity, inclusion and accessibility in the Public Service of Canada. Every entry names what changed and what fell short, with a link to the source.</p>
+    <div class="controls" role="group" aria-label="Display settings">
+      <span class="ctrl-label" data-i18n="displayLab">Display</span>
+      <button class="btn" id="langBtn" aria-pressed="false">Français</button>
+      <button class="btn" id="hcBtn" aria-pressed="false" data-i18n="hcBtn">High contrast</button>
+      <button class="btn" id="sizeBtn" data-i18n="sizeBtn">Text size: A</button>
+    </div>
+  </div>
+</header>
+
+<nav class="era-nav" aria-label="Jump to an era">
+  <div class="wrap" id="eraNav"></div>
+</nav>
+
+<main id="main">
+  <section class="intro wrap">
+    <p class="lede" data-i18n="lede1">For more than a century, people inside Canada's federal public service have pushed the institution to hire fairly, promote fairly, and treat every employee with dignity. This site traces that record: the laws, commissions, task forces, audits, court and tribunal cases, and employee networks that tried to remove barriers for Indigenous, Black and racialized employees, women, persons with disabilities, and 2SLGBTQIA+ public servants.</p>
+    <p data-i18n="lede2">The pattern that emerges is consistent. Barriers get named, commitments get made, and follow-through decides everything. The tools that produced durable change share four traits: they were written into law, they were enforceable, they measured results with disaggregated data, and organized employees kept pressure on. Announcements without those traits tended to fade.</p>
+    <div class="notice" data-i18n="notice">This is an independent educational resource. It is not a Government of Canada site. Links were checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, please verify against the linked primary source.</div>
+  </section>
+
+  <section class="filters wrap" aria-label="Filter the timeline">
+    <h2 data-i18n="filtersH">Explore the timeline</h2>
+    <div class="chip-row" id="catChips" role="group"></div>
+    <div class="chip-row" id="grpChips" role="group"></div>
+    <div class="search-row">
+      <input type="search" id="searchBox" aria-label="Search the timeline">
+      <span class="count" id="countOut" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="timeline wrap" id="timeline" aria-label="Timeline"></section>
+
+  <section class="section" id="cases">
+    <div class="wrap">
+      <h2 data-i18n="casesH">Key cases</h2>
+      <p class="section-intro" data-i18n="casesIntro"></p>
+      <div id="casesOut"></div>
+    </div>
+  </section>
+
+  <section class="section" id="networks">
+    <div class="wrap">
+      <h2 data-i18n="netH">Employee networks</h2>
+      <p class="section-intro" data-i18n="netIntro"></p>
+      <div class="grid" id="netOut"></div>
+      <div class="notice" data-i18n="netNote"></div>
+    </div>
+  </section>
+
+  <section class="section" id="people">
+    <div class="wrap">
+      <h2 data-i18n="pplH">Notable individuals</h2>
+      <p class="section-intro" data-i18n="pplIntro"></p>
+      <div class="grid" id="pplOut"></div>
+    </div>
+  </section>
+
+  <section class="section" id="glossary">
+    <div class="wrap">
+      <h2 data-i18n="glH">Plain-language glossary</h2>
+      <div class="grid" id="glOut"></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <h2 data-i18n="aboutH">About this site</h2>
+      <p class="section-intro" data-i18n="about1"></p>
+      <p class="section-intro" data-i18n="about2"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="footer1"></p>
+    <p data-i18n="footer2"></p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/* =========================================================
+   Interface strings (chrome). Content lives in EVENTS, CASES,
+   NETWORKS, PEOPLE, GLOSSARY below.
+   ========================================================= */
+var STR = {
+  en: {
+    skip: "Skip to main content",
+    kicker: "An independent documented record \u00B7 1867 to 2026",
+    title: "From Exclusion to Accountability",
+    subtitle: "A history of anti-racism, equity, inclusion and accessibility in the Public Service of Canada. Every entry names what changed and what fell short, with a link to the source.",
+    displayLab: "Display",
+    hcBtn: "High contrast",
+    sizeBtnBase: "Text size",
+    langBtn: "Fran\u00E7ais",
+    lede1: "For more than a century, people inside Canada's federal public service have pushed the institution to hire fairly, promote fairly, and treat every employee with dignity. This site traces that record: the laws, commissions, task forces, audits, court and tribunal cases, and employee networks that tried to remove barriers for Indigenous, Black and racialized employees, women, persons with disabilities, and 2SLGBTQIA+ public servants.",
+    lede2: "The pattern that emerges is consistent. Barriers get named, commitments get made, and follow-through decides everything. The tools that produced durable change share four traits: they were written into law, they were enforceable, they measured results with disaggregated data, and organized employees kept pressure on. Announcements without those traits tended to fade.",
+    notice: "This is an independent educational resource. It is not a Government of Canada site. Links were checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, please verify against the linked primary source.",
+    filtersH: "Explore the timeline",
+    typeLab: "Type",
+    grpLab: "Community focus",
+    all: "All",
+    searchPh: "Search by keyword, name or year",
+    countOf: "entries shown of",
+    workedLab: "What led to change",
+    fellLab: "What fell short",
+    sourcesLab: "Sources",
+    noLink: "Print-era report: search the title at publications.gc.ca or the Library of Parliament.",
+    casesH: "Key cases",
+    casesIntro: "Courts, tribunals and labour boards have been where commitments got tested. These cases involve federal public servants directly. Grievances can be referred to the Federal Public Sector Labour Relations and Employment Board (FPSLREB), which can apply the Canadian Human Rights Act and order remedies. Human rights complaints go to the Canadian Human Rights Commission and can reach the Canadian Human Rights Tribunal. Some disputes go to the Federal Court.",
+    netH: "Employee networks",
+    netIntro: "Employee networks are not social clubs. They are part of the public service's accountability infrastructure. The Employment Equity Act requires consultation with employee representatives, networks brief deputy heads and central agencies, and much of the disaggregated-data push of the 2020s started as network demands. The networks below operate across departments; most departments also have their own chapters and circles.",
+    netNote: "What makes networks effective, based on this history: a written mandate, a direct path to senior decision-making tables, resourcing that does not depend on volunteers' unpaid time, and protection for members who speak up. Networks stall when they are treated as advisory only, staffed off the side of people's desks, and asked to validate decisions already made.",
+    pplH: "Notable individuals",
+    pplIntro: "Institutional change has names attached. The people below chaired commissions, filed the complaints, built the networks, ran the audits, or used senior roles to move the system. Many more contributed without public recognition, including every employee who filed a grievance or answered a survey honestly.",
+    glH: "Plain-language glossary",
+    aboutH: "About this site",
+    about1: "Scope: this site covers the federal public service as a workplace, meaning what happened to public servants as employees. It touches broader society only where an event changed the rules inside government. Entries were compiled from primary sources: legislation, commission and task force reports, Senate and parliamentary studies, Auditor General and Public Service Commission audits, tribunal and court decisions, and official announcements. The what-worked and what-fell-short assessments summarize findings from those documents and from later official evaluations, not private opinion.",
+    about2: "Plain language is a choice, not a simplification. Where the record is contested or an outcome is still open, the entry says so. Last reviewed: July 2026. Built as a single HTML file for GitHub Pages; the content lives in plain data arrays that can be corrected and extended.",
+    footer1: "From Exclusion to Accountability is an independent educational project. It is not affiliated with the Government of Canada. Primary sources are linked in each entry so you can verify everything yourself.",
+    footer2: "Accessibility: this page supports keyboard navigation, a high-contrast mode, adjustable text size, visible focus indicators, and reduced-motion preferences. It prints cleanly with source URLs shown, so entries can be reused in briefing material with attribution.",
+    eraJump: "Eras"
+  },
+  fr: {
+    skip: "Passer au contenu principal",
+    kicker: "Un dossier documentaire ind\u00E9pendant \u00B7 1867 \u00E0 2026",
+    title: "De l'exclusion \u00E0 la responsabilisation",
+    subtitle: "Une histoire de la lutte contre le racisme, de l'\u00E9quit\u00E9, de l'inclusion et de l'accessibilit\u00E9 dans la fonction publique du Canada. Chaque entr\u00E9e nomme ce qui a chang\u00E9 et ce qui a manqu\u00E9, avec un lien vers la source.",
+    displayLab: "Affichage",
+    hcBtn: "Contraste \u00E9lev\u00E9",
+    sizeBtnBase: "Taille du texte",
+    langBtn: "English",
+    lede1: "Depuis plus d'un si\u00E8cle, des personnes au sein de la fonction publique f\u00E9d\u00E9rale du Canada poussent l'institution \u00E0 embaucher \u00E9quitablement, \u00E0 promouvoir \u00E9quitablement et \u00E0 traiter chaque personne employ\u00E9e avec dignit\u00E9. Ce site retrace ce parcours document\u00E9\u00A0: les lois, les commissions, les groupes de travail, les v\u00E9rifications, les d\u00E9cisions des tribunaux et les r\u00E9seaux d'employ\u00E9s qui ont tent\u00E9 d'\u00E9liminer les obstacles pour les personnes autochtones, noires et racialis\u00E9es, les femmes, les personnes en situation de handicap et les fonctionnaires 2ELGBTQIA+.",
+    lede2: "Le constat qui se d\u00E9gage est constant. On nomme les obstacles, on prend des engagements, et c'est le suivi qui d\u00E9cide de tout. Les outils qui ont produit des changements durables partagent quatre traits\u00A0: ils \u00E9taient inscrits dans la loi, ils \u00E9taient ex\u00E9cutoires, ils mesuraient les r\u00E9sultats avec des donn\u00E9es d\u00E9sagr\u00E9g\u00E9es, et des employ\u00E9s organis\u00E9s maintenaient la pression. Les annonces sans ces traits ont eu tendance \u00E0 s'estomper.",
+    notice: "Ceci est une ressource \u00E9ducative ind\u00E9pendante. Ce n'est pas un site du gouvernement du Canada. Les liens ont \u00E9t\u00E9 v\u00E9rifi\u00E9s en juillet 2026. Les rapports ant\u00E9rieurs au Web sont cit\u00E9s par titre et ann\u00E9e; la plupart se trouvent sur publications.gc.ca ou \u00E0 la Biblioth\u00E8que du Parlement. Si vous relevez une erreur, v\u00E9rifiez aupr\u00E8s de la source primaire li\u00E9e.",
+    filtersH: "Explorer la ligne du temps",
+    typeLab: "Type",
+    grpLab: "Communaut\u00E9 vis\u00E9e",
+    all: "Tout",
+    searchPh: "Rechercher par mot-cl\u00E9, nom ou ann\u00E9e",
+    countOf: "entr\u00E9es affich\u00E9es sur",
+    workedLab: "Ce qui a men\u00E9 au changement",
+    fellLab: "Ce qui a manqu\u00E9",
+    sourcesLab: "Sources",
+    noLink: "Rapport de l'\u00E8re papier\u00A0: cherchez le titre sur publications.gc.ca ou \u00E0 la Biblioth\u00E8que du Parlement.",
+    casesH: "Causes cl\u00E9s",
+    casesIntro: "C'est devant les cours, les tribunaux et les commissions des relations de travail que les engagements ont \u00E9t\u00E9 mis \u00E0 l'\u00E9preuve. Les causes ci-dessous concernent directement des fonctionnaires f\u00E9d\u00E9raux. Les griefs peuvent \u00EAtre renvoy\u00E9s \u00E0 la Commission des relations de travail et de l'emploi dans le secteur public f\u00E9d\u00E9ral (CRTESPF), qui peut appliquer la Loi canadienne sur les droits de la personne et ordonner des mesures de r\u00E9paration. Les plaintes de droits de la personne passent par la Commission canadienne des droits de la personne et peuvent atteindre le Tribunal canadien des droits de la personne. Certains litiges vont en Cour f\u00E9d\u00E9rale.",
+    netH: "R\u00E9seaux d'employ\u00E9s",
+    netIntro: "Les r\u00E9seaux d'employ\u00E9s ne sont pas des clubs sociaux. Ils font partie de l'infrastructure de responsabilisation de la fonction publique. La Loi sur l'\u00E9quit\u00E9 en mati\u00E8re d'emploi exige la consultation des repr\u00E9sentants des employ\u00E9s, les r\u00E9seaux informent les administrateurs g\u00E9n\u00E9raux et les organismes centraux, et une grande partie de la pouss\u00E9e pour des donn\u00E9es d\u00E9sagr\u00E9g\u00E9es dans les ann\u00E9es 2020 a commenc\u00E9 par des demandes des r\u00E9seaux. Les r\u00E9seaux ci-dessous sont interminist\u00E9riels; la plupart des minist\u00E8res ont aussi leurs propres sections et cercles.",
+    netNote: "Ce qui rend un r\u00E9seau efficace, selon cette histoire\u00A0: un mandat \u00E9crit, un acc\u00E8s direct aux tables d\u00E9cisionnelles, des ressources qui ne reposent pas sur du temps b\u00E9n\u00E9vole, et une protection pour les personnes qui prennent la parole. Les r\u00E9seaux s'essoufflent quand on les traite comme purement consultatifs, qu'on les fait fonctionner en marge des t\u00E2ches et qu'on leur demande de valider des d\u00E9cisions d\u00E9j\u00E0 prises.",
+    pplH: "Personnes marquantes",
+    pplIntro: "Le changement institutionnel porte des noms. Les personnes ci-dessous ont pr\u00E9sid\u00E9 des commissions, d\u00E9pos\u00E9 les plaintes, b\u00E2ti les r\u00E9seaux, men\u00E9 les v\u00E9rifications ou utilis\u00E9 des postes de direction pour faire bouger le syst\u00E8me. Beaucoup d'autres ont contribu\u00E9 sans reconnaissance publique, y compris chaque personne qui a d\u00E9pos\u00E9 un grief ou r\u00E9pondu franchement \u00E0 un sondage.",
+    glH: "Glossaire en langage clair",
+    aboutH: "\u00C0 propos de ce site",
+    about1: "Port\u00E9e\u00A0: ce site traite de la fonction publique f\u00E9d\u00E9rale comme milieu de travail, c'est-\u00E0-dire ce qui est arriv\u00E9 aux fonctionnaires comme employ\u00E9s. Il ne touche la soci\u00E9t\u00E9 en g\u00E9n\u00E9ral que lorsqu'un \u00E9v\u00E9nement a chang\u00E9 les r\u00E8gles \u00E0 l'int\u00E9rieur du gouvernement. Les entr\u00E9es proviennent de sources primaires\u00A0: lois, rapports de commissions et de groupes de travail, \u00E9tudes du S\u00E9nat et du Parlement, v\u00E9rifications de la v\u00E9rificatrice g\u00E9n\u00E9rale et de la Commission de la fonction publique, d\u00E9cisions de tribunaux, et annonces officielles. Les \u00E9valuations de ce qui a fonctionn\u00E9 ou manqu\u00E9 r\u00E9sument les constats de ces documents et des \u00E9valuations officielles ult\u00E9rieures, pas une opinion priv\u00E9e.",
+    about2: "Le langage clair est un choix, pas une simplification. L\u00E0 o\u00F9 le dossier est contest\u00E9 ou l'issue encore ouverte, l'entr\u00E9e le dit. Derni\u00E8re r\u00E9vision\u00A0: juillet 2026. Con\u00E7u comme un seul fichier HTML pour GitHub Pages; le contenu vit dans des tableaux de donn\u00E9es simples qui peuvent \u00EAtre corrig\u00E9s et enrichis.",
+    footer1: "De l'exclusion \u00E0 la responsabilisation est un projet \u00E9ducatif ind\u00E9pendant, sans affiliation avec le gouvernement du Canada. Les sources primaires sont li\u00E9es dans chaque entr\u00E9e pour que vous puissiez tout v\u00E9rifier vous-m\u00EAme.",
+    footer2: "Accessibilit\u00E9\u00A0: cette page prend en charge la navigation au clavier, un mode \u00E0 contraste \u00E9lev\u00E9, une taille de texte ajustable, des indicateurs de focus visibles et la pr\u00E9f\u00E9rence de mouvement r\u00E9duit. Elle s'imprime proprement avec les adresses des sources, pour r\u00E9utilisation dans des documents d'information avec attribution.",
+    eraJump: "\u00C9poques"
+  }
+};
+
+var CATS = {
+  law:    { en: "Law", fr: "Loi" },
+  report: { en: "Commission / report", fr: "Commission / rapport" },
+  audit:  { en: "Audit", fr: "V\u00E9rification" },
+  kase:   { en: "Case", fr: "Cause" },
+  program:{ en: "Program / plan", fr: "Programme / plan" },
+  data:   { en: "Data / survey", fr: "Donn\u00E9es / sondage" },
+  network:{ en: "Networks", fr: "R\u00E9seaux" },
+  moment: { en: "Turning point", fr: "Moment charni\u00E8re" }
+};
+
+var GRPS = {
+  black:      { en: "Black employees", fr: "Employ\u00E9s noirs" },
+  indigenous: { en: "Indigenous employees", fr: "Employ\u00E9s autochtones" },
+  racialized: { en: "Racialized employees", fr: "Employ\u00E9s racialis\u00E9s" },
+  disability: { en: "Persons with disabilities", fr: "Personnes en situation de handicap" },
+  women:      { en: "Women", fr: "Femmes" },
+  lgbtq:      { en: "2SLGBTQIA+", fr: "2ELGBTQIA+" },
+  lang:       { en: "Official languages", fr: "Langues officielles" },
+  all:        { en: "All groups", fr: "Tous les groupes" }
+};
+
+var ERAS = [
+  { id: "era1", start: 1867, end: 1944,
+    title: { en: "Foundations and exclusion", fr: "Fondations et exclusion" },
+    blurb: { en: "The public service is built on the merit principle, and merit is defined by and for a narrow group. Exclusion is not a side effect in this period; it is written into the rules.",
+             fr: "La fonction publique se construit sur le principe du m\u00E9rite, et le m\u00E9rite est d\u00E9fini par et pour un groupe restreint. L'exclusion n'est pas un effet secondaire durant cette p\u00E9riode; elle est inscrite dans les r\u00E8gles." } },
+  { id: "era2", start: 1945, end: 1975,
+    title: { en: "Rights frameworks emerge", fr: "L'\u00E9mergence des cadres de droits" },
+    blurb: { en: "Citizenship, voting rights and the first equality institutions open the door. Francophones and women are the first groups whose underrepresentation the state formally measures and corrects.",
+             fr: "La citoyennet\u00E9, le droit de vote et les premi\u00E8res institutions d'\u00E9galit\u00E9 ouvrent la porte. Les francophones et les femmes sont les premiers groupes dont l'\u00C9tat mesure et corrige officiellement la sous-repr\u00E9sentation." } },
+  { id: "era3", start: 1976, end: 1994,
+    title: { en: "Naming the barriers", fr: "Nommer les obstacles" },
+    blurb: { en: "Human rights law arrives, two landmark 1984 reports put systemic discrimination on the record, and the phrase employment equity is coined. The public service is studied, but largely exempted from the first Employment Equity Act.",
+             fr: "Le droit de la personne arrive, deux rapports marquants de 1984 consignent la discrimination syst\u00E9mique, et l'expression \u00E9quit\u00E9 en mati\u00E8re d'emploi est cr\u00E9\u00E9e. La fonction publique est \u00E9tudi\u00E9e, mais largement exempt\u00E9e de la premi\u00E8re Loi sur l'\u00E9quit\u00E9 en mati\u00E8re d'emploi." } },
+  { id: "era4", start: 1995, end: 2009,
+    title: { en: "Legislated equity and early tests", fr: "L'\u00E9quit\u00E9 l\u00E9gif\u00E9r\u00E9e et les premiers tests" },
+    blurb: { en: "The 1995 Employment Equity Act finally covers the public service. Tribunals order systemic remedies, pay equity is won, Embracing Change sets the famous 1-in-5 benchmark, and the Senate starts asking why targets keep being missed.",
+             fr: "La Loi sur l'\u00E9quit\u00E9 en mati\u00E8re d'emploi de 1995 couvre enfin la fonction publique. Des tribunaux ordonnent des mesures syst\u00E9miques, l'\u00E9quit\u00E9 salariale est gagn\u00E9e, Faire place au changement fixe le c\u00E9l\u00E8bre rep\u00E8re de 1 sur 5, et le S\u00E9nat commence \u00E0 demander pourquoi les cibles sont rat\u00E9es." } },
+  { id: "era5", start: 2010, end: 2019,
+    title: { en: "Data, inclusion, accessibility", fr: "Donn\u00E9es, inclusion, accessibilit\u00E9" },
+    blurb: { en: "Attention shifts from counting people to how people are treated. Indigenous employees and a joint union-management task force write the diagnosis in their own words, employee networks organize across departments, and accessibility becomes law.",
+             fr: "L'attention passe du d\u00E9nombrement des personnes \u00E0 la fa\u00E7on dont elles sont trait\u00E9es. Les employ\u00E9s autochtones et un groupe de travail syndical-patronal \u00E9crivent le diagnostic dans leurs propres mots, les r\u00E9seaux d'employ\u00E9s s'organisent entre minist\u00E8res, et l'accessibilit\u00E9 devient une loi." } },
+  { id: "era6", start: 2020, end: 2026,
+    title: { en: "Reckoning and accountability", fr: "Prise de conscience et responsabilisation" },
+    blurb: { en: "A murder in Minneapolis, a pandemic and a class action force the institution to look at itself. Disaggregated data becomes standard, the human rights watchdog is itself found to have discriminated, and the gap between commitment and enforcement is measured in public.",
+             fr: "Un meurtre \u00E0 Minneapolis, une pand\u00E9mie et un recours collectif forcent l'institution \u00E0 se regarder. Les donn\u00E9es d\u00E9sagr\u00E9g\u00E9es deviennent la norme, le chien de garde des droits de la personne est lui-m\u00EAme reconnu coupable de discrimination, et l'\u00E9cart entre engagement et application se mesure publiquement." } }
+];
+
+/* =========================================================
+   TIMELINE EVENTS. Edit or add entries here.
+   cat: law | report | audit | kase | program | data | network | moment
+   grp: black | indigenous | racialized | disability | women | lgbtq | lang | all
+   ========================================================= */
+var EVENTS = [
+
+/* ---------------- ERA 1 : 1867-1944 ---------------- */
+{ id:"y1867", year:"1867", sortYear:1867, era:"era1", cat:["moment"], grp:["all"],
+  title:{ en:"Confederation: a patronage public service",
+          fr:"La Confédération : une fonction publique de favoritisme" },
+  sum:{ en:"Canada's first public service is staffed largely through political patronage. Jobs go to who you know and who you vote for. Women, Indigenous people, Black and racialized Canadians are excluded from almost all positions of responsibility, by rule and by practice.",
+        fr:"La première fonction publique du Canada est dotée en grande partie par favoritisme politique. Les emplois vont à qui vous connaissez et pour qui vous votez. Les femmes, les personnes autochtones, noires et racialisées sont exclues de presque tous les postes de responsabilité, par règle et par pratique." },
+  worked:null, fell:null,
+  links:[ {t:{en:"PSC: History of employment equity in the public service (2011, PDF)",fr:"CFP : Historique de l'équité en emploi dans la fonction publique (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1908", year:"1908", sortYear:1908, era:"era1", cat:["law"], grp:["all"],
+  title:{ en:"The merit principle arrives, narrowly defined",
+          fr:"Le principe du mérite arrive, défini étroitement" },
+  sum:{ en:"The Civil Service Amendment Act creates the Civil Service Commission and introduces merit-based appointment to end patronage. Merit is a real advance, but it is measured through exams, networks and norms built around English- and French-speaking white men. A fair-sounding rule can still produce an unfair result if the yardstick itself is biased.",
+        fr:"La Loi modifiant la Loi du service civil crée la Commission du service civil et introduit la nomination au mérite pour mettre fin au favoritisme. Le mérite est un vrai progrès, mais il se mesure par des examens, des réseaux et des normes construits autour d'hommes blancs anglophones et francophones. Une règle d'apparence équitable peut produire un résultat inéquitable si l'étalon lui-même est biaisé." },
+  worked:{ en:"An independent commission and a rule-based hiring system created the institutional machinery that later equity law could attach to.",
+           fr:"Une commission indépendante et un système d'embauche fondé sur des règles ont créé la machinerie institutionnelle à laquelle le droit de l'équité pourrait plus tard s'arrimer." },
+  fell:{ en:"Merit was defined without asking who could realistically compete. Formal neutrality coexisted with open exclusion for another half-century.",
+         fr:"Le mérite a été défini sans se demander qui pouvait réalistement concourir. La neutralité formelle a coexisté avec une exclusion ouverte pendant encore un demi-siècle." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1918", year:"1918", sortYear:1918, era:"era1", cat:["law"], grp:["women"],
+  title:{ en:"The Civil Service Act codifies discrimination against women",
+          fr:"La Loi du service civil codifie la discrimination contre les femmes" },
+  sum:{ en:"A new Civil Service Act extends the Commission's reach across the service. In the same period, rules restrict married women's employment: women are expected to resign on marriage and competitions can be limited by sex. The marriage bar stays in place until 1955.",
+        fr:"Une nouvelle Loi du service civil étend la portée de la Commission à l'ensemble du service. À la même époque, des règles restreignent l'emploi des femmes mariées : on attend d'elles qu'elles démissionnent au mariage et les concours peuvent être limités selon le sexe. L'interdiction liée au mariage reste en vigueur jusqu'en 1955.",},
+  worked:null,
+  fell:{ en:"This is the clearest early proof that the public service could write discrimination directly into its staffing rules. Later reformers had to undo law, not just attitudes.",
+         fr:"C'est la preuve la plus claire que la fonction publique pouvait inscrire la discrimination directement dans ses règles de dotation. Les réformateurs ont dû défaire du droit, pas seulement des attitudes." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1942", year:"1942", sortYear:1942, era:"era1", cat:["moment"], grp:["racialized"],
+  title:{ en:"Internment of Japanese Canadians: the state as discriminator",
+          fr:"L'internement des Canadiens japonais : l'État discriminateur" },
+  sum:{ en:"The federal government forcibly relocates and dispossesses more than 20,000 Japanese Canadians. This is not a workplace policy, but it matters to this history: it shows the same federal institutions that ran the public service using race as an organizing principle, and it sets up the 1988 redress precedent for state accountability.",
+        fr:"Le gouvernement fédéral déplace de force et dépossède plus de 20 000 Canadiens japonais. Ce n'est pas une politique de milieu de travail, mais c'est important pour cette histoire : les mêmes institutions fédérales qui administraient la fonction publique utilisaient la race comme principe d'organisation, et cela prépare le précédent de réparation de 1988 en matière de responsabilité de l'État." },
+  worked:null, fell:null, links:[] },
+
+/* ---------------- ERA 2 : 1945-1975 ---------------- */
+{ id:"y1947", year:"1947-1948", sortYear:1947, era:"era2", cat:["law"], grp:["racialized"],
+  title:{ en:"Citizenship and the franchise open the door",
+          fr:"La citoyenneté et le droit de vote ouvrent la porte" },
+  sum:{ en:"The Canadian Citizenship Act takes effect in 1947, the Chinese Immigration Act (the exclusion act) is repealed the same year, and Japanese Canadians regain the federal vote in 1948. Full citizenship is the precondition for full participation in federal employment, which is why voting rights milestones belong in a public service history.",
+        fr:"La Loi sur la citoyenneté canadienne entre en vigueur en 1947, la Loi de l'immigration chinoise (loi d'exclusion) est abrogée la même année, et les Canadiens japonais retrouvent le droit de vote fédéral en 1948. La pleine citoyenneté est la condition préalable à la pleine participation à l'emploi fédéral, et c'est pourquoi ces jalons appartiennent à une histoire de la fonction publique." },
+  worked:{ en:"Removing legal exclusions was necessary groundwork. No equity program can operate for people the law keeps out entirely.",
+           fr:"Lever les exclusions légales était un travail de fondation nécessaire. Aucun programme d'équité ne peut fonctionner pour des personnes que la loi exclut entièrement." },
+  fell:{ en:"Legal access did not translate into hiring. Informal exclusion, biased screening and unwelcoming workplaces continued for decades and required their own remedies.",
+         fr:"L'accès légal ne s'est pas traduit en embauche. L'exclusion informelle, la sélection biaisée et les milieux hostiles ont persisté pendant des décennies et ont exigé leurs propres remèdes." },
+  links:[] },
+
+{ id:"y1955", year:"1955", sortYear:1955, era:"era2", cat:["law"], grp:["women"],
+  title:{ en:"The marriage bar on women is lifted",
+          fr:"La levée de l'interdiction visant les femmes mariées" },
+  sum:{ en:"Restrictions on employing married women in the federal public service are removed. For nearly four decades the institution had treated marriage as a firing offence for half the population.",
+        fr:"Les restrictions à l'emploi des femmes mariées dans la fonction publique fédérale sont levées. Pendant près de quatre décennies, l'institution avait traité le mariage comme un motif de renvoi pour la moitié de la population." },
+  worked:{ en:"A concrete rule change with immediate effect: this is what removing a barrier, rather than encouraging a group, looks like.",
+           fr:"Un changement de règle concret à effet immédiat : voilà à quoi ressemble l'élimination d'un obstacle, plutôt que l'encouragement d'un groupe." },
+  fell:{ en:"Women remained concentrated in clerical work with little access to management for another generation, showing that removing one formal barrier does not remove the structural ones.",
+         fr:"Les femmes sont restées concentrées dans le travail de bureau avec peu d'accès à la gestion pendant encore une génération, preuve que lever un obstacle formel n'élimine pas les obstacles structurels." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1960", year:"1960", sortYear:1960, era:"era2", cat:["law"], grp:["indigenous"],
+  title:{ en:"The Canadian Bill of Rights and the unconditional federal vote for First Nations",
+          fr:"La Déclaration canadienne des droits et le vote fédéral inconditionnel pour les Premières Nations" },
+  sum:{ en:"Parliament passes the Canadian Bill of Rights, the first federal statute recognizing equality before the law. The same year, First Nations people gain the federal vote without having to give up status. As with 1947-48, full civic standing precedes fair access to federal employment.",
+        fr:"Le Parlement adopte la Déclaration canadienne des droits, première loi fédérale reconnaissant l'égalité devant la loi. La même année, les membres des Premières Nations obtiennent le droit de vote fédéral sans devoir renoncer à leur statut. Comme en 1947-1948, la pleine citoyenneté civique précède l'accès équitable à l'emploi fédéral." },
+  worked:{ en:"It put equality language into federal law for the first time and gave later advocates something to cite.",
+           fr:"Elle a inscrit pour la première fois le langage de l'égalité dans le droit fédéral et a donné aux militants un texte à invoquer." },
+  fell:{ en:"The Bill of Rights was ordinary legislation with weak enforcement. Courts read it narrowly, which is part of why the 1982 Charter was needed.",
+         fr:"La Déclaration était une loi ordinaire à l'application faible. Les tribunaux l'ont interprétée étroitement, ce qui explique en partie pourquoi la Charte de 1982 a été nécessaire." },
+  links:[ {t:{en:"Canadian Bill of Rights (Justice Laws)",fr:"Déclaration canadienne des droits (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/c-12.3/"} ] },
+
+{ id:"y1967", year:"1967", sortYear:1967, era:"era2", cat:["law"], grp:["all"],
+  title:{ en:"Collective bargaining and grievance rights arrive",
+          fr:"L'arrivée de la négociation collective et du droit de grief" },
+  sum:{ en:"The Public Service Employment Act and the Public Service Staff Relations Act modernize staffing and give public servants unions, collective bargaining and grievance adjudication. Almost every discrimination case in this history travels through machinery created in 1967: grievances, adjudication, and union representation.",
+        fr:"La Loi sur l'emploi dans la fonction publique et la Loi sur les relations de travail dans la fonction publique modernisent la dotation et donnent aux fonctionnaires des syndicats, la négociation collective et l'arbitrage des griefs. Presque chaque cause de discrimination de cette histoire passe par la machinerie créée en 1967 : griefs, arbitrage et représentation syndicale." },
+  worked:{ en:"Grievance adjudication became the main enforceable route for individual public servants facing discrimination, and unions became institutional actors who could file policy grievances on systemic issues, as they did against the CHRC in 2020.",
+           fr:"L'arbitrage des griefs est devenu la principale voie exécutoire pour les fonctionnaires victimes de discrimination, et les syndicats sont devenus des acteurs institutionnels capables de déposer des griefs de principe sur des enjeux systémiques, comme contre la CCDP en 2020." },
+  fell:{ en:"Individual recourse is slow and burns out complainants. The system handles one case at a time while patterns repeat.",
+         fr:"Le recours individuel est lent et épuise les plaignants. Le système traite un cas à la fois pendant que les tendances se répètent." },
+  links:[ {t:{en:"Public Service Employment Act (current, Justice Laws)",fr:"Loi sur l'emploi dans la fonction publique (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-33.01/"},
+          {t:{en:"Federal Public Sector Labour Relations Act (current)",fr:"Loi sur les relations de travail dans le secteur public fédéral"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-33.3/"} ] },
+
+{ id:"y1969", year:"1969", sortYear:1969, era:"era2", cat:["law"], grp:["lang"],
+  title:{ en:"The Official Languages Act: the first representational correction",
+          fr:"La Loi sur les langues officielles : la première correction représentative" },
+  sum:{ en:"After the Royal Commission on Bilingualism and Biculturalism documents how underrepresented and disadvantaged Francophones are in the federal workplace, Parliament passes the Official Languages Act. It creates a commissioner, programs and obligations that reshape federal staffing for decades.",
+        fr:"Après que la Commission royale sur le bilinguisme et le biculturalisme a documenté la sous-représentation et le désavantage des francophones dans le milieu de travail fédéral, le Parlement adopte la Loi sur les langues officielles. Elle crée un commissaire, des programmes et des obligations qui remodèlent la dotation fédérale pendant des décennies." },
+  worked:{ en:"This is the template for what works: a documented problem, a statute, a dedicated commissioner with audit powers, and sustained programs. Francophone representation rose and held. Equity advocates have pointed at this model ever since.",
+           fr:"C'est le modèle de ce qui fonctionne : un problème documenté, une loi, un commissaire dédié avec pouvoirs de vérification et des programmes soutenus. La représentation francophone a monté et s'est maintenue. Les défenseurs de l'équité citent ce modèle depuis." },
+  fell:{ en:"Decades later, second-language requirements themselves became a debated barrier for Indigenous employees and for racialized employees educated in neither official language, an equity tension the system is still working through.",
+         fr:"Des décennies plus tard, les exigences de langue seconde sont devenues un obstacle débattu pour les employés autochtones et racialisés scolarisés dans aucune des langues officielles, une tension d'équité que le système travaille encore à résoudre." },
+  links:[ {t:{en:"Official Languages Act (Justice Laws)",fr:"Loi sur les langues officielles (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/o-3.01/"} ] },
+
+{ id:"y1970", year:"1970-1971", sortYear:1970, era:"era2", cat:["report","program"], grp:["women"],
+  title:{ en:"The Royal Commission on the Status of Women and the first equal opportunity office",
+          fr:"La Commission royale sur la situation de la femme et le premier bureau d'égalité des chances" },
+  sum:{ en:"The Royal Commission on the Status of Women reports in 1970 with detailed recommendations on federal employment. In 1971 the Public Service Commission creates the Office of Equal Opportunities for Women, the first standing unit in the public service dedicated to a group's advancement.",
+        fr:"La Commission royale d'enquête sur la situation de la femme dépose son rapport en 1970 avec des recommandations détaillées sur l'emploi fédéral. En 1971, la Commission de la fonction publique crée le Bureau de l'égalité des chances pour les femmes, la première unité permanente de la fonction publique consacrée à l'avancement d'un groupe." },
+  worked:{ en:"A royal commission created public evidence and a mandate; a permanent office turned the mandate into daily work. Pairing diagnosis with standing machinery became the standard playbook.",
+           fr:"Une commission royale a créé une preuve publique et un mandat; un bureau permanent a transformé le mandat en travail quotidien. Jumeler le diagnostic à une machinerie permanente est devenu la méthode de référence." },
+  fell:{ en:"An office can advise but not compel. Progress on women in management stayed slow until harder accountability arrived in the 1980s and 1990s.",
+         fr:"Un bureau peut conseiller mais non contraindre. Les progrès des femmes en gestion sont restés lents jusqu'à l'arrivée d'une responsabilisation plus ferme dans les années 1980 et 1990." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1971", year:"1971", sortYear:1971, era:"era2", cat:["moment"], grp:["racialized"],
+  title:{ en:"Multiculturalism becomes federal policy",
+          fr:"Le multiculturalisme devient une politique fédérale" },
+  sum:{ en:"Canada adopts multiculturalism as official policy. It frames diversity as a national asset and creates political language that later reports, including Equality Now! in 1984, use to demand that the federal government's own workforce reflect the population it serves.",
+        fr:"Le Canada adopte le multiculturalisme comme politique officielle. Elle présente la diversité comme un atout national et crée un langage politique que des rapports ultérieurs, dont Égalité maintenant! en 1984, utiliseront pour exiger que l'effectif du gouvernement fédéral reflète la population qu'il sert." },
+  worked:{ en:"It legitimized the claim that representation in national institutions is a public good, not a favour.",
+           fr:"Elle a légitimé l'idée que la représentation dans les institutions nationales est un bien public, pas une faveur." },
+  fell:{ en:"Policy language about celebrating diversity proved easy to adopt and easy to substitute for structural change, a pattern this history documents repeatedly.",
+         fr:"Le langage de la célébration de la diversité s'est révélé facile à adopter et facile à substituer au changement structurel, une tendance que cette histoire documente à répétition." },
+  links:[ {t:{en:"Canadian Heritage: anti-racism and multiculturalism programs",fr:"Patrimoine canadien : programmes d'antiracisme et de multiculturalisme"}, u:"https://www.canada.ca/en/canadian-heritage/services/combatting-racism-discrimination/canada-anti-racism-strategy.html"} ] },
+
+/* ---------------- ERA 3 : 1976-1994 ---------------- */
+{ id:"y1977", year:"1977", sortYear:1977, era:"era3", cat:["law"], grp:["all"],
+  title:{ en:"The Canadian Human Rights Act: discrimination becomes unlawful, case by case",
+          fr:"La Loi canadienne sur les droits de la personne : la discrimination devient illégale, cas par cas" },
+  sum:{ en:"The Canadian Human Rights Act prohibits discrimination in federal employment and services and creates the Canadian Human Rights Commission and, through it, access to a tribunal. Section 16 explicitly permits special programs to reduce disadvantage, the legal foundation for employment equity measures. Federal public servants can now file discrimination complaints against their own employer.",
+        fr:"La Loi canadienne sur les droits de la personne interdit la discrimination dans l'emploi et les services fédéraux et crée la Commission canadienne des droits de la personne et, par elle, l'accès à un tribunal. L'article 16 permet explicitement des programmes spéciaux pour réduire les désavantages, le fondement juridique des mesures d'équité en emploi. Les fonctionnaires fédéraux peuvent désormais déposer des plaintes de discrimination contre leur propre employeur." },
+  worked:{ en:"It created enforceable individual rights and the tribunal route that produced Grover (1992), NCARR (1997) and the pay equity ruling (1998). Section 16 shielded equity programs from reverse-discrimination challenges.",
+           fr:"Elle a créé des droits individuels exécutoires et la voie du tribunal qui a produit Grover (1992), la NCARR (1997) et la décision sur l'équité salariale (1998). L'article 16 a protégé les programmes d'équité contre les contestations de discrimination à rebours.",},
+  fell:{ en:"The complaint model puts the burden on individuals, takes years, and struggles with systemic patterns. By the 2020s the Commission itself faced findings that it had discriminated against its own Black and racialized staff and had disproportionately dismissed race-based complaints.",
+         fr:"Le modèle de plainte fait porter le fardeau aux individus, prend des années et saisit mal les tendances systémiques. Dans les années 2020, la Commission elle-même a fait l'objet de constats de discrimination envers son propre personnel noir et racialisé et de rejet disproportionné des plaintes fondées sur la race." },
+  links:[ {t:{en:"Canadian Human Rights Act (Justice Laws)",fr:"Loi canadienne sur les droits de la personne (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/h-6/"},
+          {t:{en:"Canadian Human Rights Commission",fr:"Commission canadienne des droits de la personne"}, u:"https://www.chrc-ccdp.gc.ca/"} ] },
+
+{ id:"y1981", year:"1981", sortYear:1981, era:"era3", cat:["report"], grp:["disability"],
+  title:{ en:"Obstacles: disability enters the federal agenda",
+          fr:"Obstacles : le handicap entre à l'ordre du jour fédéral" },
+  sum:{ en:"During the International Year of Disabled Persons, the House of Commons Special Committee on the Disabled and the Handicapped publishes Obstacles, a sweeping inventory of barriers facing people with disabilities, including in federal employment. It builds the case that leads to disability's inclusion in the Charter's equality section and in human rights law.",
+        fr:"Pendant l'Année internationale des personnes handicapées, le Comité spécial de la Chambre des communes sur les invalides et les handicapés publie Obstacles, un inventaire complet des barrières visant les personnes handicapées, y compris dans l'emploi fédéral. Il bâtit l'argumentaire qui mène à l'inclusion du handicap dans l'article d'égalité de la Charte et dans le droit de la personne." },
+  worked:{ en:"A parliamentary committee doing barrier-by-barrier documentation gave legislators specific things to fix, and disability was written into the Charter in 1982.",
+           fr:"Un comité parlementaire documentant obstacle par obstacle a donné aux législateurs des choses précises à corriger, et le handicap a été inscrit dans la Charte en 1982." },
+  fell:{ en:"It took 38 more years, until the Accessible Canada Act in 2019, for proactive accessibility duties to become federal law. Persons with disabilities remain the group with the largest workplace-experience gaps in public service surveys.",
+         fr:"Il a fallu 38 ans de plus, jusqu'à la Loi canadienne sur l'accessibilité en 2019, pour que des obligations proactives d'accessibilité deviennent une loi fédérale. Les personnes en situation de handicap demeurent le groupe présentant les plus grands écarts d'expérience en milieu de travail dans les sondages de la fonction publique." },
+  links:[] },
+
+{ id:"y1983", year:"1983", sortYear:1983, era:"era3", cat:["program"], grp:["women","indigenous","disability","racialized"],
+  title:{ en:"Affirmative action programs inside the public service",
+          fr:"Les programmes d'action positive dans la fonction publique" },
+  sum:{ en:"Treasury Board and the Public Service Commission run targeted affirmative action and special measures programs, initially for women, Indigenous people and persons with disabilities, later extended to visible minorities. Departments set goals and report internally.",
+        fr:"Le Conseil du Trésor et la Commission de la fonction publique mènent des programmes ciblés d'action positive et de mesures spéciales, d'abord pour les femmes, les personnes autochtones et les personnes handicapées, puis étendus aux minorités visibles. Les ministères fixent des objectifs et rendent compte à l'interne." },
+  worked:{ en:"It normalized the idea that hiring outcomes could be planned and measured against goals, preparing the ground for legislated employment equity.",
+           fr:"Ils ont normalisé l'idée que les résultats d'embauche pouvaient être planifiés et mesurés par rapport à des objectifs, préparant le terrain à l'équité en emploi légiférée." },
+  fell:{ en:"Voluntary internal goals with no external enforcement produced slow, uneven results, precisely the finding that pushed Parliament toward legislation in 1986 and 1995.",
+         fr:"Des objectifs internes volontaires sans application externe ont produit des résultats lents et inégaux, exactement le constat qui a poussé le Parlement à légiférer en 1986 et 1995." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1984eq", year:"1984", sortYear:1984, era:"era3", cat:["report"], grp:["racialized","black"],
+  title:{ en:"Equality Now! puts racism in Canadian institutions on the parliamentary record",
+          fr:"Égalité maintenant! inscrit le racisme des institutions canadiennes au dossier parlementaire" },
+  sum:{ en:"The House of Commons Special Committee on Participation of Visible Minorities in Canadian Society, chaired by MP Bob Daudlin, publishes Equality Now! with 80 recommendations. It states plainly that racial discrimination exists in Canada and calls for the federal government, as the country's largest employer, to lead by making its own workforce representative.",
+        fr:"Le Comité spécial de la Chambre des communes sur la participation des minorités visibles à la société canadienne, présidé par le député Bob Daudlin, publie Égalité maintenant! avec 80 recommandations. Il affirme clairement que la discrimination raciale existe au Canada et demande au gouvernement fédéral, plus grand employeur du pays, de montrer l'exemple en rendant son propre effectif représentatif." },
+  worked:{ en:"Naming racism in an all-party parliamentary report made denial harder and gave the Abella Commission and the first Employment Equity Act political cover.",
+           fr:"Nommer le racisme dans un rapport parlementaire multipartite a rendu le déni plus difficile et a donné une couverture politique à la Commission Abella et à la première Loi sur l'équité en matière d'emploi." },
+  fell:{ en:"Most recommendations aimed at the public service were implemented slowly or partially. Forty years later, reports were still repeating several of them.",
+         fr:"La plupart des recommandations visant la fonction publique ont été mises en œuvre lentement ou partiellement. Quarante ans plus tard, des rapports en répétaient encore plusieurs." },
+  links:[] },
+
+{ id:"y1984ab", year:"1984", sortYear:1984.5, era:"era3", cat:["report"], grp:["all"],
+  title:{ en:"The Abella Commission invents employment equity",
+          fr:"La Commission Abella invente l'équité en matière d'emploi" },
+  sum:{ en:"Judge Rosalie Silberman Abella's Royal Commission on Equality in Employment coins the term employment equity and defines its logic: equality sometimes requires treating people differently, and systemic discrimination is measured by outcomes, not intentions. She names four designated groups: women, Indigenous peoples, persons with disabilities, and visible minorities. Nearly every equity instrument in this timeline descends from this report.",
+        fr:"La Commission royale sur l'égalité en matière d'emploi de la juge Rosalie Silberman Abella crée l'expression équité en matière d'emploi et en définit la logique : l'égalité exige parfois de traiter les gens différemment, et la discrimination systémique se mesure aux résultats, pas aux intentions. Elle nomme quatre groupes désignés : les femmes, les peuples autochtones, les personnes handicapées et les minorités visibles. Presque chaque instrument d'équité de cette ligne du temps descend de ce rapport." },
+  worked:{ en:"It gave Canada a coherent legal theory of systemic discrimination that courts adopted, including the Supreme Court. Concepts like barrier removal, reasonable accommodation and outcome measurement became standard vocabulary.",
+           fr:"Il a donné au Canada une théorie juridique cohérente de la discrimination systémique que les tribunaux ont adoptée, y compris la Cour suprême. Des concepts comme l'élimination des obstacles, l'accommodement raisonnable et la mesure des résultats sont devenus le vocabulaire standard." },
+  fell:{ en:"Abella warned against weak enforcement, and that warning was largely ignored: the 1986 Act had no teeth and excluded the public service. The 2023 task force reviewing the Act concluded the country had still not built the enforcement she called for.",
+         fr:"Abella avait mis en garde contre une application faible, et cet avertissement a été largement ignoré : la loi de 1986 était sans mordant et excluait la fonction publique. Le groupe de travail de 2023 chargé de revoir la Loi a conclu que le pays n'avait toujours pas bâti l'application qu'elle réclamait." },
+  links:[ {t:{en:"Employment Equity Act modernization hub (ESDC)",fr:"Carrefour de modernisation de la Loi sur l'équité en matière d'emploi (EDSC)"}, u:"https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/consultation-act-modernization.html"} ] },
+
+{ id:"y1985", year:"1985", sortYear:1985, era:"era3", cat:["law"], grp:["all"],
+  title:{ en:"Charter section 15 comes into force",
+          fr:"L'article 15 de la Charte entre en vigueur" },
+  sum:{ en:"The Charter's equality rights take effect on 17 April 1985, three years after the rest of the Charter, to give governments time to fix discriminatory laws. Section 15(2) constitutionally protects programs designed to improve the conditions of disadvantaged groups, placing employment equity on constitutional footing.",
+        fr:"Les droits à l'égalité de la Charte prennent effet le 17 avril 1985, trois ans après le reste de la Charte, pour laisser aux gouvernements le temps de corriger les lois discriminatoires. Le paragraphe 15(2) protège constitutionnellement les programmes destinés à améliorer la situation de groupes défavorisés, donnant à l'équité en emploi une assise constitutionnelle." },
+  worked:{ en:"Constitutional protection ended the legal argument over whether equity programs are themselves discrimination. The fight moved from whether to how.",
+           fr:"La protection constitutionnelle a clos le débat juridique sur la question de savoir si les programmes d'équité sont eux-mêmes de la discrimination. Le débat est passé du pourquoi au comment." },
+  fell:null,
+  links:[ {t:{en:"Constitution Acts including the Charter (Justice Laws)",fr:"Lois constitutionnelles dont la Charte (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/const/"} ] },
+
+{ id:"y1986", year:"1986", sortYear:1986, era:"era3", cat:["law"], grp:["all"],
+  title:{ en:"The first Employment Equity Act excludes the public service",
+          fr:"La première Loi sur l'équité en matière d'emploi exclut la fonction publique" },
+  sum:{ en:"Parliament passes the first Employment Equity Act, covering federally regulated private employers and Crown corporations, and creates the Federal Contractors Program. The federal public service itself is left out, governed only by Treasury Board policy. The Act requires reporting but contains almost no enforcement.",
+        fr:"Le Parlement adopte la première Loi sur l'équité en matière d'emploi, visant les employeurs privés de compétence fédérale et les sociétés d'État, et crée le Programme de contrats fédéraux. La fonction publique fédérale elle-même en est exclue, régie seulement par la politique du Conseil du Trésor. La Loi exige des rapports mais ne contient presque aucun mécanisme d'application." },
+  worked:{ en:"Mandatory workforce data collection began, and annual reporting created a public record that advocates could use to show the gaps.",
+           fr:"La collecte obligatoire de données sur l'effectif a commencé, et les rapports annuels ont créé un dossier public que les défenseurs pouvaient utiliser pour montrer les écarts." },
+  fell:{ en:"An equity law that exempted the government's own workforce and punished nothing but failure to file a report was widely judged a hollow response to Abella. It took nine more years to fix the exclusion.",
+         fr:"Une loi d'équité qui exemptait l'effectif du gouvernement lui-même et ne punissait que l'omission de produire un rapport a été largement jugée une réponse creuse à Abella. Il a fallu neuf ans de plus pour corriger l'exclusion." },
+  links:[ {t:{en:"Employment Equity Act (current, Justice Laws)",fr:"Loi sur l'équité en matière d'emploi (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/e-5.401/"},
+          {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1988", year:"1988", sortYear:1988, era:"era3", cat:["law","moment"], grp:["racialized"],
+  title:{ en:"The Multiculturalism Act and the Japanese Canadian redress",
+          fr:"La Loi sur le multiculturalisme et la réparation aux Canadiens japonais" },
+  sum:{ en:"The Canadian Multiculturalism Act commits federal institutions to ensure Canadians of all origins have equal opportunity in those institutions, including as employees. The same year, the government formally apologizes and pays redress for the internment of Japanese Canadians, acknowledging that the Canadian state itself committed racial injustice.",
+        fr:"La Loi sur le multiculturalisme canadien engage les institutions fédérales à assurer aux Canadiens de toutes origines des chances égales au sein de ces institutions, y compris comme employés. La même année, le gouvernement présente des excuses officielles et verse une réparation pour l'internement des Canadiens japonais, reconnaissant que l'État canadien lui-même a commis une injustice raciale." },
+  worked:{ en:"Redress established that institutional racism can be formally acknowledged and compensated, a precedent invoked by every subsequent accountability claim, including the Black Class Action.",
+           fr:"La réparation a établi que le racisme institutionnel peut être officiellement reconnu et indemnisé, un précédent invoqué par chaque revendication de responsabilité subséquente, y compris le recours collectif noir." },
+  fell:{ en:"The Multiculturalism Act's institutional duties came with no enforcement mechanism, so its workplace promise depended entirely on other instruments.",
+         fr:"Les obligations institutionnelles de la Loi sur le multiculturalisme n'étaient assorties d'aucun mécanisme d'application; sa promesse en milieu de travail dépendait donc entièrement d'autres instruments." },
+  links:[ {t:{en:"Canadian Multiculturalism Act (Justice Laws)",fr:"Loi sur le multiculturalisme canadien (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/c-18.7/"} ] },
+
+{ id:"y1990", year:"1990", sortYear:1990, era:"era3", cat:["report"], grp:["women"],
+  title:{ en:"Beneath the Veneer: culture, not just numbers",
+          fr:"Sous la surface : la culture, pas seulement les chiffres" },
+  sum:{ en:"The Task Force on Barriers to Women in the Public Service publishes Beneath the Veneer, a four-volume study showing that the deeper obstacles are cultural: attitudes, informal networks, harassment and assumptions about who leads. It shifts the conversation from counting women to changing the workplace they enter.",
+        fr:"Le Groupe de travail sur les obstacles rencontrés par les femmes dans la fonction publique publie Sous la surface, une étude en quatre volumes montrant que les obstacles profonds sont culturels : attitudes, réseaux informels, harcèlement et présomptions sur qui dirige. Le rapport déplace la conversation du dénombrement des femmes vers la transformation du milieu qu'elles intègrent." },
+  worked:{ en:"Its culture-and-systems framing proved right: women's overall representation eventually passed parity, including in the executive ranks, as barriers in staffing and career paths were dismantled piece by piece.",
+           fr:"Son cadrage culture-et-systèmes s'est révélé juste : la représentation globale des femmes a fini par dépasser la parité, y compris dans les rangs de direction, à mesure que les obstacles de dotation et de carrière étaient démantelés un à un." },
+  fell:{ en:"Gains were uneven. Racialized women, Indigenous women and women with disabilities did not advance at the same rate, an intersectional gap the report barely examined and that later disaggregated data made visible.",
+         fr:"Les gains ont été inégaux. Les femmes racialisées, autochtones et en situation de handicap n'ont pas progressé au même rythme, un écart intersectionnel que le rapport a peu examiné et que les données désagrégées ont plus tard rendu visible." },
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y1992g", year:"1992", sortYear:1992, era:"era3", cat:["kase"], grp:["racialized"],
+  title:{ en:"Grover v. National Research Council: a scientist proves discrimination",
+          fr:"Grover c. Conseil national de recherches : un scientifique prouve la discrimination" },
+  sum:{ en:"The Canadian Human Rights Tribunal finds that the National Research Council discriminated against Dr. Chander Grover, a distinguished optics scientist, in career advancement because of his race, colour and ethnic origin. It is one of the first major tribunal findings of racial discrimination inside a federal science institution, and enforcing the ordered remedies takes years of further litigation.",
+        fr:"Le Tribunal canadien des droits de la personne conclut que le Conseil national de recherches a fait preuve de discrimination envers le Dr Chander Grover, éminent scientifique en optique, dans son avancement professionnel en raison de sa race, de sa couleur et de son origine ethnique. C'est l'une des premières grandes décisions constatant la discrimination raciale dans une institution scientifique fédérale, et l'exécution des mesures ordonnées exige des années de litiges supplémentaires." },
+  worked:{ en:"It proved individual systemic claims could win, on evidence of blocked promotions and differential treatment, and it put federal science organizations on notice.",
+           fr:"Elle a prouvé qu'une réclamation individuelle à portée systémique pouvait gagner, sur preuve de promotions bloquées et de traitement différencié, et elle a mis en garde les organisations scientifiques fédérales." },
+  fell:{ en:"Winning did not mean resolution: compliance disputes dragged on, showing that a tribunal order without vigorous follow-through can leave the winner still fighting.",
+         fr:"Gagner n'a pas signifié régler : les différends sur l'exécution ont traîné, montrant qu'une ordonnance de tribunal sans suivi vigoureux peut laisser le gagnant encore en lutte." },
+  links:[ {t:{en:"Canadian Human Rights Tribunal decisions (CanLII)",fr:"Décisions du Tribunal canadien des droits de la personne (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"} ] },
+
+{ id:"y1992r", year:"1992", sortYear:1992.5, era:"era3", cat:["law"], grp:["all"],
+  title:{ en:"The Public Service Reform Act legalizes equity in staffing",
+          fr:"La Loi sur la réforme de la fonction publique légalise l'équité dans la dotation" },
+  sum:{ en:"The Public Service Reform Act amends staffing law so that employment equity programs are explicitly lawful within the merit system, ending years of legal ambiguity about whether targeted measures conflicted with merit.",
+        fr:"La Loi sur la réforme de la fonction publique modifie le droit de la dotation pour que les programmes d'équité en emploi soient explicitement légaux dans le système du mérite, mettant fin à des années d'ambiguïté juridique sur la compatibilité des mesures ciblées avec le mérite." },
+  worked:{ en:"It settled the merit-versus-equity argument in law: equity measures are a way of applying merit fairly, not an exception to it.",
+           fr:"Elle a tranché en droit le débat mérite contre équité : les mesures d'équité sont une façon d'appliquer le mérite équitablement, pas une exception à celui-ci." },
+  fell:null,
+  links:[ {t:{en:"PSC: History of employment equity (2011, PDF)",fr:"CFP : Historique de l'équité en emploi (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+/* ---------------- ERA 4 : 1995-2009 ---------------- */
+{ id:"y1995", year:"1995", sortYear:1995, era:"era4", cat:["law"], grp:["all"],
+  title:{ en:"The Employment Equity Act finally covers the public service",
+          fr:"La Loi sur l'équité en matière d'emploi couvre enfin la fonction publique" },
+  sum:{ en:"A new Employment Equity Act, in force in 1996, extends legislated equity to the federal public service. Employers must identify and remove barriers, implement plans, and consult employee representatives including unions. The Canadian Human Rights Commission gains audit powers, and Parliament is supposed to review the Act every five years. The four designated groups remain the ones Abella named in 1984.",
+        fr:"Une nouvelle Loi sur l'équité en matière d'emploi, en vigueur en 1996, étend l'équité légiférée à la fonction publique fédérale. Les employeurs doivent repérer et éliminer les obstacles, mettre en œuvre des plans et consulter les représentants des employés, y compris les syndicats. La Commission canadienne des droits de la personne obtient des pouvoirs de vérification, et le Parlement doit revoir la Loi tous les cinq ans. Les quatre groupes désignés restent ceux qu'Abella a nommés en 1984." },
+  worked:{ en:"Coverage of the public service, mandatory data, barrier-removal duties and union consultation created the accountability skeleton everything since has hung on. The data it forced into existence is what later exposed the gaps.",
+           fr:"La couverture de la fonction publique, les données obligatoires, les devoirs d'élimination des obstacles et la consultation syndicale ont créé le squelette de responsabilisation sur lequel tout repose depuis. Les données qu'elle a fait naître sont ce qui a plus tard exposé les écarts." },
+  fell:{ en:"Enforcement stayed soft, availability estimates became a ceiling instead of a floor, the four broad categories hid what was happening to Black employees and other subgroups, and the five-year review requirement lapsed after 2002 until 2021. Nearly every later report is, in part, a critique of this Act's limits.",
+         fr:"L'application est restée faible, les estimations de disponibilité sont devenues un plafond plutôt qu'un plancher, les quatre grandes catégories ont masqué la situation des employés noirs et d'autres sous-groupes, et l'exigence de révision quinquennale est tombée en désuétude après 2002 jusqu'en 2021. Presque chaque rapport ultérieur est, en partie, une critique des limites de cette loi." },
+  links:[ {t:{en:"Employment Equity Act (Justice Laws)",fr:"Loi sur l'équité en matière d'emploi (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/e-5.401/"},
+          {t:{en:"PSAC: employment equity toolkit, including consultation rights",fr:"AFPC : trousse sur l'équité en emploi, dont les droits de consultation"}, u:"https://psacunion.ca/employment-equity-tool-kit-psac-members"} ] },
+
+{ id:"y1997", year:"1997", sortYear:1997, era:"era4", cat:["kase"], grp:["racialized","black"],
+  title:{ en:"NCARR v. Health Canada: the landmark systemic remedy",
+          fr:"NCARR c. Santé Canada : la mesure systémique historique" },
+  sum:{ en:"The National Capital Alliance on Race Relations (NCARR) wins its complaint that Health Canada systemically discriminated against visible minority employees, who were qualified but shut out of management. The Canadian Human Rights Tribunal orders systemic remedies: special temporary measures, appointments into senior ranks, training and monitoring. It is the first time a tribunal orders a federal department to fix a discriminatory promotion system rather than compensate one person.",
+        fr:"La National Capital Alliance on Race Relations (NCARR) obtient gain de cause : Santé Canada exerçait une discrimination systémique contre les employés de minorités visibles, qualifiés mais exclus de la gestion. Le Tribunal canadien des droits de la personne ordonne des mesures systémiques : mesures temporaires spéciales, nominations aux échelons supérieurs, formation et suivi. C'est la première fois qu'un tribunal ordonne à un ministère fédéral de réparer un système de promotion discriminatoire plutôt que d'indemniser une seule personne." },
+  worked:{ en:"It proved statistical evidence of blocked advancement can establish systemic discrimination, and that binding orders with targets and monitoring move numbers where exhortation does not. Health Canada's senior ranks changed measurably during the order.",
+           fr:"Elle a prouvé que la preuve statistique d'un avancement bloqué peut établir la discrimination systémique, et que des ordonnances contraignantes avec cibles et suivi font bouger les chiffres là où l'exhortation échoue. Les rangs supérieurs de Santé Canada ont changé de façon mesurable pendant l'ordonnance." },
+  fell:{ en:"The remedy was time-limited and department-specific. No mechanism carried the lesson across the rest of government, and the same promotion patterns NCARR proved in one department were being documented service-wide decades later.",
+         fr:"La mesure était limitée dans le temps et propre à un ministère. Aucun mécanisme n'a transposé la leçon au reste du gouvernement, et les mêmes tendances de promotion prouvées par la NCARR dans un ministère étaient documentées à l'échelle du service des décennies plus tard." },
+  links:[ {t:{en:"PSAC NCR: the NCARR case remembered",fr:"AFPC RCN : retour sur la cause NCARR"}, u:"https://psac-ncr.com/moving-us-forward/"},
+          {t:{en:"Canadian Human Rights Tribunal decisions (CanLII)",fr:"Décisions du Tribunal canadien des droits de la personne (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"} ] },
+
+{ id:"y1999s", year:"1999", sortYear:1999, era:"era4", cat:["data"], grp:["all"],
+  title:{ en:"The Public Service Employee Survey begins",
+          fr:"Le Sondage auprès des fonctionnaires fédéraux commence" },
+  sum:{ en:"The first service-wide employee survey creates a recurring, comparable measure of how public servants experience their workplace, eventually including harassment and discrimination questions. Over time it becomes the main evidence base for equity claims: not who was hired, but how people are treated once inside.",
+        fr:"Le premier sondage pangouvernemental crée une mesure récurrente et comparable de l'expérience des fonctionnaires, incluant à terme des questions sur le harcèlement et la discrimination. Avec le temps, il devient la principale base de preuve des revendications d'équité : non pas qui est embauché, mais comment les gens sont traités une fois à l'intérieur." },
+  worked:{ en:"Recurring measurement made trends undeniable and, once results were disaggregated by group and subgroup in the 2020s, exposed exactly which employees were reporting discrimination and from whom.",
+           fr:"La mesure récurrente a rendu les tendances indéniables et, une fois les résultats désagrégés par groupe et sous-groupe dans les années 2020, a montré exactement quels employés déclaraient de la discrimination et de la part de qui." },
+  fell:{ en:"For its first two decades, results were reported in aggregates that hid subgroup realities, and persistent gaps did not by themselves trigger consequences for any organization.",
+         fr:"Pendant ses deux premières décennies, les résultats agrégés cachaient les réalités des sous-groupes, et des écarts persistants n'entraînaient par eux-mêmes aucune conséquence pour les organisations." },
+  links:[ {t:{en:"Public Service Employee Survey (TBS)",fr:"Sondage auprès des fonctionnaires fédéraux (SCT)"}, u:"https://www.canada.ca/en/treasury-board-secretariat/services/innovation/public-service-employee-survey.html"} ] },
+
+{ id:"y1999p", year:"1999", sortYear:1999.5, era:"era4", cat:["kase"], grp:["women"],
+  title:{ en:"Pay equity: a 15-year fight ends in a multi-billion-dollar settlement",
+          fr:"Équité salariale : une lutte de 15 ans se conclut par un règlement de plusieurs milliards" },
+  sum:{ en:"After the Public Service Alliance of Canada's 1984 complaint and a 1998 Canadian Human Rights Tribunal ruling that the government underpaid workers in female-dominated groups, the government settles in 1999 for roughly 3.5 billion dollars owed to about 230,000 current and former employees, most of them women in clerical and support work.",
+        fr:"Après la plainte de 1984 de l'Alliance de la Fonction publique du Canada et une décision de 1998 du Tribunal canadien des droits de la personne concluant que le gouvernement sous-payait les groupes à prédominance féminine, le gouvernement règle en 1999 pour environ 3,5 milliards de dollars dus à quelque 230 000 employées et employés, actuels et anciens, surtout des femmes en travail de bureau et de soutien." },
+  worked:{ en:"A union with resources to litigate for 15 years, plus a tribunal willing to order retroactive pay, delivered the largest concrete transfer to underpaid public servants in Canadian history. Persistence plus enforceability won.",
+           fr:"Un syndicat capable de plaider pendant 15 ans, et un tribunal prêt à ordonner une paye rétroactive, ont livré le plus important transfert concret vers des fonctionnaires sous-payés de l'histoire canadienne. La persistance et la force exécutoire ont gagné." },
+  fell:{ en:"It took a generation, many entitled workers died waiting, and the complaint-based model was so plainly inadequate that Parliament eventually replaced it with the proactive Pay Equity Act of 2018.",
+         fr:"Il a fallu une génération, bien des personnes visées sont mortes en attendant, et le modèle fondé sur la plainte était si manifestement inadéquat que le Parlement l'a remplacé par la Loi sur l'équité salariale proactive de 2018." },
+  links:[ {t:{en:"Pay Equity Act, 2018 (Justice Laws)",fr:"Loi sur l'équité salariale, 2018 (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-4.2/"},
+          {t:{en:"Canadian Human Rights Tribunal decisions (CanLII)",fr:"Décisions du Tribunal canadien des droits de la personne (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"} ] },
+
+{ id:"y2000", year:"2000", sortYear:2000, era:"era4", cat:["report","program"], grp:["racialized","black"],
+  title:{ en:"Embracing Change and the 1-in-5 benchmark",
+          fr:"Faire place au changement et le repère de 1 sur 5" },
+  sum:{ en:"The Task Force on the Participation of Visible Minorities in the Federal Public Service, chaired by Lewis Perinbam, reports that visible minorities are severely underrepresented, especially in the executive ranks, and that past commitments failed for lack of accountability. Its action plan sets a benchmark of 1 in 5 for external recruitment and for entry into the executive group, backed by dedicated Treasury Board funding. This is the report every later anti-racism effort is measured against.",
+        fr:"Le Groupe de travail sur la participation des minorités visibles dans la fonction publique fédérale, présidé par Lewis Perinbam, conclut que les minorités visibles sont gravement sous-représentées, surtout aux échelons de direction, et que les engagements passés ont échoué faute de responsabilisation. Son plan d'action fixe un repère de 1 sur 5 pour le recrutement externe et pour l'accès au groupe de la direction, appuyé par un financement dédié du Conseil du Trésor. C'est le rapport à l'aune duquel chaque effort antiraciste ultérieur est mesuré." },
+  worked:{ en:"A single, memorable, numeric benchmark focused the whole system, and for a few years dedicated money and a support unit made it real. The report's diagnosis, that the problem is accountability rather than awareness, has been vindicated repeatedly.",
+           fr:"Un repère numérique unique et mémorable a mobilisé tout le système, et pendant quelques années l'argent dédié et une unité de soutien l'ont rendu concret. Son diagnostic, voulant que le problème soit la responsabilisation et non la sensibilisation, a été confirmé maintes fois." },
+  fell:{ en:"The funding sunset around 2003, no one was answerable for missing the benchmark, and recruitment did not reach 1 in 5 for many years. The Senate later documented the slippage. Embracing Change became the defining case study of an equity plan that faded when the money and attention moved on.",
+         fr:"Le financement a pris fin vers 2003, personne n'a eu à répondre du repère raté, et le recrutement n'a pas atteint 1 sur 5 pendant de nombreuses années. Le Sénat a plus tard documenté le recul. Faire place au changement est devenu l'étude de cas type du plan d'équité qui s'efface quand l'argent et l'attention passent à autre chose." },
+  links:[ {t:{en:"Embracing Change in the Federal Public Service (full report, TBS)",fr:"Faire place au changement dans la fonction publique fédérale (rapport intégral, SCT)"}, u:"https://www.tbs-sct.canada.ca/pubs_pol/hrpubs/tb_852/ecfpspr-eng.asp"} ] },
+
+{ id:"y2002", year:"2002", sortYear:2002, era:"era4", cat:["report"], grp:["all"],
+  title:{ en:"The first and only five-year review of the Act, for two decades",
+          fr:"La première et seule révision quinquennale de la Loi, pendant deux décennies" },
+  sum:{ en:"A House of Commons committee completes the Employment Equity Act's first mandated five-year review and recommends improvements. The Act requires this review every five years; after 2002 the requirement is not honoured again until the task force struck in 2021.",
+        fr:"Un comité de la Chambre des communes achève la première révision quinquennale obligatoire de la Loi sur l'équité en matière d'emploi et recommande des améliorations. La Loi exige cette révision tous les cinq ans; après 2002, l'exigence n'est plus honorée jusqu'au groupe de travail créé en 2021." },
+  worked:null,
+  fell:{ en:"A statutory review clause that no one enforces is a promise, not a safeguard. Nineteen years without review is one of the clearest institutional failures in this timeline.",
+         fr:"Une clause de révision légale que personne n'applique est une promesse, pas une garantie. Dix-neuf ans sans révision constituent l'un des échecs institutionnels les plus nets de cette ligne du temps." },
+  links:[ {t:{en:"Employment Equity Act modernization hub (ESDC)",fr:"Carrefour de modernisation de la Loi (EDSC)"}, u:"https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/consultation-act-modernization.html"} ] },
+
+{ id:"y2003", year:"2003-2005", sortYear:2003, era:"era4", cat:["law"], grp:["all"],
+  title:{ en:"Staffing law is rebuilt with representativeness in its preamble",
+          fr:"Le droit de la dotation est reconstruit avec la représentativité dans son préambule" },
+  sum:{ en:"The Public Service Modernization Act produces a new Public Service Employment Act, in force in 2005. Its preamble commits to a public service that reflects Canada's diversity, employment equity can shape merit criteria, and appointment processes can be limited to members of designated groups.",
+        fr:"La Loi sur la modernisation de la fonction publique produit une nouvelle Loi sur l'emploi dans la fonction publique, en vigueur en 2005. Son préambule engage la fonction publique à refléter la diversité du Canada, l'équité en emploi peut façonner les critères de mérite, et les processus de nomination peuvent être limités aux membres des groupes désignés." },
+  worked:{ en:"It embedded equity tools directly in the staffing statute managers use every day, rather than in a separate law they could ignore.",
+           fr:"Elle a intégré les outils d'équité directement dans la loi de dotation que les gestionnaires utilisent chaque jour, plutôt que dans une loi distincte qu'ils pouvaient ignorer." },
+  fell:{ en:"Discretionary tools are only as good as their use. Audits later found the equity provisions used unevenly, and delegated flexibility also delegated the ability to do nothing.",
+         fr:"Les outils discrétionnaires ne valent que par leur usage. Des vérifications ont plus tard constaté un usage inégal des dispositions d'équité, et la souplesse déléguée a aussi délégué la capacité de ne rien faire." },
+  links:[ {t:{en:"Public Service Employment Act (Justice Laws)",fr:"Loi sur l'emploi dans la fonction publique (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-33.01/"} ] },
+
+{ id:"y2004", year:"2004", sortYear:2004, era:"era4", cat:["report"], grp:["all"],
+  title:{ en:"The Senate appoints itself watchdog",
+          fr:"Le Sénat s'institue chien de garde" },
+  sum:{ en:"The Standing Senate Committee on Human Rights takes on a continuing order of reference to monitor employment equity in federal hiring and promotion. For the next two decades it is the closest thing the file has to a permanent external overseer, holding hearings and summoning officials when numbers stall.",
+        fr:"Le Comité sénatorial permanent des droits de la personne se donne un ordre de renvoi continu pour surveiller l'équité en emploi dans l'embauche et la promotion fédérales. Pendant les deux décennies suivantes, il est ce qui ressemble le plus à un surveillant externe permanent du dossier, tenant des audiences et convoquant les responsables quand les chiffres stagnent." },
+  worked:{ en:"Standing parliamentary attention meant the file could not fully disappear between crises. Officials knew someone would eventually ask.",
+           fr:"L'attention parlementaire permanente a empêché le dossier de disparaître entre les crises. Les responsables savaient qu'on finirait par leur demander des comptes." },
+  fell:{ en:"Senate committees recommend; they cannot compel. The same recommendations recur across its reports because nothing obliged the government to act on them.",
+         fr:"Les comités sénatoriaux recommandent; ils ne peuvent contraindre. Les mêmes recommandations reviennent d'un rapport à l'autre parce que rien n'obligeait le gouvernement à y donner suite." },
+  links:[ {t:{en:"Senate Human Rights Committee: employment equity study materials",fr:"Comité sénatorial des droits de la personne : documents de l'étude sur l'équité en emploi"}, u:"https://sencanada.ca/en/content/sen/committee/412/ridr/dpk/01dec13/home-e"} ] },
+
+{ id:"y2007", year:"2007", sortYear:2007, era:"era4", cat:["report"], grp:["racialized","all"],
+  title:{ en:"The Senate's verdict: Not There Yet",
+          fr:"Le verdict du Sénat : pas encore atteint" },
+  sum:{ en:"The Senate Human Rights Committee publishes Employment Equity in the Federal Public Service: Not There Yet, finding that visible minorities remain far below availability, especially in the executive ranks, and that Embracing Change's benchmarks were quietly missed. A 2010 follow-up, Reflecting the Changing Face of Canada, reports that progress is still lagging as the population diversifies faster than the public service.",
+        fr:"Le Comité sénatorial des droits de la personne publie L'équité en matière d'emploi dans la fonction publique fédérale : pas encore atteinte, concluant que les minorités visibles demeurent bien en deçà de la disponibilité, surtout à la direction, et que les repères de Faire place au changement ont été discrètement ratés. Un suivi de 2010, Refléter le nouveau visage du Canada, constate que les progrès traînent encore alors que la population se diversifie plus vite que la fonction publique." },
+  worked:{ en:"Independent scrutiny put the failure of Embracing Change on the official record, preventing the quiet rewriting of history and keeping the 1-in-5 promise alive as a reference point.",
+           fr:"Un examen indépendant a consigné officiellement l'échec de Faire place au changement, empêchant la réécriture silencieuse de l'histoire et gardant vivante la promesse du 1 sur 5 comme point de référence." },
+  fell:{ en:"Both reports changed little in practice. The pattern of report, response, drift continued for another decade, which is precisely what the reports had warned about.",
+         fr:"Les deux rapports ont peu changé la pratique. Le cycle rapport, réponse, dérive s'est poursuivi une autre décennie, exactement ce contre quoi les rapports mettaient en garde." },
+  links:[ {t:{en:"Senate Human Rights Committee: employment equity study materials",fr:"Comité sénatorial des droits de la personne : documents de l'étude"}, u:"https://sencanada.ca/en/content/sen/committee/412/ridr/dpk/01dec13/home-e"} ] },
+
+/* ---------------- ERA 5 : 2010-2019 ---------------- */
+{ id:"y2011", year:"2011", sortYear:2011, era:"era5", cat:["report","data"], grp:["all"],
+  title:{ en:"The PSC writes the institutional memory",
+          fr:"La CFP consigne la mémoire institutionnelle" },
+  sum:{ en:"The Public Service Commission publishes a history of employment equity in the public service, tracing every program and law from the patronage era forward. It is one of the most useful single documents for understanding this timeline, and several early entries on this site cite it.",
+        fr:"La Commission de la fonction publique publie un historique de l'équité en emploi dans la fonction publique, retraçant chaque programme et chaque loi depuis l'ère du favoritisme. C'est l'un des documents les plus utiles pour comprendre cette ligne du temps, et plusieurs entrées de ce site le citent." },
+  worked:{ en:"Institutional memory is itself an equity tool: it stops each generation from believing the work just started, and it documents which approaches were already tried and abandoned.",
+           fr:"La mémoire institutionnelle est elle-même un outil d'équité : elle empêche chaque génération de croire que le travail vient de commencer et documente les approches déjà tentées puis abandonnées." },
+  fell:null,
+  links:[ {t:{en:"PSC: History of employment equity in the public service (2011, PDF)",fr:"CFP : Historique de l'équité en emploi dans la fonction publique (2011, PDF)"}, u:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"} ] },
+
+{ id:"y2014", year:"2014-2017", sortYear:2014, era:"era5", cat:["law"], grp:["all"],
+  title:{ en:"One board for labour and staffing disputes: the FPSLREB",
+          fr:"Une seule commission pour les litiges de travail et de dotation : la CRTESPF" },
+  sum:{ en:"The Public Service Labour Relations and Employment Board is created by merging the labour relations board and the staffing tribunal; in 2017 it becomes the Federal Public Sector Labour Relations and Employment Board (FPSLREB). It adjudicates grievances, including discrimination grievances where it can apply the Canadian Human Rights Act, and staffing complaints alleging abuse of authority, which includes discrimination.",
+        fr:"La Commission des relations de travail et de l'emploi dans la fonction publique est créée par la fusion de la commission des relations de travail et du tribunal de la dotation; en 2017 elle devient la Commission des relations de travail et de l'emploi dans le secteur public fédéral (CRTESPF). Elle tranche les griefs, y compris les griefs de discrimination où elle peut appliquer la Loi canadienne sur les droits de la personne, et les plaintes de dotation alléguant un abus de pouvoir, ce qui inclut la discrimination." },
+  worked:{ en:"For most public servants this board, not the courts, is where discrimination claims are actually decided, and its published decisions form a growing public record of how racism and ableism show up in staffing, discipline and accommodation.",
+           fr:"Pour la plupart des fonctionnaires, c'est cette commission, et non les cours, qui tranche réellement les plaintes de discrimination, et ses décisions publiées forment un dossier public croissant sur la façon dont le racisme et le capacitisme se manifestent dans la dotation, la discipline et l'accommodement." },
+  fell:{ en:"Case-by-case adjudication is slow, remedies are individual, and in 2025 the Federal Court pointed Black public servants back to this recourse system, the very system claimants argued had failed to address systemic discrimination.",
+         fr:"L'arbitrage au cas par cas est lent, les réparations sont individuelles, et en 2025 la Cour fédérale a renvoyé les fonctionnaires noirs vers ce système de recours, celui-là même dont les demandeurs plaidaient qu'il n'avait pas su traiter la discrimination systémique." },
+  links:[ {t:{en:"FPSLREB decisions database",fr:"Base de décisions de la CRTESPF"}, u:"https://decisions.fpslreb-crtespf.gc.ca/"} ] },
+
+{ id:"y2017d", year:"2017", sortYear:2017, era:"era5", cat:["report"], grp:["all"],
+  title:{ en:"Building a Diverse and Inclusive Public Service: unions and management co-sign the diagnosis",
+          fr:"Bâtir une fonction publique diversifiée et inclusive : syndicats et gestion cosignent le diagnostic" },
+  sum:{ en:"The Joint Union/Management Task Force on Diversity and Inclusion delivers its final report. Its central move is conceptual: diversity is who is in the room, inclusion is how the room treats them, and the public service has worked on the first while neglecting the second. It recommends leadership accountability, better data and sustained governance.",
+        fr:"Le Groupe de travail conjoint syndical-patronal sur la diversité et l'inclusion remet son rapport final. Son geste central est conceptuel : la diversité, c'est qui est dans la pièce; l'inclusion, c'est comment la pièce les traite; et la fonction publique a travaillé sur le premier en négligeant le second. Il recommande la responsabilisation des dirigeants, de meilleures données et une gouvernance soutenue." },
+  worked:{ en:"Joint union-management authorship gave the diagnosis unusual legitimacy: the employer could not dismiss it as outside criticism, and unions could not be accused of grandstanding. Its diversity-versus-inclusion frame stuck.",
+           fr:"La coécriture syndicale-patronale a donné au diagnostic une légitimité inhabituelle : l'employeur ne pouvait le rejeter comme critique externe, et les syndicats ne pouvaient être accusés de faire du spectacle. Son cadre diversité contre inclusion a fait école." },
+  fell:{ en:"Its governance recommendations were only partially built, and three years later the events of 2020 showed the distance between a co-signed diagnosis and lived change.",
+         fr:"Ses recommandations de gouvernance n'ont été que partiellement mises en place, et trois ans plus tard les événements de 2020 ont montré la distance entre un diagnostic cosigné et un changement vécu." },
+  links:[ {t:{en:"Final report: Building a Diverse and Inclusive Public Service (TBS)",fr:"Rapport final : Bâtir une fonction publique diversifiée et inclusive (SCT)"}, u:"https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/building-diverse-inclusive-public-service-final-report-joint-union-management-task-force-diversity-inclusion.html"} ] },
+
+{ id:"y2017m", year:"2017", sortYear:2017.5, era:"era5", cat:["report"], grp:["indigenous"],
+  title:{ en:"Many Voices One Mind: Indigenous employees write their own report",
+          fr:"Unis dans la diversité : les employés autochtones écrivent leur propre rapport" },
+  sum:{ en:"Many Voices One Mind: a Pathway to Reconciliation is developed by and with Indigenous federal employees and endorsed at the deputy minister level. It documents the specific barriers Indigenous public servants face, from recruitment and language requirements to cultural safety and career blockage, and ties workplace change to the broader duty of reconciliation.",
+        fr:"Unis dans la diversité : une voie vers la réconciliation est élaboré par et avec des employés fédéraux autochtones et endossé au niveau des sous-ministres. Il documente les obstacles particuliers des fonctionnaires autochtones, du recrutement et des exigences linguistiques à la sécurité culturelle et au blocage des carrières, et lie le changement en milieu de travail au devoir plus large de réconciliation." },
+  worked:{ en:"Authorship by the affected employees produced sharper, more actionable findings than external studies, and deputy-level champions and the later Knowledge Circle gave it standing machinery. It became the model for community-authored diagnosis.",
+           fr:"La rédaction par les employés concernés a produit des constats plus justes et plus actionnables que les études externes, et des champions sous-ministres puis le Cercle du savoir lui ont donné une machinerie permanente. Il est devenu le modèle du diagnostic écrit par la communauté." },
+  fell:{ en:"Years later, Indigenous employees still report among the highest rates of discrimination and harassment in the employee survey, and Indigenous representation thins sharply toward the executive ranks. Diagnosis, again, outran delivery.",
+         fr:"Des années plus tard, les employés autochtones déclarent encore parmi les taux les plus élevés de discrimination et de harcèlement au sondage, et la représentation autochtone s'amincit fortement vers la direction. Le diagnostic, encore, a devancé la livraison." },
+  links:[ {t:{en:"Many Voices One Mind (Privy Council Office)",fr:"Unis dans la diversité (Bureau du Conseil privé)"}, u:"https://www.canada.ca/en/privy-council/corporate/clerk/publications/many-voices-one-mind.html"} ] },
+
+{ id:"y2018f", year:"2018", sortYear:2018, era:"era5", cat:["network","moment"], grp:["black"],
+  title:{ en:"The Federal Black Employee Caucus organizes",
+          fr:"Le Caucus des employés fédéraux noirs s'organise" },
+  sum:{ en:"Black public servants across departments found the Federal Black Employee Caucus (FBEC), arguing that the visible minority category buries the distinct, documented experience of Black employees. FBEC demands disaggregated data, Black-specific career programs and mental health supports. Much of what happened between 2020 and 2026 traces directly to this organizing.",
+        fr:"Des fonctionnaires noirs de plusieurs ministères fondent le Caucus des employés fédéraux noirs (CEFN), soutenant que la catégorie des minorités visibles enterre l'expérience distincte et documentée des employés noirs. Le CEFN exige des données désagrégées, des programmes de carrière propres aux employés noirs et des soutiens en santé mentale. Une grande partie de ce qui s'est passé entre 2020 et 2026 découle directement de cette organisation." },
+  worked:{ en:"Self-organized employees with a precise, evidence-based demand changed the terms of debate. Disaggregated data went from a refused request to standard practice within five years, and Black-specific programs followed.",
+           fr:"Des employés auto-organisés avec une demande précise et fondée sur des preuves ont changé les termes du débat. Les données désagrégées sont passées de demande refusée à pratique standard en cinq ans, et des programmes propres aux employés noirs ont suivi." },
+  fell:{ en:"The burden fell on volunteers doing this work on top of their jobs, often at career risk, and the demands required a class action, a Senate study and years of pressure before institutional responses arrived.",
+         fr:"Le fardeau a reposé sur des bénévoles faisant ce travail en plus de leur emploi, souvent au risque de leur carrière, et il a fallu un recours collectif, une étude du Sénat et des années de pression avant l'arrivée de réponses institutionnelles." },
+  links:[ {t:{en:"Federal Black Employee Caucus",fr:"Caucus des employés fédéraux noirs"}, u:"https://www.fbec-cefn.ca/"} ] },
+
+{ id:"y2019a", year:"2019", sortYear:2019, era:"era5", cat:["law"], grp:["disability"],
+  title:{ en:"The Accessible Canada Act: from accommodation to obligation",
+          fr:"La Loi canadienne sur l'accessibilité : de l'accommodement à l'obligation" },
+  sum:{ en:"The Accessible Canada Act commits Canada to be barrier-free by 2040 and shifts the model from individuals requesting accommodation to organizations proactively removing barriers. It creates an Accessibility Commissioner with enforcement powers, requires accessibility plans and feedback processes, and applies squarely to the federal public service as an employer.",
+        fr:"La Loi canadienne sur l'accessibilité engage le Canada à être exempt d'obstacles d'ici 2040 et fait passer le modèle de la demande individuelle d'accommodement à l'élimination proactive des obstacles par les organisations. Elle crée un commissaire à l'accessibilité doté de pouvoirs d'application, exige des plans d'accessibilité et des processus de rétroaction, et s'applique pleinement à la fonction publique fédérale comme employeur." },
+  worked:{ en:"It is the strongest legal architecture in this timeline: proactive duties, a dedicated enforcement officer, mandatory plans, and the principle of nothing without us written into law. It shows what legislating equity with teeth looks like.",
+           fr:"C'est l'architecture juridique la plus solide de cette ligne du temps : obligations proactives, agent d'application dédié, plans obligatoires et le principe rien sans nous inscrit dans la loi. Elle montre à quoi ressemble une équité légiférée avec du mordant." },
+  fell:{ en:"Implementation lags the architecture. Employees with disabilities still report the largest gaps in harassment, discrimination and accommodation experience of any group, and accommodation processes remain slow and adversarial in many organizations.",
+         fr:"La mise en œuvre traîne derrière l'architecture. Les employés en situation de handicap déclarent encore les plus grands écarts de harcèlement, de discrimination et d'accommodement de tous les groupes, et les processus d'accommodement restent lents et conflictuels dans bien des organisations." },
+  links:[ {t:{en:"Accessible Canada Act (Justice Laws)",fr:"Loi canadienne sur l'accessibilité (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/a-0.6/"} ] },
+
+{ id:"y2019n", year:"2019", sortYear:2019.3, era:"era5", cat:["program"], grp:["disability"],
+  title:{ en:"Nothing Without Us: the public service accessibility strategy",
+          fr:"Rien sans nous : la stratégie sur l'accessibilité de la fonction publique" },
+  sum:{ en:"The first public service accessibility strategy, led by a dedicated deputy minister, sets concrete goals including the net hiring of 5,000 new employees with disabilities by 2025, better workplace accommodation, and accessible-by-default technology and facilities.",
+        fr:"La première stratégie sur l'accessibilité de la fonction publique, dirigée par une sous-ministre dédiée, fixe des objectifs concrets, dont l'embauche nette de 5 000 nouvelles personnes employées en situation de handicap d'ici 2025, un meilleur accommodement et des technologies et installations accessibles par défaut." },
+  worked:{ en:"A named executive owner, a numeric target and a deadline made accessibility a managed program rather than a value statement, and hiring of persons with disabilities rose measurably.",
+           fr:"Une responsable nommée, une cible chiffrée et une échéance ont fait de l'accessibilité un programme géré plutôt qu'une déclaration de valeurs, et l'embauche de personnes en situation de handicap a augmenté de façon mesurable." },
+  fell:{ en:"Retention undercut recruitment: employees with disabilities also leave at high rates, so net gains lagged the target, and the accommodation experience improved more slowly than hiring numbers.",
+         fr:"La rétention a miné le recrutement : les employés en situation de handicap partent aussi à des taux élevés, alors les gains nets ont traîné derrière la cible, et l'expérience d'accommodement s'est améliorée plus lentement que les chiffres d'embauche." },
+  links:[ {t:{en:"Accessibility Strategy for the Public Service of Canada",fr:"Stratégie sur l'accessibilité au sein de la fonction publique du Canada"}, u:"https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/accessibility-public-service/accessibility-strategy-public-service-toc.html"} ] },
+
+{ id:"y2019s", year:"2019", sortYear:2019.6, era:"era5", cat:["program"], grp:["racialized","black","indigenous"],
+  title:{ en:"Canada's first Anti-Racism Strategy and a federal secretariat",
+          fr:"La première Stratégie canadienne de lutte contre le racisme et un secrétariat fédéral" },
+  sum:{ en:"Building a Foundation for Change: Canada's Anti-Racism Strategy 2019-2022 creates a Federal Anti-Racism Secretariat and names anti-Black racism, anti-Indigenous racism, antisemitism and Islamophobia explicitly. It is society-wide, but it commits the federal government to examine its own institutions, including as an employer.",
+        fr:"Construire une fondation pour le changement : la Stratégie canadienne de lutte contre le racisme 2019-2022 crée un Secrétariat fédéral de lutte contre le racisme et nomme explicitement le racisme anti-Noirs, le racisme anti-Autochtones, l'antisémitisme et l'islamophobie. Elle vise toute la société, mais engage le gouvernement fédéral à examiner ses propres institutions, y compris comme employeur." },
+  worked:{ en:"Naming specific racisms rather than generic diversity ended a long period of euphemism in federal documents, and the secretariat created a standing address inside government for anti-racism work.",
+           fr:"Nommer des racismes précis plutôt qu'une diversité générique a mis fin à une longue période d'euphémisme dans les documents fédéraux, et le secrétariat a créé une adresse permanente pour le travail antiraciste au sein du gouvernement." },
+  fell:{ en:"It arrived without new enforcement tools for the public service workplace, so its internal effect depended on instruments that mostly did not yet exist.",
+         fr:"Elle est arrivée sans nouveaux outils d'application pour le milieu de travail de la fonction publique; son effet interne dépendait donc d'instruments qui, pour la plupart, n'existaient pas encore." },
+  links:[ {t:{en:"Canada's Anti-Racism Strategy (Canadian Heritage)",fr:"Stratégie canadienne de lutte contre le racisme (Patrimoine canadien)"}, u:"https://www.canada.ca/en/canadian-heritage/services/combatting-racism-discrimination/canada-anti-racism-strategy.html"} ] },
+
+/* ---------------- ERA 6 : 2020-2026 ---------------- */
+{ id:"y2020m", year:"2020", sortYear:2020, era:"era6", cat:["moment"], grp:["black","indigenous","racialized"],
+  title:{ en:"The reckoning reaches the public service",
+          fr:"La prise de conscience atteint la fonction publique" },
+  sum:{ en:"After the murder of George Floyd and mass protests, and amid a pandemic hitting racialized communities hardest, the Prime Minister acknowledges systemic racism exists in Canada's institutions. The September Speech from the Throne commits to an action plan on increasing representation in the public service. Inside departments, Black, Indigenous and racialized employees speak publicly about their treatment with a directness the institution had not heard before.",
+        fr:"Après le meurtre de George Floyd et des manifestations massives, et en pleine pandémie frappant le plus durement les communautés racialisées, le premier ministre reconnaît que le racisme systémique existe dans les institutions du Canada. Le discours du Trône de septembre promet un plan d'action pour accroître la représentation dans la fonction publique. Dans les ministères, des employés noirs, autochtones et racialisés parlent publiquement de leur traitement avec une franchise que l'institution n'avait jamais entendue." },
+  worked:{ en:"Public acknowledgment at the top removed the institution's ability to debate whether systemic racism existed and moved the question to what would be done, the precondition for everything in this era.",
+           fr:"La reconnaissance publique au sommet a retiré à l'institution la possibilité de débattre de l'existence du racisme systémique et a déplacé la question vers ce qui serait fait, la condition préalable à tout ce qui suit dans cette époque." },
+  fell:{ en:"Acknowledgment is not remedy. The same government acknowledging systemic racism spent the following years contesting, in court, a class action about that racism in its own workforce.",
+         fr:"Reconnaître n'est pas réparer. Le même gouvernement qui reconnaissait le racisme systémique a passé les années suivantes à contester, devant les tribunaux, un recours collectif portant sur ce racisme dans son propre effectif." },
+  links:[] },
+
+{ id:"y2020b", year:"Dec. 2020", sortYear:2020.9, era:"era6", cat:["kase","moment"], grp:["black"],
+  title:{ en:"The Black Class Action is filed",
+          fr:"Le recours collectif noir est déposé" },
+  sum:{ en:"Nicholas Marcus Thompson and other current and former Black public servants file a proposed class action in Federal Court on behalf of Black employees dating back decades, alleging systemic discrimination in hiring and promotion and seeking roughly 2.5 billion dollars plus structural change. Whatever its legal fate, the filing transforms the politics of the file: for the first time, the employer faces a organized, well-publicized legal claim from Black employees as a class.",
+        fr:"Nicholas Marcus Thompson et d'autres fonctionnaires noirs, actuels et anciens, déposent un recours collectif proposé en Cour fédérale au nom des employés noirs sur plusieurs décennies, alléguant une discrimination systémique dans l'embauche et la promotion et réclamant environ 2,5 milliards de dollars plus des changements structurels. Peu importe son sort juridique, le dépôt transforme la politique du dossier : pour la première fois, l'employeur fait face à une réclamation organisée et médiatisée d'employés noirs en tant que groupe." },
+  worked:{ en:"Litigation created leverage no report ever had. The mental health fund, Black-specific career programs, disaggregated reporting and sustained ministerial attention all accelerated after this filing.",
+           fr:"Le litige a créé un levier qu'aucun rapport n'avait jamais eu. Le fonds de santé mentale, les programmes de carrière propres aux employés noirs, les rapports désagrégés et l'attention ministérielle soutenue se sont tous accélérés après ce dépôt." },
+  fell:{ en:"The government chose to fight rather than settle, spending millions on outside counsel, and in 2025 the Federal Court declined to certify the class, directing members to individual recourse. The structural claims remain unresolved while the appeal proceeds.",
+         fr:"Le gouvernement a choisi de se battre plutôt que de régler, dépensant des millions en avocats externes, et en 2025 la Cour fédérale a refusé d'autoriser le recours, renvoyant les membres aux recours individuels. Les réclamations structurelles restent sans réponse pendant l'appel." },
+  links:[ {t:{en:"Black Class Action Secretariat",fr:"Secrétariat du recours collectif noir"}, u:"https://www.blackclassaction.ca/"},
+          {t:{en:"Government of Canada litigation summary (question period note)",fr:"Résumé du litige par le gouvernement du Canada (note pour la période des questions)"}, u:"https://search.open.canada.ca/qpnotes/record/tbs-sct,TBS-2025-QP-06-00011"} ] },
+
+{ id:"y2021c", year:"Jan. 2021", sortYear:2021, era:"era6", cat:["program","moment"], grp:["black","indigenous","racialized"],
+  title:{ en:"The Clerk's Call to Action on Anti-Racism, Equity and Inclusion",
+          fr:"L'appel à l'action du greffier en faveur de la lutte contre le racisme, de l'équité et de l'inclusion" },
+  sum:{ en:"Clerk of the Privy Council Ian Shugart issues a Call to Action directing deputy heads to appoint, sponsor and recruit Indigenous and Black employees and other racialized employees into leadership, to collect and use disaggregated data, and to act on lived experience rather than wait for more study. Deputies later report publicly on their actions, and a forward direction follows to sustain momentum.",
+        fr:"Le greffier du Conseil privé Ian Shugart lance un appel à l'action enjoignant aux administrateurs généraux de nommer, de parrainer et de recruter des employés autochtones, noirs et racialisés vers la direction, de recueillir et d'utiliser des données désagrégées, et d'agir sur l'expérience vécue plutôt que d'attendre d'autres études. Les administrateurs rendent ensuite compte publiquement, et une orientation ultérieure vise à maintenir l'élan." },
+  worked:{ en:"It was specific where past statements were vague: it named Black and Indigenous employees rather than a generic category, endorsed sponsorship over mentorship, and made deputies individually and publicly answerable. Executive representation of the named groups moved afterward.",
+           fr:"Il était précis là où les déclarations passées étaient vagues : il nommait les employés noirs et autochtones plutôt qu'une catégorie générique, privilégiait le parrainage au mentorat et rendait les administrateurs individuellement et publiquement responsables. La représentation de ces groupes à la direction a bougé par la suite." },
+  fell:{ en:"It is direction, not law: no consequences attach to inaction, results vary widely by department, and the Auditor General found in 2023 that organizations still were not measuring whether any of it changed outcomes for racialized employees.",
+         fr:"C'est une directive, pas une loi : l'inaction n'entraîne aucune conséquence, les résultats varient fortement selon les ministères, et la vérificatrice générale a constaté en 2023 que les organisations ne mesuraient toujours pas si tout cela changeait les résultats pour les employés racialisés." },
+  links:[ {t:{en:"Call to Action on Anti-Racism, Equity and Inclusion (PCO)",fr:"Appel à l'action en faveur de la lutte contre le racisme, de l'équité et de l'inclusion (BCP)"}, u:"https://www.canada.ca/en/privy-council/corporate/clerk/call-to-action-anti-racism-equity-inclusion-federal-public-service.html"} ] },
+
+{ id:"y2021h", year:"Jan. 2021", sortYear:2021.1, era:"era6", cat:["law"], grp:["all"],
+  title:{ en:"Harassment and violence become regulated workplace hazards",
+          fr:"Le harcèlement et la violence deviennent des dangers réglementés" },
+  sum:{ en:"The Work Place Harassment and Violence Prevention Regulations under the Canada Labour Code, flowing from Bill C-65, come into force for federal workplaces including the public service. Harassment and violence, including racial harassment, must now be treated like any other occupational hazard: assessed, prevented, investigated by trained people, and reported.",
+        fr:"Le Règlement sur la prévention du harcèlement et de la violence dans le lieu de travail, sous le Code canadien du travail et issu du projet de loi C-65, entre en vigueur pour les milieux fédéraux, y compris la fonction publique. Le harcèlement et la violence, y compris le harcèlement racial, doivent désormais être traités comme tout autre danger professionnel : évalués, prévenus, examinés par des personnes formées et déclarés." },
+  worked:{ en:"Reframing mistreatment as a hazard imports the strongest accountability machinery government has, occupational health and safety law, with employer duties, joint committees and legal exposure. It gives systemic mistreatment a prevention logic instead of only a complaint logic.",
+           fr:"Recadrer les mauvais traitements comme un danger importe la machinerie de responsabilisation la plus forte du gouvernement, le droit de la santé et sécurité au travail, avec devoirs de l'employeur, comités mixtes et exposition juridique. Cela donne aux mauvais traitements systémiques une logique de prévention plutôt que seulement une logique de plainte." },
+  fell:{ en:"The regime is only as strong as its use: hazard assessments rarely name racism explicitly, and many employees report low confidence that raising issues is safe, so the prevention machinery often runs without the hazard it most needs to address.",
+         fr:"Le régime ne vaut que par son usage : les évaluations de dangers nomment rarement le racisme explicitement, et bien des employés doutent qu'il soit sûr de soulever des problèmes, si bien que la machinerie de prévention tourne souvent sans le danger qu'elle devrait le plus traiter." },
+  links:[ {t:{en:"Canada Labour Code (Justice Laws)",fr:"Code canadien du travail (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/l-2/"},
+          {t:{en:"Work Place Harassment and Violence Prevention Regulations",fr:"Règlement sur la prévention du harcèlement et de la violence dans le lieu de travail"}, u:"https://laws-lois.justice.gc.ca/eng/regulations/SOR-2020-130/"} ] },
+
+{ id:"y2021t", year:"Jul. 2021", sortYear:2021.5, era:"era6", cat:["report"], grp:["all","black","lgbtq"],
+  title:{ en:"The Employment Equity Act finally gets its review",
+          fr:"La Loi sur l'équité en matière d'emploi obtient enfin sa révision" },
+  sum:{ en:"The government appoints the Employment Equity Act Review Task Force, chaired by Professor Adelle Blackett, to modernize the 1995 Act. It is the first comprehensive review since the lapsed 2002 exercise, and it consults across communities, unions and employers.",
+        fr:"Le gouvernement nomme le Groupe de travail sur l'examen de la Loi sur l'équité en matière d'emploi, présidé par la professeure Adelle Blackett, pour moderniser la loi de 1995. C'est la première révision complète depuis l'exercice interrompu de 2002, et elle consulte communautés, syndicats et employeurs." },
+  worked:{ en:"An expert-led, independent, consultative review created the most complete diagnosis of the equity framework since Abella, with legitimacy across communities that internal reviews lack.",
+           fr:"Une révision indépendante, dirigée par une experte et consultative a produit le diagnostic le plus complet du cadre d'équité depuis Abella, avec une légitimité auprès des communautés que les révisions internes n'ont pas." },
+  fell:null,
+  links:[ {t:{en:"Employment Equity Act modernization hub (ESDC)",fr:"Carrefour de modernisation de la Loi (EDSC)"}, u:"https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/consultation-act-modernization.html"} ] },
+
+{ id:"y2021p", year:"2021", sortYear:2021.7, era:"era6", cat:["audit"], grp:["racialized","black","indigenous","disability"],
+  title:{ en:"The PSC audits its own recruitment pipeline",
+          fr:"La CFP vérifie son propre bassin de recrutement" },
+  sum:{ en:"The Public Service Commission's audit of employment equity representation in recruitment tracks candidates through each stage of hiring and finds that representation of several equity groups drops between application and appointment, pointing to barriers inside assessment and selection rather than a shortage of applicants.",
+        fr:"La vérification de la Commission de la fonction publique sur la représentation de l'équité en emploi dans le recrutement suit les candidatures à chaque étape et constate que la représentation de plusieurs groupes chute entre la candidature et la nomination, désignant des obstacles dans l'évaluation et la sélection plutôt qu'une pénurie de candidatures." },
+  worked:{ en:"Stage-by-stage pipeline data ended the myth that people are not applying and located the barrier where it lives: in screening and assessment. Departments could no longer explain gaps as a supply problem.",
+           fr:"Les données étape par étape ont mis fin au mythe voulant que les gens ne postulent pas et ont situé l'obstacle là où il vit : dans la présélection et l'évaluation. Les ministères ne pouvaient plus expliquer les écarts par un manque d'offre." },
+  fell:{ en:"Knowing where candidates drop off has not yet meant fixing the tools: standardized assessments, unstructured interviews and informal referrals have changed slowly, and drop-off patterns persist in later data.",
+         fr:"Savoir où les candidatures décrochent n'a pas encore signifié réparer les outils : évaluations standardisées, entrevues non structurées et recommandations informelles changent lentement, et les décrochages persistent dans les données ultérieures." },
+  links:[ {t:{en:"Public Service Commission of Canada: audits and data",fr:"Commission de la fonction publique du Canada : vérifications et données"}, u:"https://www.canada.ca/en/public-service-commission.html"} ] },
+
+{ id:"y2022d", year:"2021-2022", sortYear:2022, era:"era6", cat:["data","program"], grp:["black","indigenous","racialized","disability"],
+  title:{ en:"Disaggregated data becomes the standard",
+          fr:"Les données désagrégées deviennent la norme" },
+  sum:{ en:"Treasury Board begins publishing employment equity data broken down by subgroup, so results for Black employees, for example, are no longer buried inside the visible minority category. A Centre on Diversity and Inclusion, the Mentorship Plus program, sponsorship initiatives and the Mosaic leadership development program follow, aimed at the executive pipeline for equity-deserving groups.",
+        fr:"Le Conseil du Trésor commence à publier les données d'équité en emploi par sous-groupe : les résultats des employés noirs, par exemple, ne sont plus enfouis dans la catégorie des minorités visibles. Suivent un Centre sur la diversité et l'inclusion, le programme Mentorat Plus, des initiatives de parrainage et le programme de perfectionnement en leadership Mosaïque, visant le bassin de direction des groupes en quête d'équité." },
+  worked:{ en:"Disaggregation was the single most consequential data decision of the era: it confirmed what Black and other subgroup employees had reported for years, made gaps undeniable, and enabled every targeted program since. Sponsorship, which puts a senior leader's capital behind a person, has shown more effect than classic mentorship.",
+           fr:"La désagrégation fut la décision de données la plus lourde de conséquences de l'époque : elle a confirmé ce que les employés noirs et d'autres sous-groupes rapportaient depuis des années, rendu les écarts indéniables et permis chaque programme ciblé depuis. Le parrainage, qui engage le capital d'un cadre supérieur pour une personne, a montré plus d'effet que le mentorat classique." },
+  fell:{ en:"Data does not act. Publication has not been paired with consequences for organizations whose gaps persist, and central programs reach a fraction of the people the data shows are affected.",
+         fr:"Les données n'agissent pas. La publication n'a pas été jumelée à des conséquences pour les organisations dont les écarts persistent, et les programmes centraux rejoignent une fraction des personnes que les données montrent touchées." },
+  links:[ {t:{en:"Call to Action results and disaggregated data (PCO)",fr:"Résultats de l'appel à l'action et données désagrégées (BCP)"}, u:"https://www.canada.ca/en/privy-council/corporate/clerk/call-to-action-anti-racism-equity-inclusion-federal-public-service.html"} ] },
+
+{ id:"y2022l", year:"2022", sortYear:2022.5, era:"era6", cat:["program"], grp:["lgbtq"],
+  title:{ en:"The Federal 2SLGBTQI+ Action Plan",
+          fr:"Le Plan d'action fédéral 2ELGBTQI+" },
+  sum:{ en:"The first Federal 2SLGBTQI+ Action Plan commits, among broader measures, to safer and more inclusive federal workplaces. It follows years of organizing by the Public Service Pride Network and the 2017 apology to LGBT public servants purged from the military and public service during the Cold War era, with a class action settlement acknowledging that history.",
+        fr:"Le premier Plan d'action fédéral 2ELGBTQI+ s'engage, parmi des mesures plus larges, à des milieux de travail fédéraux plus sûrs et inclusifs. Il suit des années d'organisation du Réseau de la Fierté à la fonction publique et les excuses de 2017 aux fonctionnaires et militaires LGBT purgés pendant la guerre froide, avec un règlement de recours collectif reconnaissant cette histoire." },
+  worked:{ en:"The purge apology and settlement showed the full accountability sequence, acknowledgment, compensation, commemoration and policy change, and gave 2SLGBTQI+ public servants institutional standing that later networks could build on.",
+           fr:"Les excuses et le règlement liés à la purge ont montré la séquence complète de responsabilisation, reconnaissance, indemnisation, commémoration et changement de politique, et ont donné aux fonctionnaires 2ELGBTQI+ une assise institutionnelle sur laquelle bâtir." },
+  fell:{ en:"Survey data still shows elevated harassment reporting among 2SLGBTQIA+ employees, and gender-diverse employees in particular report gaps the plan's workplace measures have yet to close.",
+         fr:"Les sondages montrent encore un signalement élevé de harcèlement chez les employés 2ELGBTQIA+, et les personnes de diverses identités de genre rapportent des écarts que les mesures du plan n'ont pas encore comblés." },
+  links:[ {t:{en:"Federal 2SLGBTQI+ Action Plan (Women and Gender Equality Canada)",fr:"Plan d'action fédéral 2ELGBTQI+ (Femmes et Égalité des genres Canada)"}, u:"https://www.canada.ca/en/women-gender-equality/free-to-be-me/federal-2slgbtqi-plus-action-plan.html"} ] },
+
+{ id:"y2023c", year:"Mar. 2023", sortYear:2023, era:"era6", cat:["kase","moment"], grp:["black","racialized"],
+  title:{ en:"The human rights watchdog is found to have discriminated",
+          fr:"Le chien de garde des droits de la personne reconnu coupable de discrimination" },
+  sum:{ en:"Deciding a joint policy grievance filed in October 2020 by three federal unions, the Treasury Board finds that the Canadian Human Rights Commission discriminated against its own Black and racialized employees, breaching the no-discrimination article of a collective agreement. The finding lands alongside long-standing evidence that the Commission dismissed race-based complaints from the public at disproportionate rates, and in 2024 the global alliance of national human rights institutions places the CHRC under an unprecedented special accreditation review.",
+        fr:"Tranchant un grief de principe déposé en octobre 2020 par trois syndicats fédéraux, le Conseil du Trésor conclut que la Commission canadienne des droits de la personne a exercé de la discrimination envers ses propres employés noirs et racialisés, en violation de l'article interdisant la discrimination d'une convention collective. Le constat s'ajoute aux preuves de longue date que la Commission rejetait les plaintes fondées sur la race à des taux disproportionnés, et en 2024 l'alliance mondiale des institutions nationales de droits de la personne place la CCDP sous un examen spécial d'accréditation sans précédent." },
+  worked:{ en:"Unions using the grievance route did what a decade of individual complaints could not: produced a binding finding of systemic discrimination against the very institution that judges everyone else. It validated the grievance mechanism for systemic claims and forced scrutiny of how race complaints are triaged; referral rates for race-based complaints rose sharply once the practice was exposed.",
+           fr:"Les syndicats, par la voie du grief, ont accompli ce qu'une décennie de plaintes individuelles n'avait pu faire : un constat contraignant de discrimination systémique contre l'institution même qui juge tous les autres. Cela a validé le grief pour les réclamations systémiques et forcé l'examen du tri des plaintes raciales; les taux de renvoi des plaintes fondées sur la race ont fortement augmenté une fois la pratique exposée." },
+  fell:{ en:"If the referee needed refereeing, every assurance built on the complaint system needs re-examination. Employees who raised the issues describe years of denial before the finding, and repairing trust in the Commission remains unfinished.",
+         fr:"Si l'arbitre avait besoin d'arbitrage, chaque garantie fondée sur le système de plaintes doit être réexaminée. Les personnes qui ont soulevé les problèmes décrivent des années de déni avant le constat, et la reconstruction de la confiance envers la Commission reste inachevée." },
+  links:[ {t:{en:"Joint union statement on the findings (CAPE, AJC, PSAC)",fr:"Déclaration syndicale conjointe sur les constats (ACEP, AJJ, AFPC)"}, u:"https://www.acep-cape.ca/en/news/joint-statement-damning-senate-report-anti-black-racism-canadian-human-rights-commission"},
+          {t:{en:"CBC: international review of the CHRC's accreditation",fr:"CBC : examen international de l'accréditation de la CCDP"}, u:"https://www.cbc.ca/news/politics/canadian-human-rights-commission-united-nations-1.7230631"} ] },
+
+{ id:"y2023o", year:"Oct. 2023", sortYear:2023.5, era:"era6", cat:["audit"], grp:["racialized","black","indigenous"],
+  title:{ en:"The Auditor General: commitments without measurement",
+          fr:"La vérificatrice générale : des engagements sans mesure" },
+  sum:{ en:"Report 5, Inclusion in the Workplace for Racialized Employees, audits six organizations: the Canada Border Services Agency, Correctional Service Canada, Justice Canada, the Public Prosecution Service, Public Safety Canada and the RCMP. The finding: they made commitments and launched activities, but did not use their own data to understand root causes or measure whether outcomes for racialized employees actually changed, and many employees feared reprisal for raising racism.",
+        fr:"Le rapport 5, L'inclusion en milieu de travail pour le personnel racisé, vérifie six organisations : l'Agence des services frontaliers, le Service correctionnel, Justice Canada, le Service des poursuites pénales, Sécurité publique Canada et la GRC. Constat : elles ont pris des engagements et lancé des activités, mais n'ont pas utilisé leurs propres données pour comprendre les causes profondes ni mesurer si les résultats du personnel racisé changeaient vraiment, et bien des employés craignaient des représailles s'ils dénonçaient le racisme." },
+  worked:{ en:"An independent performance audit converted lived experience into audit findings that deputy heads must formally answer, and it named the core failure precisely: activity is being counted, outcomes are not. Its recommendations gave equity offices leverage they still use.",
+           fr:"Une vérification de gestion indépendante a converti l'expérience vécue en constats auxquels les administrateurs généraux doivent répondre officiellement, et elle a nommé l'échec central avec précision : on compte l'activité, pas les résultats. Ses recommandations donnent aux bureaux d'équité un levier encore utilisé." },
+  fell:{ en:"The audit covered six organizations out of hundreds, follow-up depends on the same self-reporting it criticized, and fear of reprisal, the finding that most undermines every other measure, has no dedicated fix.",
+         fr:"La vérification couvrait six organisations sur des centaines, le suivi repose sur l'autodéclaration qu'elle critiquait, et la peur des représailles, le constat qui mine tous les autres, n'a pas de remède dédié." },
+  links:[ {t:{en:"OAG Report 5: Inclusion in the Workplace for Racialized Employees",fr:"Rapport 5 du BVG : L'inclusion en milieu de travail pour le personnel racisé"}, u:"https://www.oag-bvg.gc.ca/internet/English/att__e_44346.html"},
+          {t:{en:"Report record at publications.gc.ca",fr:"Fiche du rapport sur publications.gc.ca"}, u:"https://publications.gc.ca/site/eng/9.926955/publication.html"} ] },
+
+{ id:"y2023s", year:"Dec. 2023", sortYear:2023.8, era:"era6", cat:["report"], grp:["black"],
+  title:{ en:"The Senate demands a Black Equity Commissioner",
+          fr:"Le Sénat exige un commissaire à l'équité pour les personnes noires" },
+  sum:{ en:"The Senate Human Rights Committee, with Senator Wanda Thomas Bernard as deputy chair, publishes Anti-Black Racism, Sexism and Systemic Discrimination in the Canadian Human Rights Commission. Its 11 recommendations include an independent Black Equity Commissioner reporting to Parliament, an independent workplace review of the CHRC, and modernization of the Employment Equity Act. Witnesses describe a crisis of confidence in the human rights system among Black public servants.",
+        fr:"Le Comité sénatorial des droits de la personne, avec la sénatrice Wanda Thomas Bernard comme vice-présidente, publie Racisme anti-Noirs, sexisme et discrimination systémique à la Commission canadienne des droits de la personne. Ses 11 recommandations incluent un commissaire indépendant à l'équité pour les personnes noires relevant du Parlement, un examen indépendant du milieu de travail de la CCDP et la modernisation de la Loi sur l'équité en matière d'emploi. Des témoins décrivent une crise de confiance des fonctionnaires noirs envers le système des droits de la personne." },
+  worked:{ en:"Senate hearings gave protected space for testimony employees could not safely give inside their departments, and the report converted that testimony into concrete institutional designs, not sentiments: an officer of Parliament, an independent review, statutory change.",
+           fr:"Les audiences du Sénat ont offert un espace protégé pour des témoignages impossibles à livrer en toute sécurité dans les ministères, et le rapport a converti ces témoignages en conceptions institutionnelles concrètes, pas en sentiments : un haut fonctionnaire du Parlement, un examen indépendant, un changement législatif." },
+  fell:{ en:"As of mid-2026, the Black Equity Commissioner does not exist. The report joins a shelf of parliamentary recommendations awaiting a government willing to legislate them.",
+         fr:"À la mi-2026, le commissaire à l'équité pour les personnes noires n'existe pas. Le rapport rejoint une étagère de recommandations parlementaires en attente d'un gouvernement prêt à les légiférer." },
+  links:[ {t:{en:"Senate report (publications.gc.ca)",fr:"Rapport du Sénat (publications.gc.ca)"}, u:"https://publications.gc.ca/site/eng/9.931558/publication.html"},
+          {t:{en:"Senate news release on the report",fr:"Communiqué du Sénat sur le rapport"}, u:"https://sencanada.ca/en/newsroom/ridr-senate-report-on-anti-black-racism-in-canadas-human-rights-watchdog-calls-for-workplace-review-black-equity-commissioner/"} ] },
+
+{ id:"y2023t", year:"Dec. 2023", sortYear:2023.9, era:"era6", cat:["report"], grp:["all","black","lgbtq"],
+  title:{ en:"A Transformative Framework: the blueprint to rebuild the Employment Equity Act",
+          fr:"Un cadre transformateur : le plan pour reconstruire la Loi sur l'équité en matière d'emploi" },
+  sum:{ en:"The Employment Equity Act Review Task Force, chaired by Adelle Blackett, delivers A Transformative Framework to Achieve and Sustain Employment Equity, with 187 recommendations. Central proposals: create distinct designated groups for Black workers and 2SLGBTQI+ workers, replace the term visible minorities with racialized workers, update the definitions for Indigenous peoples and workers with disabilities, and build real implementation and enforcement support. The government immediately commits to the two new designated groups.",
+        fr:"Le Groupe de travail sur l'examen de la Loi, présidé par Adelle Blackett, remet Un cadre transformateur pour parvenir à l'équité en matière d'emploi et la maintenir, avec 187 recommandations. Propositions centrales : créer des groupes désignés distincts pour les travailleurs noirs et les travailleurs 2ELGBTQI+, remplacer le terme minorités visibles par travailleurs racisés, actualiser les définitions pour les peuples autochtones et les travailleurs en situation de handicap, et bâtir un vrai soutien à la mise en œuvre et à l'application. Le gouvernement s'engage aussitôt sur les deux nouveaux groupes désignés." },
+  worked:{ en:"It resolved, at the level of expert recommendation, the category problem employees had fought since the 1990s: Black workers counted distinctly, terminology that names race rather than visibility, and equity framed as an ongoing obligation instead of a reporting exercise.",
+           fr:"Il a réglé, au niveau de la recommandation experte, le problème de catégories que les employés combattaient depuis les années 1990 : les travailleurs noirs comptés distinctement, une terminologie qui nomme la race plutôt que la visibilité, et une équité conçue comme obligation continue plutôt qu'exercice de rapport." },
+  fell:{ en:"A blueprint is not a building. The commitments require amendments to the Act, and as of mid-2026 no amending legislation has passed, leaving the 1995 framework, and its known failures, in force.",
+         fr:"Un plan n'est pas un édifice. Les engagements exigent des modifications à la Loi, et à la mi-2026 aucune loi modificative n'a été adoptée, laissant en vigueur le cadre de 1995 et ses échecs connus." },
+  links:[ {t:{en:"Task force report and government response (ESDC)",fr:"Rapport du groupe de travail et réponse du gouvernement (EDSC)"}, u:"https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/consultation-act-modernization.html"} ] },
+
+{ id:"y2024a", year:"2024", sortYear:2024, era:"era6", cat:["program"], grp:["black"],
+  title:{ en:"The Action Plan for Black Public Servants",
+          fr:"Le Plan d'action pour les fonctionnaires noirs" },
+  sum:{ en:"Funded through Budgets 2022 and 2023, a dedicated action plan rolls out: a Mental Health Fund for Black public servants of 24.9 million dollars over four years, and 19.4 million dollars for career development and leadership programs, coordinated by a Task Force for Black Public Servants at the Office of the Chief Human Resources Officer. An Executive Leadership Development Program follows; its first cohort of about 50 Black executives completes the program in 2025.",
+        fr:"Financé par les budgets de 2022 et 2023, un plan d'action dédié se déploie : un Fonds pour la santé mentale des fonctionnaires noirs de 24,9 millions de dollars sur quatre ans, et 19,4 millions pour le perfectionnement professionnel et le leadership, coordonnés par un groupe de travail pour les fonctionnaires noirs au Bureau de la dirigeante principale des ressources humaines. Suit un programme de perfectionnement des cadres; sa première cohorte d'environ 50 cadres noirs le termine en 2025." },
+  worked:{ en:"For the first time, the employer funds Black-specific programs, conceding the point FBEC and the class action made: aggregate programs had not reached Black employees. Culturally informed mental health support acknowledges workplace racism as a health harm, consistent with treating it as a workplace hazard.",
+           fr:"Pour la première fois, l'employeur finance des programmes propres aux employés noirs, concédant le point du CEFN et du recours collectif : les programmes agrégés ne rejoignaient pas les employés noirs. Un soutien en santé mentale culturellement adapté reconnaît le racisme au travail comme une atteinte à la santé, conformément à son traitement comme danger professionnel." },
+  fell:{ en:"Claimants note the plan arrived only under litigation pressure and addresses supports and pipelines rather than the discrimination and recourse failures the class action alleges. It is remediation of harm more than removal of cause.",
+         fr:"Les demandeurs notent que le plan n'est arrivé que sous la pression du litige et vise les soutiens et les bassins plutôt que la discrimination et les échecs de recours allégués par le recours collectif. C'est une réparation du tort plus qu'une élimination de la cause." },
+  links:[ {t:{en:"Government summary: supports for Black public servants",fr:"Résumé gouvernemental : soutiens pour les fonctionnaires noirs"}, u:"https://search.open.canada.ca/qpnotes/record/tbs-sct,TBS-2025-QP-06-00011"} ] },
+
+{ id:"y2024s", year:"Jun. 2024", sortYear:2024.5, era:"era6", cat:["program"], grp:["black","indigenous","racialized"],
+  title:{ en:"Changing Systems, Transforming Lives: the second Anti-Racism Strategy",
+          fr:"Changer les systèmes, transformer des vies : la deuxième Stratégie de lutte contre le racisme" },
+  sum:{ en:"Canada launches its Anti-Racism Strategy 2024-2028, developed after country-wide consultations and named Changing Systems, Transforming Lives. It frames the work explicitly as systems change, continues the Federal Anti-Racism Secretariat's whole-of-government role, and maintains focus on institutions, including federal ones, rather than attitudes alone.",
+        fr:"Le Canada lance sa Stratégie de lutte contre le racisme 2024-2028, élaborée après des consultations pancanadiennes et intitulée Changer les systèmes, transformer des vies. Elle présente explicitement le travail comme un changement de systèmes, poursuit le rôle pangouvernemental du Secrétariat fédéral de lutte contre le racisme et garde le cap sur les institutions, y compris fédérales, plutôt que sur les seules attitudes." },
+  worked:{ en:"Renewal itself matters: the 2019 strategy did not lapse into silence the way Embracing Change did, and systems language keeps the burden on institutions rather than on the people harmed.",
+           fr:"Le renouvellement compte en soi : la stratégie de 2019 n'a pas sombré dans le silence comme Faire place au changement, et le langage des systèmes maintient le fardeau sur les institutions plutôt que sur les personnes lésées." },
+  fell:{ en:"Like its predecessor, it carries no new enforcement authority over the public service workplace; its internal effect still depends on the employment equity framework that remains unamended.",
+         fr:"Comme sa devancière, elle n'apporte aucun nouveau pouvoir d'application sur le milieu de travail de la fonction publique; son effet interne dépend encore du cadre d'équité en emploi toujours non modifié." },
+  links:[ {t:{en:"Canada's Anti-Racism Strategy 2024-2028 (Canadian Heritage)",fr:"Stratégie canadienne de lutte contre le racisme 2024-2028 (Patrimoine canadien)"}, u:"https://www.canada.ca/en/canadian-heritage/services/combatting-racism-discrimination/canada-anti-racism-strategy.html"},
+          {t:{en:"Strategy document (publications.gc.ca)",fr:"Document de la stratégie (publications.gc.ca)"}, u:"https://publications.gc.ca/site/eng/9.939031/publication.html"} ] },
+
+{ id:"y2025b", year:"Mar. 2025", sortYear:2025, era:"era6", cat:["kase"], grp:["black"],
+  title:{ en:"The Federal Court says no to certification; the fight moves and multiplies",
+          fr:"La Cour fédérale refuse l'autorisation; la lutte se déplace et se multiplie" },
+  sum:{ en:"On 13 March 2025 the Federal Court declines to certify the Black Class Action, holding in essence that public servants must use the existing recourse regime of grievances, labour board adjudication and human rights complaints rather than a class proceeding. The plaintiffs appeal in April 2025, and the case is before the Federal Court of Appeal. The same month, the Public Service Alliance of Canada files a sweeping human rights complaint alleging systemic anti-Black racism in the public service, taking the systemic claim into the very recourse system the Court pointed to.",
+        fr:"Le 13 mars 2025, la Cour fédérale refuse d'autoriser le recours collectif noir, jugeant en substance que les fonctionnaires doivent utiliser le régime de recours existant, griefs, arbitrage et plaintes de droits de la personne, plutôt qu'un recours collectif. Les demandeurs portent la décision en appel en avril 2025, et l'affaire est devant la Cour d'appel fédérale. Le même mois, l'Alliance de la Fonction publique du Canada dépose une vaste plainte de droits de la personne alléguant un racisme systémique anti-Noirs dans la fonction publique, portant la réclamation systémique dans le système même désigné par la Cour." },
+  worked:{ en:"Even in losing certification, the litigation reshaped the field: programs, funds, data and political attention that did not exist in 2020 now do, and the union complaint keeps a systemic vehicle alive inside the recourse system.",
+           fr:"Même en perdant l'autorisation, le litige a remodelé le terrain : programmes, fonds, données et attention politique inexistants en 2020 existent désormais, et la plainte syndicale maintient un véhicule systémique vivant dans le système de recours." },
+  fell:{ en:"The decision leaves individuals to carry systemic claims one case at a time, the pattern this history shows exhausts complainants, and years of appellate process now stand between class members and any answer on the merits.",
+         fr:"La décision laisse les individus porter des réclamations systémiques un cas à la fois, le schéma qui, selon cette histoire, épuise les plaignants, et des années de procédure d'appel séparent désormais les membres du groupe de toute réponse sur le fond." },
+  links:[ {t:{en:"Legal analysis of the certification decision (Hicks Morley)",fr:"Analyse juridique de la décision sur l'autorisation (Hicks Morley)"}, u:"https://hicksmorley.com/2025/03/24/federal-court-dismisses-2-5-billion-class-action-alleging-systemic-anti-black-racism-in-federal-public-service-hiring-decisions-and-promotional-opportunities/"},
+          {t:{en:"PSAC announcement of its systemic complaint",fr:"Annonce par l'AFPC de sa plainte systémique"}, u:"https://psacunion.ca/largest-federal-public-service-union-files"} ] },
+
+{ id:"y2025p", year:"2025", sortYear:2025.5, era:"era6", cat:["data"], grp:["all","black","indigenous","disability"],
+  title:{ en:"PSES 2024: the disaggregated survey era",
+          fr:"SAFF 2024 : l'ère du sondage désagrégé" },
+  sum:{ en:"Results of the 2024 Public Service Employee Survey are published with extensive disaggregation by equity group and subgroup. The pattern is now measurable in one instrument: Black, Indigenous and racialized employees and persons with disabilities continue to report higher rates of discrimination and harassment than the service average, and the sources of that treatment, and gaps in confidence in recourse, can be read directly from the data.",
+        fr:"Les résultats du Sondage auprès des fonctionnaires fédéraux de 2024 sont publiés avec une désagrégation étendue par groupe et sous-groupe. La tendance se mesure désormais dans un seul instrument : les employés noirs, autochtones et racialisés et les personnes en situation de handicap continuent de déclarer des taux de discrimination et de harcèlement supérieurs à la moyenne, et les sources de ce traitement, comme les écarts de confiance envers les recours, se lisent directement dans les données." },
+  worked:{ en:"The measurement fight is essentially won: the evidence base employees demanded for decades now exists, is public, and is granular enough to hold specific organizations to account.",
+           fr:"La bataille de la mesure est essentiellement gagnée : la base de preuve réclamée pendant des décennies existe, est publique et assez fine pour demander des comptes à des organisations précises." },
+  fell:{ en:"Measurement without consequence is the era's unresolved problem. No organization yet faces a defined result when its disaggregated gaps persist year over year.",
+         fr:"La mesure sans conséquence est le problème non résolu de l'époque. Aucune organisation ne fait encore face à une suite définie quand ses écarts désagrégés persistent année après année." },
+  links:[ {t:{en:"Public Service Employee Survey results (TBS)",fr:"Résultats du Sondage auprès des fonctionnaires fédéraux (SCT)"}, u:"https://www.canada.ca/en/treasury-board-secretariat/services/innovation/public-service-employee-survey.html"} ] },
+
+{ id:"y2026", year:"2026", sortYear:2026, era:"era6", cat:["moment"], grp:["all"],
+  title:{ en:"Where things stand",
+          fr:"Où en sont les choses" },
+  sum:{ en:"As of mid-2026: the Employment Equity Act has still not been amended, and in March 2026 Canada's unions launched a No More Waiting campaign demanding the promised modernization. The Black Class Action appeal is before the Federal Court of Appeal. The Black Equity Commissioner recommended by the Senate does not exist. The data infrastructure, the programs and the vocabulary have all transformed since 2020; the enforcement architecture has not.",
+        fr:"À la mi-2026 : la Loi sur l'équité en matière d'emploi n'a toujours pas été modifiée, et en mars 2026 les syndicats du Canada ont lancé la campagne Assez attendu, exigeant la modernisation promise. L'appel du recours collectif noir est devant la Cour d'appel fédérale. Le commissaire à l'équité pour les personnes noires recommandé par le Sénat n'existe pas. L'infrastructure de données, les programmes et le vocabulaire se sont transformés depuis 2020; l'architecture d'application, non." },
+  worked:{ en:"A century and a half of record supports one conclusion: durable change came from statutes with enforcement, binding tribunal orders, disaggregated measurement and organized employees, usually in combination. Those levers exist and are better developed than ever.",
+           fr:"Un siècle et demi de dossier appuie une conclusion : le changement durable est venu de lois avec application, d'ordonnances contraignantes, de mesures désagrégées et d'employés organisés, généralement combinés. Ces leviers existent et sont plus développés que jamais." },
+  fell:{ en:"The recurring failure is also documented: commitments without consequences fade within a funding cycle. Whether the 2020s become an exception depends on decisions that, as of this writing, remain unmade.",
+         fr:"L'échec récurrent est tout aussi documenté : les engagements sans conséquences s'estompent en un cycle budgétaire. Que les années 2020 fassent exception dépend de décisions qui, au moment d'écrire ces lignes, restent à prendre." },
+  links:[ {t:{en:"Canadian Labour Congress: No More Waiting campaign",fr:"Congrès du travail du Canada : campagne Assez attendu"}, u:"https://canadianlabour.ca/no-more-waiting-canadas-unions-demand-action-to-modernizethe-employment-equity-act/"} ] }
+];
+
+/* =========================================================
+   KEY CASES. Rendered in the Cases section.
+   ========================================================= */
+var CASES = [
+{ id:"c-robichaud", years:"1987",
+  title:{ en:"Robichaud v. Canada (Treasury Board), Supreme Court of Canada",
+          fr:"Robichaud c. Canada (Conseil du Trésor), Cour suprême du Canada" },
+  sum:{ en:"Bonnie Robichaud, a Department of National Defence employee, pursued her sexual harassment complaint all the way to the Supreme Court, which ruled that employers are liable for discriminatory acts committed by their employees in the course of employment. The decision made the federal employer answerable for what happens inside its workplaces, the legal foundation under every harassment and discrimination policy that followed.",
+        fr:"Bonnie Robichaud, employée du ministère de la Défense nationale, a porté sa plainte de harcèlement sexuel jusqu'à la Cour suprême, qui a statué que les employeurs sont responsables des actes discriminatoires commis par leurs employés dans le cadre de l'emploi. La décision a rendu l'employeur fédéral responsable de ce qui se passe dans ses milieux de travail, le fondement juridique de toutes les politiques sur le harcèlement et la discrimination qui ont suivi." },
+  lesson:{ en:"Lesson: individual courage plus employer liability changed the law for everyone. Accountability rules that survive are the ones written by courts.",
+           fr:"Leçon : le courage individuel et la responsabilité de l'employeur ont changé le droit pour tout le monde. Les règles de responsabilité qui durent sont celles écrites par les tribunaux." },
+  links:[ {t:{en:"Supreme Court of Canada decisions",fr:"Décisions de la Cour suprême du Canada"}, u:"https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/230/index.do"} ] },
+
+{ id:"c-grover", years:"1992 and after",
+  title:{ en:"Grover v. National Research Council, Canadian Human Rights Tribunal",
+          fr:"Grover c. Conseil national de recherches, Tribunal canadien des droits de la personne" },
+  sum:{ en:"The Tribunal found the NRC discriminated against Dr. Chander Grover in career advancement on the basis of race, colour and ethnic origin. Years of compliance litigation followed to make the ordered remedies real. One of the earliest major findings of racial discrimination inside a federal institution.",
+        fr:"Le Tribunal a conclu que le CNRC avait exercé de la discrimination envers le Dr Chander Grover dans son avancement professionnel en raison de sa race, de sa couleur et de son origine ethnique. Des années de litiges d'exécution ont suivi pour concrétiser les mesures ordonnées. L'un des premiers grands constats de discrimination raciale au sein d'une institution fédérale." },
+  lesson:{ en:"Lesson: winning an order is half the fight; enforcement needs its own strategy and stamina.",
+           fr:"Leçon : obtenir une ordonnance n'est que la moitié du combat; l'exécution exige sa propre stratégie et de l'endurance." },
+  links:[ {t:{en:"CHRT decisions (CanLII)",fr:"Décisions du TCDP (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"} ] },
+
+{ id:"c-ncarr", years:"1997",
+  title:{ en:"NCARR v. Health Canada, Canadian Human Rights Tribunal",
+          fr:"NCARR c. Santé Canada, Tribunal canadien des droits de la personne" },
+  sum:{ en:"The National Capital Alliance on Race Relations proved through statistics and testimony that visible minority employees at Health Canada were systematically kept out of management. The Tribunal ordered special temporary measures, appointments into senior ranks, training and monitoring. It remains the leading example of a systemic remedy imposed on a federal department.",
+        fr:"La National Capital Alliance on Race Relations a prouvé, statistiques et témoignages à l'appui, que les employés de minorités visibles de Santé Canada étaient systématiquement écartés de la gestion. Le Tribunal a ordonné des mesures temporaires spéciales, des nominations aux échelons supérieurs, de la formation et un suivi. Cela demeure l'exemple de référence d'une mesure systémique imposée à un ministère fédéral." },
+  lesson:{ en:"Lesson: statistical proof plus binding targets moved numbers that decades of encouragement had not. The remedy's expiry, and the absence of any mechanism to spread it, is why the win stayed local.",
+           fr:"Leçon : la preuve statistique et des cibles contraignantes ont fait bouger des chiffres que des décennies d'encouragement n'avaient pas bougés. L'expiration de la mesure, et l'absence de mécanisme pour l'étendre, explique pourquoi la victoire est restée locale." },
+  links:[ {t:{en:"PSAC NCR: the NCARR case remembered",fr:"AFPC RCN : retour sur la cause NCARR"}, u:"https://psac-ncr.com/moving-us-forward/"},
+          {t:{en:"CHRT decisions (CanLII)",fr:"Décisions du TCDP (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"} ] },
+
+{ id:"c-pay", years:"1984-1999",
+  title:{ en:"PSAC pay equity complaint and settlement",
+          fr:"Plainte et règlement de l'AFPC sur l'équité salariale" },
+  sum:{ en:"Filed in 1984, decided by the Canadian Human Rights Tribunal in 1998, settled in 1999 for roughly 3.5 billion dollars: the federal government had underpaid workers in female-dominated occupational groups for years. About 230,000 current and former employees received payments.",
+        fr:"Déposée en 1984, tranchée par le Tribunal canadien des droits de la personne en 1998, réglée en 1999 pour environ 3,5 milliards de dollars : le gouvernement fédéral avait sous-payé pendant des années les groupes professionnels à prédominance féminine. Environ 230 000 employées et employés, actuels et anciens, ont reçu des paiements." },
+  lesson:{ en:"Lesson: institutional patience is a weapon on both sides. A union that could sustain 15 years of litigation extracted the largest equity remedy in public service history; a proactive statute (the Pay Equity Act, 2018) was the systemic fix.",
+           fr:"Leçon : la patience institutionnelle est une arme des deux côtés. Un syndicat capable de soutenir 15 ans de litige a obtenu la plus grande réparation d'équité de l'histoire de la fonction publique; une loi proactive (Loi sur l'équité salariale, 2018) a été le correctif systémique." },
+  links:[ {t:{en:"Pay Equity Act (Justice Laws)",fr:"Loi sur l'équité salariale (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-4.2/"} ] },
+
+{ id:"c-chopra", years:"1992-2011",
+  title:{ en:"The Chopra cases: Health Canada",
+          fr:"Les causes Chopra : Santé Canada" },
+  sum:{ en:"Dr. Shiv Chopra, a Health Canada scientist and an NCARR-era advocate, spent nearly two decades in litigation over racial discrimination in promotion and over reprisal after he spoke publicly, including on drug safety. The Canadian Human Rights Tribunal upheld parts of his discrimination complaints in the early 2000s, while other proceedings, including those following his 2004 dismissal, continued for years with mixed results.",
+        fr:"Le Dr Shiv Chopra, scientifique de Santé Canada et militant de l'époque NCARR, a passé près de deux décennies en litige sur la discrimination raciale dans les promotions et sur les représailles après ses prises de parole publiques, notamment sur l'innocuité des médicaments. Le Tribunal canadien des droits de la personne a accueilli en partie ses plaintes de discrimination au début des années 2000, tandis que d'autres procédures, y compris après son congédiement de 2004, se sont poursuivies pendant des années avec des résultats mitigés." },
+  lesson:{ en:"Lesson: the individual-recourse model can consume a career. His trajectory is the strongest single argument complainants later made for class-wide and systemic vehicles.",
+           fr:"Leçon : le modèle du recours individuel peut consumer une carrière. Son parcours est l'argument le plus fort invoqué ensuite par les plaignants en faveur de véhicules collectifs et systémiques." },
+  links:[ {t:{en:"CHRT decisions (CanLII)",fr:"Décisions du TCDP (CanLII)"}, u:"https://www.canlii.org/en/ca/chrt/"},
+          {t:{en:"FPSLREB decisions database",fr:"Base de décisions de la CRTESPF"}, u:"https://decisions.fpslreb-crtespf.gc.ca/"} ] },
+
+{ id:"c-chrc", years:"2020-2023",
+  title:{ en:"The CHRC policy grievance",
+          fr:"Le grief de principe contre la CCDP" },
+  sum:{ en:"Three unions (the Association of Justice Counsel, CAPE and PSAC) jointly grieved systemic anti-Black racism and discrimination inside the Canadian Human Rights Commission. In March 2023 the Treasury Board upheld the grievance, finding the Commission breached the no-discrimination article of a collective agreement. A Senate study and an unprecedented international accreditation review of the CHRC followed.",
+        fr:"Trois syndicats (l'Association des juristes de justice, l'ACEP et l'AFPC) ont déposé un grief conjoint pour racisme systémique anti-Noirs et discrimination au sein de la Commission canadienne des droits de la personne. En mars 2023, le Conseil du Trésor a accueilli le grief, concluant que la Commission avait violé l'article interdisant la discrimination d'une convention collective. Ont suivi une étude du Sénat et un examen international d'accréditation sans précédent de la CCDP." },
+  lesson:{ en:"Lesson: the collective agreement is an enforcement tool for systemic claims. A policy grievance let unions litigate a pattern, not a person, and win a binding finding.",
+           fr:"Leçon : la convention collective est un outil d'application pour les réclamations systémiques. Le grief de principe a permis aux syndicats de plaider une tendance, pas une personne, et d'obtenir un constat contraignant." },
+  links:[ {t:{en:"Joint union statement (CAPE)",fr:"Déclaration syndicale conjointe (ACEP)"}, u:"https://www.acep-cape.ca/en/news/joint-statement-damning-senate-report-anti-black-racism-canadian-human-rights-commission"},
+          {t:{en:"Senate report on the CHRC (publications.gc.ca)",fr:"Rapport du Sénat sur la CCDP (publications.gc.ca)"}, u:"https://publications.gc.ca/site/eng/9.931558/publication.html"} ] },
+
+{ id:"c-bca", years:"2020-ongoing",
+  title:{ en:"Thompson v. His Majesty the King: the Black Class Action",
+          fr:"Thompson c. Sa Majesté le Roi : le recours collectif noir" },
+  sum:{ en:"A proposed class action on behalf of Black public servants alleging decades of systemic discrimination in hiring and promotion, seeking about 2.5 billion dollars and structural remedies. The Federal Court declined certification in March 2025, pointing claimants to the grievance, labour board and human rights recourse system; the appeal is before the Federal Court of Appeal. In parallel, PSAC filed a systemic human rights complaint in 2025, and claimants have also raised the matter internationally.",
+        fr:"Un recours collectif proposé au nom des fonctionnaires noirs, alléguant des décennies de discrimination systémique dans l'embauche et la promotion, réclamant environ 2,5 milliards de dollars et des mesures structurelles. La Cour fédérale a refusé l'autorisation en mars 2025, renvoyant les demandeurs vers le système de griefs, de la commission du travail et des droits de la personne; l'appel est devant la Cour d'appel fédérale. En parallèle, l'AFPC a déposé une plainte systémique en 2025, et les demandeurs ont aussi porté l'affaire à l'international." },
+  lesson:{ en:"Lesson so far: litigation moved the institution before any judgment on the merits, producing funds, programs and data. Whether Canadian law offers a workable class-wide vehicle for public service discrimination is the open question the appeal will answer.",
+           fr:"Leçon provisoire : le litige a fait bouger l'institution avant tout jugement sur le fond, produisant fonds, programmes et données. Savoir si le droit canadien offre un véhicule collectif viable pour la discrimination dans la fonction publique est la question ouverte que l'appel tranchera." },
+  links:[ {t:{en:"Black Class Action Secretariat",fr:"Secrétariat du recours collectif noir"}, u:"https://www.blackclassaction.ca/"},
+          {t:{en:"Legal analysis of the certification decision",fr:"Analyse juridique de la décision"}, u:"https://hicksmorley.com/2025/03/24/federal-court-dismisses-2-5-billion-class-action-alleging-systemic-anti-black-racism-in-federal-public-service-hiring-decisions-and-promotional-opportunities/"},
+          {t:{en:"Government litigation summary",fr:"Résumé gouvernemental du litige"}, u:"https://search.open.canada.ca/qpnotes/record/tbs-sct,TBS-2025-QP-06-00011"} ] }
+];
+
+/* =========================================================
+   EMPLOYEE NETWORKS.
+   ========================================================= */
+var NETWORKS = [
+{ name:{en:"Federal Black Employee Caucus (FBEC)",fr:"Caucus des employés fédéraux noirs (CEFN)"},
+  meta:{en:"Interdepartmental · organized 2018",fr:"Interministériel · organisé en 2018"},
+  sum:{en:"The grassroots network whose demands for disaggregated data, Black-specific programs and mental health supports set much of the 2020s agenda.",
+       fr:"Le réseau de la base dont les demandes de données désagrégées, de programmes propres aux employés noirs et de soutiens en santé mentale ont façonné une grande partie du programme des années 2020."},
+  url:"https://www.fbec-cefn.ca/" },
+{ name:{en:"Black Executives Network",fr:"Réseau des cadres noirs"},
+  meta:{en:"Interdepartmental · executives",fr:"Interministériel · cadres"},
+  sum:{en:"Connects and supports Black executives across the public service and advises on the leadership pipeline, sponsorship and executive development.",
+       fr:"Relie et soutient les cadres noirs de la fonction publique et conseille sur le bassin de leadership, le parrainage et le perfectionnement des cadres."},
+  url:null },
+{ name:{en:"Knowledge Circle for Indigenous Inclusion",fr:"Cercle du savoir sur l'inclusion autochtone"},
+  meta:{en:"Interdepartmental · Indigenous employees",fr:"Interministériel · employés autochtones"},
+  sum:{en:"Carries forward the work of Many Voices One Mind: cultural safety, recruitment and retention of Indigenous employees, and holding departments to reconciliation commitments as an employer.",
+       fr:"Poursuit le travail d'Unis dans la diversité : sécurité culturelle, recrutement et maintien des employés autochtones, et respect des engagements de réconciliation de l'employeur."},
+  url:null },
+{ name:{en:"Indigenous Federal Employees Network",fr:"Réseau des employés fédéraux autochtones"},
+  meta:{en:"Interdepartmental · Indigenous employees",fr:"Interministériel · employés autochtones"},
+  sum:{en:"An employee-led network advocating on Indigenous representation, advancement and workplace experience, including at executive levels.",
+       fr:"Un réseau dirigé par les employés qui défend la représentation, l'avancement et l'expérience de travail des Autochtones, y compris aux échelons de direction."},
+  url:null },
+{ name:{en:"Network of Asian Federal Employees",fr:"Réseau des employés fédéraux asiatiques"},
+  meta:{en:"Interdepartmental",fr:"Interministériel"},
+  sum:{en:"Formed amid the rise in anti-Asian racism during the pandemic; advocates on representation, advancement and workplace safety for employees of Asian descent.",
+       fr:"Formé pendant la montée du racisme anti-asiatique de la pandémie; défend la représentation, l'avancement et la sécurité au travail des employés d'origine asiatique."},
+  url:null },
+{ name:{en:"Muslim Federal Employees Network",fr:"Réseau des employés fédéraux musulmans"},
+  meta:{en:"Interdepartmental",fr:"Interministériel"},
+  sum:{en:"Advocates on Islamophobia, religious accommodation and inclusion for Muslim public servants.",
+       fr:"Agit contre l'islamophobie et pour l'accommodement religieux et l'inclusion des fonctionnaires musulmans."},
+  url:null },
+{ name:{en:"Jewish Public Servants' Network",fr:"Réseau des fonctionnaires juifs"},
+  meta:{en:"Interdepartmental",fr:"Interministériel"},
+  sum:{en:"Supports Jewish public servants and advocates on antisemitism and religious inclusion in the federal workplace.",
+       fr:"Soutient les fonctionnaires juifs et agit contre l'antisémitisme et pour l'inclusion religieuse dans le milieu fédéral."},
+  url:null },
+{ name:{en:"Public Service Pride Network",fr:"Réseau de la Fierté à la fonction publique"},
+  meta:{en:"Interdepartmental · 2SLGBTQIA+",fr:"Interministériel · 2ELGBTQIA+"},
+  sum:{en:"Connects 2SLGBTQIA+ employees and allies across departments, runs Public Service Pride Week, and advocates on inclusive policy from identity documents to benefits.",
+       fr:"Relie les employés 2ELGBTQIA+ et leurs alliés, organise la Semaine de la Fierté à la fonction publique et défend des politiques inclusives, des documents d'identité aux avantages sociaux."},
+  url:null },
+{ name:{en:"Network for Neurodivergent Public Servants",fr:"Réseau des fonctionnaires neurodivergents"},
+  meta:{en:"Interdepartmental · neurodivergent employees",fr:"Interministériel · employés neurodivergents"},
+  sum:{en:"Advocates for neuro-inclusive hiring, assessment and accommodation, challenging selection tools built around a single cognitive style.",
+       fr:"Défend une embauche, une évaluation et un accommodement neuro-inclusifs, remettant en cause des outils de sélection conçus pour un seul style cognitif."},
+  url:null },
+{ name:{en:"Persons with disabilities networks and champions",fr:"Réseaux et champions des personnes en situation de handicap"},
+  meta:{en:"Departmental and interdepartmental",fr:"Ministériels et interministériels"},
+  sum:{en:"Departmental networks of employees with disabilities, together with champions and chairs committees, drive accommodation reform and accessibility plan accountability under the Accessible Canada Act.",
+       fr:"Les réseaux ministériels d'employés en situation de handicap, avec les comités de champions et de présidents, font avancer la réforme de l'accommodement et la reddition de comptes des plans d'accessibilité sous la Loi canadienne sur l'accessibilité."},
+  url:null },
+{ name:{en:"Women's and gender equity networks",fr:"Réseaux des femmes et de l'équité des genres"},
+  meta:{en:"Departmental and functional",fr:"Ministériels et fonctionnels"},
+  sum:{en:"From departmental women's networks to communities in science, technology and operations, these groups carry the Beneath the Veneer agenda forward, increasingly with an intersectional lens.",
+       fr:"Des réseaux ministériels de femmes aux communautés en sciences, technologie et opérations, ces groupes poursuivent le programme de Sous la surface, de plus en plus avec une optique intersectionnelle."},
+  url:null },
+{ name:{en:"Departmental racialized employee networks",fr:"Réseaux ministériels d'employés racialisés"},
+  meta:{en:"Most departments",fr:"La plupart des ministères"},
+  sum:{en:"Visible minority and racialized employee networks exist in most large departments, often with formal terms of reference, champions at the assistant deputy minister level, and seats in consultation structures.",
+       fr:"Des réseaux d'employés de minorités visibles et racialisés existent dans la plupart des grands ministères, souvent avec un mandat officiel, des champions au niveau de sous-ministre adjoint et des sièges dans les structures de consultation."},
+  url:null },
+{ name:{en:"Directory: GC diversity networks (GCwiki)",fr:"Répertoire : réseaux de la diversité du GC (GCwiki)"},
+  meta:{en:"Community-maintained list",fr:"Liste tenue par la communauté"},
+  sum:{en:"A community-maintained directory of interdepartmental and departmental networks, the most current single list available.",
+       fr:"Un répertoire tenu par la communauté des réseaux interministériels et ministériels, la liste unique la plus à jour disponible."},
+  url:"https://wiki.gccollab.ca/index.php?title=GC_Diversity_Networks_-_R%C3%A9seaux_de_la-diversit%C3%A9-du_GC" }
+];
+
+/* =========================================================
+   NOTABLE INDIVIDUALS.
+   ========================================================= */
+var PEOPLE = [
+{ name:"Rosalie Silberman Abella",
+  role:{en:"Royal commissioner, 1984; later Supreme Court justice",fr:"Commissaire royale, 1984; plus tard juge à la Cour suprême"},
+  sum:{en:"Coined employment equity and defined systemic discrimination by outcomes rather than intent. Every designated-group framework since 1984 descends from her report.",
+       fr:"A créé l'expression équité en matière d'emploi et défini la discrimination systémique par les résultats plutôt que l'intention. Tous les cadres de groupes désignés depuis 1984 découlent de son rapport."} },
+{ name:"Bonnie Robichaud",
+  role:{en:"DND employee; Supreme Court litigant, 1987",fr:"Employée du MDN; plaideuse à la Cour suprême, 1987"},
+  sum:{en:"Her case established that the employer is liable for harassment and discrimination in its workplaces, the foundation of every workplace policy that followed.",
+       fr:"Sa cause a établi que l'employeur est responsable du harcèlement et de la discrimination dans ses milieux de travail, le fondement de toutes les politiques qui ont suivi."} },
+{ name:"Lewis Perinbam",
+  role:{en:"Chair, Task Force on the Participation of Visible Minorities, 2000",fr:"Président, Groupe de travail sur la participation des minorités visibles, 2000"},
+  sum:{en:"His Embracing Change report set the 1-in-5 benchmark and diagnosed the accountability failure that later reports kept confirming.",
+       fr:"Son rapport Faire place au changement a fixé le repère de 1 sur 5 et diagnostiqué l'échec de responsabilisation que les rapports ultérieurs n'ont cessé de confirmer."} },
+{ name:"Chander Grover",
+  role:{en:"NRC scientist; tribunal complainant",fr:"Scientifique du CNRC; plaignant devant le Tribunal"},
+  sum:{en:"Won one of the first major findings of racial discrimination inside a federal institution, then spent years enforcing it, a case study in the cost of individual recourse.",
+       fr:"A obtenu l'un des premiers grands constats de discrimination raciale dans une institution fédérale, puis a passé des années à le faire exécuter, une étude de cas du coût du recours individuel."} },
+{ name:"Shiv Chopra",
+  role:{en:"Health Canada scientist; complainant and whistleblower",fr:"Scientifique de Santé Canada; plaignant et lanceur d'alerte"},
+  sum:{en:"Fought racial discrimination in promotion and reprisal for public candour across nearly two decades of proceedings, embodying both the possibilities and the exhaustion of the complaint system.",
+       fr:"A combattu la discrimination raciale dans les promotions et les représailles contre sa franchise publique pendant près de deux décennies de procédures, incarnant les possibilités et l'épuisement du système de plaintes."} },
+{ name:"Yazmine Laroche",
+  role:{en:"First Deputy Minister, Public Service Accessibility",fr:"Première sous-ministre, Accessibilité de la fonction publique"},
+  sum:{en:"Led the Nothing Without Us strategy, showing what a named senior owner with a target and a deadline can do for an equity file.",
+       fr:"A dirigé la stratégie Rien sans nous, montrant ce qu'une responsable désignée, avec cible et échéance, peut faire pour un dossier d'équité."} },
+{ name:"Gina Wilson",
+  role:{en:"Senior Indigenous deputy minister",fr:"Sous-ministre autochtone d'expérience"},
+  sum:{en:"Championed Indigenous federal employee initiatives across multiple departments, including the work carried forward from Many Voices One Mind.",
+       fr:"A porté les initiatives des employés fédéraux autochtones dans plusieurs ministères, dont les suites d'Unis dans la diversité."} },
+{ name:"Ian Shugart",
+  role:{en:"Clerk of the Privy Council, 2019-2021",fr:"Greffier du Conseil privé, 2019-2021"},
+  sum:{en:"Issued the January 2021 Call to Action, the most specific top-level direction on anti-racism the public service had received, and made deputies publicly answerable for it.",
+       fr:"A lancé l'appel à l'action de janvier 2021, la directive au plus haut niveau la plus précise jamais reçue sur l'antiracisme, en rendant les administrateurs généraux publiquement responsables."} },
+{ name:"Richard Sharpe",
+  role:{en:"Co-founder, Federal Black Employee Caucus",fr:"Cofondateur, Caucus des employés fédéraux noirs"},
+  sum:{en:"Helped build the grassroots organizing that made disaggregated data and Black-specific programs unavoidable demands.",
+       fr:"A contribué à bâtir l'organisation de la base qui a rendu incontournables les données désagrégées et les programmes propres aux employés noirs."} },
+{ name:"Nicholas Marcus Thompson",
+  role:{en:"Lead plaintiff, Black Class Action; executive director, Black Class Action Secretariat",fr:"Demandeur principal du recours collectif noir; directeur général du Secrétariat du recours collectif noir"},
+  sum:{en:"Turned individual experiences into a class-wide legal and political claim that reshaped the file even before any ruling on the merits.",
+       fr:"A transformé des expériences individuelles en réclamation juridique et politique collective qui a remodelé le dossier avant même un jugement sur le fond."} },
+{ name:"Wanda Thomas Bernard",
+  role:{en:"Senator; social worker and scholar",fr:"Sénatrice; travailleuse sociale et universitaire"},
+  sum:{en:"Drove the Senate's anti-Black racism studies, giving public servants a protected forum and converting testimony into institutional recommendations.",
+       fr:"A mené les études du Sénat sur le racisme anti-Noirs, offrant aux fonctionnaires une tribune protégée et convertissant les témoignages en recommandations institutionnelles."} },
+{ name:"Adelle Blackett",
+  role:{en:"Chair, Employment Equity Act Review Task Force",fr:"Présidente, Groupe de travail sur l'examen de la Loi sur l'équité en matière d'emploi"},
+  sum:{en:"Authored the 187-recommendation blueprint for a modernized Act, including distinct recognition of Black and 2SLGBTQI+ workers.",
+       fr:"Autrice du plan directeur de 187 recommandations pour une loi modernisée, dont la reconnaissance distincte des travailleurs noirs et 2ELGBTQI+."} },
+{ name:"Daniel Quan-Watson",
+  role:{en:"Deputy minister",fr:"Sous-ministre"},
+  sum:{en:"Spoke publicly and personally about experiencing racism throughout a public service career, rare candour at the deputy level that widened what leaders could say.",
+       fr:"A parlé publiquement et personnellement du racisme vécu tout au long d'une carrière fédérale, une franchise rare au niveau des sous-ministres qui a élargi ce que les dirigeants pouvaient dire."} },
+{ name:"Carla Qualtrough",
+  role:{en:"Minister; champion of the Accessible Canada Act",fr:"Ministre; championne de la Loi canadienne sur l'accessibilité"},
+  sum:{en:"A Paralympian with lived experience of disability who shepherded the strongest equity statute in this timeline into law.",
+       fr:"Paralympienne ayant une expérience vécue du handicap, elle a mené jusqu'à l'adoption la loi d'équité la plus solide de cette ligne du temps."} },
+{ name:"Karen Hogan",
+  role:{en:"Auditor General of Canada",fr:"Vérificatrice générale du Canada"},
+  sum:{en:"Her 2023 audit named the system's core failure in one sentence: organizations count activities and do not measure outcomes for racialized employees.",
+       fr:"Sa vérification de 2023 a nommé l'échec central du système en une phrase : les organisations comptent les activités et ne mesurent pas les résultats pour le personnel racisé."} },
+{ name:"Michael Gottheil",
+  role:{en:"First Accessibility Commissioner",fr:"Premier commissaire à l'accessibilité"},
+  sum:{en:"Holds the first federal enforcement office dedicated to accessibility, the model equity advocates cite when arguing other files need a commissioner too.",
+       fr:"Titulaire du premier poste fédéral d'application dédié à l'accessibilité, le modèle que citent les défenseurs de l'équité pour réclamer des commissaires dans d'autres dossiers."} }
+];
+
+/* =========================================================
+   GLOSSARY.
+   ========================================================= */
+var GLOSSARY = [
+{ term:{en:"Employment equity",fr:"Équité en matière d'emploi"},
+  def:{en:"Canada's approach, defined by the Abella Commission: achieve equality in the workplace by removing barriers and, where needed, using positive measures. Treating everyone identically is not the goal; fair outcomes are.",
+       fr:"L'approche canadienne, définie par la Commission Abella : atteindre l'égalité au travail en éliminant les obstacles et, au besoin, par des mesures positives. Le but n'est pas de traiter tout le monde identiquement, mais d'obtenir des résultats équitables."} },
+{ term:{en:"Designated groups",fr:"Groupes désignés"},
+  def:{en:"The groups the Employment Equity Act names: women, Indigenous peoples, persons with disabilities, and members of visible minorities. The 2023 task force recommended adding Black workers and 2SLGBTQI+ workers and updating the terminology.",
+       fr:"Les groupes que nomme la Loi sur l'équité en matière d'emploi : les femmes, les peuples autochtones, les personnes handicapées et les membres des minorités visibles. Le groupe de travail de 2023 a recommandé d'ajouter les travailleurs noirs et 2ELGBTQI+ et d'actualiser la terminologie."} },
+{ term:{en:"Disaggregated data",fr:"Données désagrégées"},
+  def:{en:"Results broken down by specific group or subgroup, for example Black employees rather than all visible minorities. Aggregated categories hid subgroup gaps for decades; disaggregation is what made them undeniable.",
+       fr:"Des résultats ventilés par groupe ou sous-groupe précis, par exemple les employés noirs plutôt que l'ensemble des minorités visibles. Les catégories agrégées ont caché les écarts pendant des décennies; la désagrégation les a rendus indéniables."} },
+{ term:{en:"Systemic discrimination",fr:"Discrimination systémique"},
+  def:{en:"Disadvantage produced by ordinary rules, practices and cultures rather than individual intent, and proven by patterns in outcomes. Established in Canadian law through cases like Action Travail des Femmes and applied to the public service in NCARR.",
+       fr:"Un désavantage produit par des règles, pratiques et cultures ordinaires plutôt que par une intention individuelle, et prouvé par des tendances dans les résultats. Établie en droit canadien par des causes comme Action Travail des Femmes et appliquée à la fonction publique dans NCARR."} },
+{ term:{en:"Workforce availability",fr:"Disponibilité au sein de la population active"},
+  def:{en:"The estimated share of qualified people from a group in the relevant labour market. Representation is judged against it. Critics note it can become a ceiling: matching availability is treated as done, even where availability itself reflects past exclusion.",
+       fr:"La part estimée de personnes qualifiées d'un groupe dans le marché du travail pertinent. La représentation s'y compare. Des critiques notent qu'elle peut devenir un plafond : l'atteindre est traité comme un objectif accompli, même quand la disponibilité reflète l'exclusion passée."} },
+{ term:{en:"Accommodation vs. accessibility",fr:"Accommodement vs accessibilité"},
+  def:{en:"Accommodation adjusts for one person after they ask. Accessibility removes the barrier for everyone before anyone has to ask. The Accessible Canada Act marks the legal shift from the first model to the second.",
+       fr:"L'accommodement ajuste pour une personne après sa demande. L'accessibilité élimine l'obstacle pour tout le monde avant toute demande. La Loi canadienne sur l'accessibilité marque le passage juridique du premier modèle au second."} },
+{ term:{en:"Grievance vs. human rights complaint",fr:"Grief vs plainte de droits de la personne"},
+  def:{en:"A grievance travels through the collective agreement and can be referred to the FPSLREB, which may apply the Canadian Human Rights Act. A complaint goes to the Canadian Human Rights Commission and may reach the Tribunal. Most public servants must use the grievance route first; unions can file policy grievances about systemic issues.",
+       fr:"Le grief suit la convention collective et peut être renvoyé à la CRTESPF, qui peut appliquer la Loi canadienne sur les droits de la personne. La plainte va à la Commission canadienne des droits de la personne et peut atteindre le Tribunal. La plupart des fonctionnaires doivent d'abord passer par le grief; les syndicats peuvent déposer des griefs de principe sur des enjeux systémiques."} },
+{ term:{en:"Psychosocial hazard",fr:"Danger psychosocial"},
+  def:{en:"A workplace condition that can harm mental or physical health, such as harassment, violence or discrimination. Under the Canada Labour Code and the 2021 harassment and violence regulations, such hazards must be assessed and prevented like any physical hazard.",
+       fr:"Une condition de travail pouvant nuire à la santé mentale ou physique, comme le harcèlement, la violence ou la discrimination. Sous le Code canadien du travail et le règlement de 2021 sur le harcèlement et la violence, ces dangers doivent être évalués et prévenus comme tout danger physique."} }
+];
+
+/* =========================================================
+   RENDERING. No storage APIs are used; preferences last for
+   the session. Language can be shared via the #fr hash.
+   ========================================================= */
+var state = { lang:"en", hc:false, size:0, cat:"all", grp:"all", q:"" };
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function T(obj){ return obj ? (obj[state.lang] || obj.en || "") : ""; }
+function S(key){ return STR[state.lang][key] !== undefined ? STR[state.lang][key] : (STR.en[key] || ""); }
+
+function applyChrome(){
+  document.documentElement.lang = state.lang;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for (var i=0;i<nodes.length;i++){
+    var k = nodes[i].getAttribute("data-i18n");
+    if (k === "sizeBtn") continue;
+    if (STR[state.lang][k] !== undefined) nodes[i].textContent = STR[state.lang][k];
+  }
+  document.getElementById("langBtn").textContent = S("langBtn");
+  document.getElementById("langBtn").setAttribute("aria-pressed", state.lang === "fr" ? "true" : "false");
+  var sizes = ["A","A+","A++"];
+  document.getElementById("sizeBtn").textContent = S("sizeBtnBase") + ": " + sizes[state.size];
+  document.getElementById("searchBox").setAttribute("placeholder", S("searchPh"));
+  document.title = state.lang === "fr"
+    ? "De l'exclusion \u00E0 la responsabilisation | Fonction publique du Canada"
+    : "From Exclusion to Accountability | Public Service of Canada";
+}
+
+function chipRow(containerId, dict, activeKey, labelKey, onPick){
+  var el = document.getElementById(containerId);
+  var html = '<span class="chip-row-label">' + esc(S(labelKey)) + '</span>';
+  html += '<button class="chip" data-k="all" aria-pressed="' + (activeKey==="all") + '">' + esc(S("all")) + '</button>';
+  for (var k in dict){
+    if (!dict.hasOwnProperty(k) || k === "all") continue;
+    html += '<button class="chip" data-k="' + k + '" aria-pressed="' + (activeKey===k) + '">' + esc(T(dict[k])) + '</button>';
+  }
+  el.innerHTML = html;
+  var btns = el.querySelectorAll(".chip");
+  for (var i=0;i<btns.length;i++){
+    btns[i].addEventListener("click", function(){ onPick(this.getAttribute("data-k")); });
+  }
+}
+
+function matches(ev){
+  if (state.cat !== "all" && ev.cat.indexOf(state.cat) === -1) return false;
+  if (state.grp !== "all" && ev.grp.indexOf(state.grp) === -1 && ev.grp.indexOf("all") === -1) return false;
+  if (state.q){
+    var hay = (ev.year + " " + T(ev.title) + " " + T(ev.sum) + " " + T(ev.worked||null) + " " + T(ev.fell||null)).toLowerCase();
+    if (hay.indexOf(state.q) === -1) return false;
+  }
+  return true;
+}
+
+function linkBlock(links){
+  var html = '<div class="links"><span class="lab">' + esc(S("sourcesLab")) + '</span>';
+  if (!links || !links.length){
+    html += '<span class="no-link-note">' + esc(S("noLink")) + '</span>';
+  } else {
+    for (var i=0;i<links.length;i++){
+      html += '<a href="' + esc(links[i].u) + '" target="_blank" rel="noopener">' + esc(T(links[i].t)) + '</a>';
+    }
+  }
+  return html + '</div>';
+}
+
+function assessBlock(ev){
+  var html = "";
+  if (ev.worked) html += '<div class="assess worked"><span class="lab">' + esc(S("workedLab")) + '</span>' + esc(T(ev.worked)) + '</div>';
+  if (ev.fell)   html += '<div class="assess fell"><span class="lab">' + esc(S("fellLab")) + '</span>' + esc(T(ev.fell)) + '</div>';
+  return html;
+}
+
+function tagList(ev){
+  var html = '<div class="tags">';
+  for (var i=0;i<ev.cat.length;i++) html += '<span class="tag">' + esc(T(CATS[ev.cat[i]])) + '</span>';
+  for (var j=0;j<ev.grp.length;j++) html += '<span class="tag">' + esc(T(GRPS[ev.grp[j]])) + '</span>';
+  return html + '</div>';
+}
+
+function renderEraNav(){
+  var el = document.getElementById("eraNav");
+  var html = "";
+  for (var i=0;i<ERAS.length;i++){
+    var e = ERAS[i];
+    html += '<a href="#' + e.id + '">' + e.start + "\u2013" + e.end + " \u00B7 " + esc(T(e.title)) + '</a>';
+  }
+  el.innerHTML = html;
+}
+
+function renderTimeline(){
+  var el = document.getElementById("timeline");
+  var shown = 0, html = "";
+  var sorted = EVENTS.slice().sort(function(a,b){ return a.sortYear - b.sortYear; });
+  for (var i=0;i<ERAS.length;i++){
+    var era = ERAS[i];
+    var evs = [];
+    for (var j=0;j<sorted.length;j++){
+      if (sorted[j].era === era.id && matches(sorted[j])) evs.push(sorted[j]);
+    }
+    if (!evs.length) continue;
+    html += '<div class="era-band" id="' + era.id + '"><span class="years">' + era.start + "\u2013" + era.end + '</span>' +
+            '<h2>' + esc(T(era.title)) + '</h2><p>' + esc(T(era.blurb)) + '</p></div>';
+    for (var k=0;k<evs.length;k++){
+      var ev = evs[k];
+      shown++;
+      html += '<article class="entry" id="' + ev.id + '"><div class="card">' +
+              '<span class="date">' + esc(ev.year) + '</span>' +
+              '<h3>' + esc(T(ev.title)) + '</h3>' +
+              tagList(ev) +
+              '<p class="sum">' + esc(T(ev.sum)) + '</p>' +
+              assessBlock(ev) +
+              linkBlock(ev.links) +
+              '</div></article>';
+    }
+  }
+  el.innerHTML = html;
+  document.getElementById("countOut").textContent = shown + " " + S("countOf") + " " + EVENTS.length;
+}
+
+function renderCases(){
+  var el = document.getElementById("casesOut");
+  var html = "";
+  for (var i=0;i<CASES.length;i++){
+    var c = CASES[i];
+    html += '<article class="entry" id="' + c.id + '"><div class="card">' +
+            '<span class="date">' + esc(c.years) + '</span>' +
+            '<h3>' + esc(T(c.title)) + '</h3>' +
+            '<p class="sum">' + esc(T(c.sum)) + '</p>' +
+            '<div class="assess worked"><span class="lab">' + esc(S("workedLab")) + '</span>' + esc(T(c.lesson)) + '</div>' +
+            linkBlock(c.links) +
+            '</div></article>';
+  }
+  el.innerHTML = html;
+}
+
+function renderNetworks(){
+  var el = document.getElementById("netOut");
+  var html = "";
+  for (var i=0;i<NETWORKS.length;i++){
+    var n = NETWORKS[i];
+    html += '<div class="net-card"><h3>' + esc(T(n.name)) + '</h3>' +
+            '<p class="meta">' + esc(T(n.meta)) + '</p>' +
+            '<p>' + esc(T(n.sum)) + '</p>';
+    if (n.url) html += '<p><a href="' + esc(n.url) + '" target="_blank" rel="noopener">' + esc(n.url.replace(/^https?:\/\//,"").replace(/\/$/,"")) + '</a></p>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function renderPeople(){
+  var el = document.getElementById("pplOut");
+  var html = "";
+  for (var i=0;i<PEOPLE.length;i++){
+    var p = PEOPLE[i];
+    html += '<div class="person"><h3>' + esc(p.name) + '</h3>' +
+            '<p class="meta" style="font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--thread)">' + esc(T(p.role)) + '</p>' +
+            '<p>' + esc(T(p.sum)) + '</p></div>';
+  }
+  el.innerHTML = html;
+}
+
+function renderGlossary(){
+  var el = document.getElementById("glOut");
+  var html = "";
+  for (var i=0;i<GLOSSARY.length;i++){
+    var g = GLOSSARY[i];
+    html += '<div class="gl-item"><h3>' + esc(T(g.term)) + '</h3><p>' + esc(T(g.def)) + '</p></div>';
+  }
+  el.innerHTML = html;
+}
+
+function renderAll(){
+  applyChrome();
+  renderEraNav();
+  chipRow("catChips", CATS, state.cat, "typeLab", function(k){ state.cat = k; renderAll(); });
+  chipRow("grpChips", GRPS, state.grp, "grpLab", function(k){ state.grp = k; renderAll(); });
+  renderTimeline();
+  renderCases();
+  renderNetworks();
+  renderPeople();
+  renderGlossary();
+}
+
+document.getElementById("langBtn").addEventListener("click", function(){
+  state.lang = state.lang === "en" ? "fr" : "en";
+  try { history.replaceState(null, "", state.lang === "fr" ? "#fr" : "#en"); } catch(e){}
+  renderAll();
+});
+document.getElementById("hcBtn").addEventListener("click", function(){
+  state.hc = !state.hc;
+  document.body.classList.toggle("hc", state.hc);
+  this.setAttribute("aria-pressed", state.hc ? "true" : "false");
+});
+document.getElementById("sizeBtn").addEventListener("click", function(){
+  state.size = (state.size + 1) % 3;
+  document.body.classList.remove("size-1","size-2");
+  if (state.size === 1) document.body.classList.add("size-1");
+  if (state.size === 2) document.body.classList.add("size-2");
+  applyChrome();
+});
+document.getElementById("searchBox").addEventListener("input", function(){
+  state.q = this.value.trim().toLowerCase();
+  renderTimeline();
+});
+
+if ((location.hash || "").toLowerCase().indexOf("fr") !== -1) state.lang = "fr";
+renderAll();
+</script>
+</body>
+</html>
