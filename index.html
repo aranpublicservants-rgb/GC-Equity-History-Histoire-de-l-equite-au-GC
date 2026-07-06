@@ -213,6 +213,51 @@ footer p{max-width:75ch;font-size:.9rem}
   .card{padding:.85rem .85rem .9rem}
   .entry{padding-left:1rem}
 }
+
+/* ---------- graphical timeline ---------- */
+.chart-wrap{background:var(--card);border:1px solid var(--line);padding:.8rem .8rem .5rem;margin:0 0 1.2rem}
+.chart-wrap svg{width:100%;height:auto;display:block}
+.chart-row-line{stroke:var(--line);stroke-width:1}
+.chart-tick{stroke:var(--line);stroke-width:1}
+.chart-label,.chart-year{font-family:var(--mono);fill:var(--ink-soft);font-size:11px}
+body.hc .chart-label,body.hc .chart-year{fill:#fff}
+body.hc .chart-row-line,body.hc .chart-tick{stroke:#666}
+.dot{stroke:var(--card);stroke-width:1.5;cursor:pointer}
+.dot.e-era1{fill:#8a94a3}.dot.e-era2{fill:#5b7a9d}.dot.e-era3{fill:#26374a}
+.dot.e-era4{fill:#1f5f3f}.dot.e-era5{fill:#a1791f}.dot.e-era6{fill:#a13c2a}
+body.hc .dot{fill:#ffd54f;stroke:#000}
+svg a:focus .dot,svg a:focus-visible .dot{stroke:var(--focus);stroke-width:3}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;margin:.5rem 0 .1rem;font-family:var(--mono);font-size:.66rem;color:var(--ink-soft)}
+body.hc .legend{color:#fff}
+.legend span{display:inline-flex;align-items:center;gap:.3rem}
+.sw{width:.7rem;height:.7rem;display:inline-block;border-radius:2px}
+.sw.e-era1{background:#8a94a3}.sw.e-era2{background:#5b7a9d}.sw.e-era3{background:#26374a}
+.sw.e-era4{background:#1f5f3f}.sw.e-era5{background:#a1791f}.sw.e-era6{background:#a13c2a}
+body.hc .sw{background:#ffd54f}
+
+/* ---------- briefing builder ---------- */
+.brief-row{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.2rem 0 .4rem}
+.brief-toggle{border-width:2px;font-weight:600}
+#briefBar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+#briefBar[hidden]{display:none}
+.brief-hint{flex-basis:100%;font-size:.85rem;color:var(--ink-soft);margin:.1rem 0 0}
+body.hc .brief-hint{color:#fff}
+.brief-cover{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--federal);padding:1.1rem 1.2rem;margin:0 0 1.2rem}
+body.hc .brief-cover{border-top-color:#ffd54f}
+.brief-cover h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin:.1rem 0 .3rem}
+.brief-cover .bmeta{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--thread);margin:0 0 .5rem}
+body.hc .brief-cover .bmeta{color:#ffd54f}
+.brief-cover p{max-width:72ch;margin:.3rem 0}
+.inc{display:flex;gap:.45rem;align-items:flex-start;font-size:.85rem;margin:0 0 .5rem;font-family:var(--mono)}
+.inc input{width:1.15rem;height:1.15rem;margin-top:.05rem;accent-color:var(--federal)}
+body.hc .inc input{accent-color:#ffd54f}
+body:not(.brief) .inc{display:none}
+body.brief .entry.excluded .card{opacity:.45}
+@media print{
+  .chart-wrap,.legend,.brief-row,.inc{display:none!important}
+  body.brief .intro,body.brief .section,body.brief footer,body.brief .entry.excluded,body.brief .era-band{display:none!important}
+  .brief-cover{border:1px solid #000;border-top:6px solid #000}
+}
 </style>
 </head>
 <body>
@@ -250,6 +295,15 @@ footer p{max-width:75ch;font-size:.9rem}
     <div class="search-row">
       <input type="search" id="searchBox" aria-label="Search the timeline" data-i18n-aria="ariaSearch">
       <span class="count" id="countOut" aria-live="polite"></span>
+    </div>
+    <div class="brief-row">
+      <button class="chip brief-toggle" id="briefBtn" aria-pressed="false"></button>
+      <span id="briefBar" hidden>
+        <button class="chip" id="briefAllBtn" data-i18n="briefAll"></button>
+        <button class="chip" id="briefNoneBtn" data-i18n="briefNone"></button>
+        <button class="chip" id="briefPrintBtn" data-i18n="briefPrint"></button>
+        <span class="brief-hint" data-i18n="briefHint"></span>
+      </span>
     </div>
   </section>
 
@@ -351,7 +405,20 @@ var STR = {
     ariaDisplay: "Display settings",
     ariaFilters: "Filter the timeline",
     ariaSearch: "Search the timeline",
-    ariaTimeline: "Timeline"
+    ariaTimeline: "Timeline",
+    briefBtn: "Briefing builder",
+    briefAll: "Include all shown",
+    briefNone: "Exclude all shown",
+    briefPrint: "Print or save as PDF",
+    briefHint: "Pick the community focus above (one or several), untick anything you don't need, then print. The cover page, entries, assessments and source links are formatted for reuse.",
+    briefTitle: "Equity history briefing",
+    briefGroups: "Community focus",
+    briefEntries: "entries",
+    briefIntro: "This briefing summarizes the documented history of anti-racism, equity, inclusion and accessibility in the Public Service of Canada for the selected community focus. Each entry names what changed, what fell short, and links the primary source. The through-line of the record: durable change has come from enforceable statutes, binding tribunal and court orders, disaggregated data, and organized employees, usually in combination.",
+    chartAria: "Graphical timeline. One row per community, dots mark events by decade and are coloured by era. Select a dot to jump to its entry.",
+    legendLab: "Eras",
+    topLink: "Top",
+    includeLab: "Include in briefing"
   },
   fr: {
     skip: "Passer au contenu principal",
@@ -393,7 +460,20 @@ var STR = {
     ariaDisplay: "Param\u00E8tres d\u0027affichage",
     ariaFilters: "Filtrer la ligne du temps",
     ariaSearch: "Rechercher dans la ligne du temps",
-    ariaTimeline: "Ligne du temps"
+    ariaTimeline: "Ligne du temps",
+    briefBtn: "G\u00E9n\u00E9rateur de note d'information",
+    briefAll: "Tout inclure (affich\u00E9)",
+    briefNone: "Tout exclure (affich\u00E9)",
+    briefPrint: "Imprimer ou enregistrer en PDF",
+    briefHint: "Choisissez la communaut\u00E9 vis\u00E9e ci-dessus (une ou plusieurs), d\u00E9cochez ce qui n'est pas n\u00E9cessaire, puis imprimez. La page couverture, les entr\u00E9es, les \u00E9valuations et les liens sources sont mis en forme pour r\u00E9utilisation.",
+    briefTitle: "Note d'information sur l'histoire de l'\u00E9quit\u00E9",
+    briefGroups: "Communaut\u00E9 vis\u00E9e",
+    briefEntries: "entr\u00E9es",
+    briefIntro: "Cette note r\u00E9sume l'histoire document\u00E9e de la lutte contre le racisme, de l'\u00E9quit\u00E9, de l'inclusion et de l'accessibilit\u00E9 dans la fonction publique du Canada pour la communaut\u00E9 vis\u00E9e s\u00E9lectionn\u00E9e. Chaque entr\u00E9e nomme ce qui a chang\u00E9, ce qui a manqu\u00E9, et lie la source primaire. Le fil conducteur du dossier\u00A0: le changement durable est venu de lois ex\u00E9cutoires, d'ordonnances contraignantes, de donn\u00E9es d\u00E9sagr\u00E9g\u00E9es et d'employ\u00E9s organis\u00E9s, g\u00E9n\u00E9ralement combin\u00E9s.",
+    chartAria: "Ligne du temps graphique. Une rang\u00E9e par communaut\u00E9, les points marquent les \u00E9v\u00E9nements par d\u00E9cennie et sont color\u00E9s par \u00E9poque. S\u00E9lectionnez un point pour aller \u00E0 son entr\u00E9e.",
+    legendLab: "\u00C9poques",
+    topLink: "Haut",
+    includeLab: "Inclure dans la note"
   }
 };
 
@@ -1073,7 +1153,86 @@ var EVENTS = [
            fr:"Un siècle et demi de dossier appuie une conclusion : le changement durable est venu de lois avec application, d'ordonnances contraignantes, de mesures désagrégées et d'employés organisés, généralement combinés. Ces leviers existent et sont plus développés que jamais." },
   fell:{ en:"The recurring failure is also documented: commitments without consequences fade within a funding cycle. Whether the 2020s become an exception depends on decisions that, as of this writing, remain unmade.",
          fr:"L'échec récurrent est tout aussi documenté : les engagements sans conséquences s'estompent en un cycle budgétaire. Que les années 2020 fassent exception dépend de décisions qui, au moment d'écrire ces lignes, restent à prendre." },
-  links:[ {t:{en:"Canadian Labour Congress: No More Waiting campaign",fr:"Congrès du travail du Canada : campagne Assez attendu"}, u:"https://canadianlabour.ca/no-more-waiting-canadas-unions-demand-action-to-modernizethe-employment-equity-act/"} ] }
+  links:[ {t:{en:"Canadian Labour Congress: No More Waiting campaign",fr:"Congrès du travail du Canada : campagne Assez attendu"}, u:"https://canadianlabour.ca/no-more-waiting-canadas-unions-demand-action-to-modernizethe-employment-equity-act/"} ] },
+
+{ id:"y1876", year:"1876", sortYear:1876, era:"era1", cat:["law","moment"], grp:["indigenous"],
+  title:{ en:"The Indian Act: exclusion as the price of participation",
+          fr:"La Loi sur les Indiens : l'exclusion comme prix de la participation" },
+  sum:{ en:"The Indian Act builds the legal architecture that governs First Nations people's civic status. Under enfranchisement provisions, full civic participation, including for periods those who earned university degrees or entered professions, meant surrendering legal Indian status. Indigenous representation questions in the public service start a century behind because the state made belonging to the institution and belonging to one's nation legally incompatible.",
+        fr:"La Loi sur les Indiens bâtit l'architecture juridique du statut civique des membres des Premières Nations. Sous les dispositions d'émancipation, la pleine participation civique, y compris pendant des périodes pour les diplômés universitaires et les professionnels, exigeait de renoncer au statut d'Indien. Les questions de représentation autochtone dans la fonction publique partent avec un siècle de retard parce que l'État a rendu juridiquement incompatibles l'appartenance à l'institution et l'appartenance à sa nation." },
+  worked:null,
+  fell:{ en:"No later program can be understood without this starting point: barriers to Indigenous employment were not incidental but constitutive, which is why Many Voices One Mind frames workplace change as part of reconciliation, not human resources.",
+         fr:"Aucun programme ultérieur ne se comprend sans ce point de départ : les obstacles à l'emploi autochtone n'étaient pas accessoires mais constitutifs, et c'est pourquoi Unis dans la diversité inscrit le changement en milieu de travail dans la réconciliation, pas dans les ressources humaines." },
+  links:[ {t:{en:"Indian Act (Justice Laws)",fr:"Loi sur les Indiens (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/i-5/"} ] },
+
+{ id:"y1952", year:"1950s-1990s", sortYear:1952, era:"era2", cat:["moment"], grp:["lgbtq"],
+  title:{ en:"The LGBT Purge: the state hunts its own employees",
+          fr:"La purge LGBT : l'État traque ses propres employés" },
+  sum:{ en:"From the 1950s to the mid-1990s, 2SLGBTQI+ members of the public service, the RCMP and the Canadian Armed Forces are subjected to systemic discrimination and harassment under official policy and sanctioned practice: interrogated, followed, abused and fired. Security campaigns treat sexual orientation as a character defect and a blackmail risk, and thousands of careers are destroyed.",
+        fr:"Des années 1950 au milieu des années 1990, les membres 2ELGBTQI+ de la fonction publique, de la GRC et des Forces armées canadiennes subissent une discrimination et un harcèlement systémiques sous des politiques officielles et des pratiques sanctionnées : interrogatoires, filatures, abus et congédiements. Les campagnes de sécurité traitent l'orientation sexuelle comme une tare et un risque de chantage, et des milliers de carrières sont détruites." },
+  worked:null,
+  fell:{ en:"The purge is this history's starkest proof that the employer itself can be the source of harm, under written policy rather than individual prejudice. Survivors' decades of documentation made the 2017 accountability sequence possible.",
+         fr:"La purge est la preuve la plus crue de cette histoire que l'employeur lui-même peut être la source du tort, par politique écrite et non par préjugé individuel. Les décennies de documentation des survivants ont rendu possible la séquence de responsabilisation de 2017." },
+  links:[ {t:{en:"Federal 2SLGBTQI+ Action Plan: the Purge acknowledged",fr:"Plan d'action fédéral 2ELGBTQI+ : la purge reconnue"}, u:"https://www.canada.ca/en/women-gender-equality/free-to-be-me/federal-2slgbtqi-plus-action-plan/federal-2slgbtqi-plus-action-plan-2022.html"} ] },
+
+{ id:"y1987r", year:"1987", sortYear:1987, era:"era3", cat:["kase"], grp:["women","all"],
+  title:{ en:"Robichaud: the Supreme Court makes the employer answerable",
+          fr:"Robichaud : la Cour suprême rend l'employeur responsable" },
+  sum:{ en:"Bonnie Robichaud, a cleaner at a National Defence base, takes her sexual harassment complaint to the Supreme Court of Canada and wins the principle that changes everything after it: the employer is liable for discriminatory acts of its employees in the course of employment, because only the employer can remedy workplace conditions.",
+        fr:"Bonnie Robichaud, préposée à l'entretien sur une base de la Défense nationale, porte sa plainte de harcèlement sexuel jusqu'à la Cour suprême du Canada et obtient le principe qui change tout ensuite : l'employeur est responsable des actes discriminatoires de ses employés dans le cadre de l'emploi, parce que seul l'employeur peut corriger les conditions de travail." },
+  worked:{ en:"Every harassment policy, investigation duty and prevention obligation since, including the 2021 hazard regulations, rests on this ruling. It moved the question from who misbehaved to what the institution must fix.",
+           fr:"Chaque politique sur le harcèlement, chaque devoir d'enquête et chaque obligation de prévention depuis, y compris le règlement de 2021 sur les dangers, repose sur cet arrêt. Il a déplacé la question de qui a mal agi vers ce que l'institution doit corriger." },
+  fell:{ en:"Liability rules deter and compensate; they do not by themselves prevent. Nearly four decades later, harassment remains among the most reported workplace harms in the employee survey.",
+         fr:"Les règles de responsabilité dissuadent et indemnisent; elles ne préviennent pas à elles seules. Près de quatre décennies plus tard, le harcèlement demeure parmi les torts les plus déclarés au sondage." },
+  links:[ {t:{en:"Robichaud v. Canada, Supreme Court decision",fr:"Robichaud c. Canada, décision de la Cour suprême"}, u:"https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/236/index.do"},
+          {t:{en:"Full text (CanLII)",fr:"Texte intégral (CanLII)"}, u:"https://www.canlii.org/en/ca/scc/doc/1987/1987canlii73/1987canlii73.html"} ] },
+
+{ id:"y2009", year:"2009", sortYear:2009, era:"era4", cat:["law"], grp:["women"],
+  title:{ en:"The Public Sector Equitable Compensation Act: equity in reverse",
+          fr:"La Loi sur l'équité dans la rémunération du secteur public : l'équité à rebours" },
+  sum:{ en:"A decade after the pay equity settlement, Parliament passes the Public Sector Equitable Compensation Act inside a budget bill, moving pay equity from a human right enforceable at the Canadian Human Rights Commission into collective bargaining. Unions and equality advocates condemn it; the Act is never fully brought into force and is finally repealed when the proactive Pay Equity Act is enacted in 2018.",
+        fr:"Une décennie après le règlement sur l'équité salariale, le Parlement adopte, dans un projet de loi budgétaire, la Loi sur l'équité dans la rémunération du secteur public, faisant passer l'équité salariale d'un droit de la personne exécutoire devant la Commission canadienne des droits de la personne à la négociation collective. Syndicats et défenseurs de l'égalité la condamnent; la loi n'est jamais pleinement mise en vigueur et est finalement abrogée à l'adoption de la Loi sur l'équité salariale proactive en 2018." },
+  worked:null,
+  fell:{ en:"The clearest reminder in this timeline that equity gains can move backward. Rights lodged in ordinary statutes are only as durable as the next budget bill; it took nine years of pressure to reverse.",
+         fr:"Le rappel le plus net de cette ligne du temps que les acquis d'équité peuvent reculer. Les droits logés dans des lois ordinaires ne durent que jusqu'au prochain projet de loi budgétaire; il a fallu neuf ans de pression pour renverser la vapeur." },
+  links:[ {t:{en:"Pay Equity Act, 2018, which replaced it (Justice Laws)",fr:"Loi sur l'équité salariale de 2018, qui l'a remplacée (Lois Justice)"}, u:"https://laws-lois.justice.gc.ca/eng/acts/p-4.2/"} ] },
+
+{ id:"y2017p", year:"Nov. 2017", sortYear:2017.8, era:"era5", cat:["moment","kase"], grp:["lgbtq"],
+  title:{ en:"The Purge apology and settlement: the full accountability sequence",
+          fr:"Excuses et règlement de la purge : la séquence complète de responsabilisation" },
+  sum:{ en:"The Prime Minister formally apologizes in the House of Commons to 2SLGBTQI+ people harmed by the LGBT Purge, and a class action settlement follows with compensation, the Canada Pride Citation for those whose careers were ended, memorialization including a national 2SLGBTQI+ monument, and expungement legislation for historically unjust convictions.",
+        fr:"Le premier ministre présente des excuses officielles à la Chambre des communes aux personnes 2ELGBTQI+ lésées par la purge LGBT, et un règlement de recours collectif suit avec indemnisation, la Citation Fierté Canada pour celles et ceux dont la carrière a été brisée, une commémoration incluant un monument national 2ELGBTQI+ et une loi de radiation des condamnations historiquement injustes." },
+  worked:{ en:"This is the most complete accountability arc in the record: acknowledgment, compensation, commemoration, legal correction and policy change together. It is the template claimants in every later systemic case, including the Black Class Action, point to.",
+           fr:"C'est l'arc de responsabilisation le plus complet du dossier : reconnaissance, indemnisation, commémoration, correction juridique et changement de politique réunis. C'est le modèle que citent les demandeurs de chaque cause systémique ultérieure, y compris le recours collectif noir." },
+  fell:{ en:"It took a class action to get there, roughly a quarter century after the purge formally ended, and after many of those harmed had died. Accountability arrived; it did not arrive on the institution's initiative.",
+         fr:"Il a fallu un recours collectif pour y arriver, environ un quart de siècle après la fin officielle de la purge, et après le décès de bien des personnes lésées. La responsabilisation est venue; elle n'est pas venue à l'initiative de l'institution." },
+  links:[ {t:{en:"Federal 2SLGBTQI+ Action Plan and Purge follow-through",fr:"Plan d'action fédéral 2ELGBTQI+ et suites de la purge"}, u:"https://www.canada.ca/en/women-gender-equality/free-to-be-me/federal-2slgbtqi-plus-action-plan.html"},
+          {t:{en:"Progress report, including Canada Pride Citation and monument",fr:"Rapport d'étape, dont la Citation Fierté Canada et le monument"}, u:"https://www.canada.ca/en/women-gender-equality/free-to-be-me/federal-2slgbtqi-plus-action-plan/progress/priority-area.html"} ] },
+
+{ id:"y2022z", year:"2021-2022", sortYear:2022.2, era:"era6", cat:["report","moment"], grp:["black","all"],
+  title:{ en:"Merit itself goes under the microscope at the Canada School",
+          fr:"Le mérite lui-même passé au microscope à l'École de la fonction publique" },
+  sum:{ en:"Dr. Rachel Zellars becomes the Canada School of Public Service's inaugural Jocelyne Bourgon Visiting Scholar, shaping curriculum on bias, structural racism and anti-Black racism that reaches over 15,000 public servants. Her 2022 lecture, The Time is Now for Black Canadians in the Public Service, traces how merit criteria evolved and were applied unevenly across a century, defined and assessed by those already holding power, producing a service long dominated by English-speaking white men. It is the first time the School addresses merit as applied to Black public servants directly.",
+        fr:"Dre Rachel Zellars devient la première titulaire de la bourse de chercheuse invitée Jocelyne Bourgon de l'École de la fonction publique du Canada, façonnant un curriculum sur les biais, le racisme structurel et le racisme anti-Noirs qui rejoint plus de 15 000 fonctionnaires. Sa conférence de 2022, Le moment est venu pour les Canadiens noirs dans la fonction publique, retrace l'évolution des critères de mérite et leur application inégale sur un siècle, définis et évalués par ceux qui détenaient déjà le pouvoir, produisant un service longtemps dominé par des hommes blancs anglophones. C'est la première fois que l'École aborde directement le mérite tel qu'appliqué aux fonctionnaires noirs." },
+  worked:{ en:"It gave the institution's own teaching arm the historical argument this timeline documents: merit is not the opposite of equity, but a standard whose definition and assessment have themselves been sites of exclusion. Positive measures level the field on which merit is judged; the Public Service Commission's own recruitment audit reached the matching empirical conclusion.",
+           fr:"Elle a donné au bras d'enseignement de l'institution l'argument historique que documente cette ligne du temps : le mérite n'est pas le contraire de l'équité, mais une norme dont la définition et l'évaluation ont elles-mêmes été des lieux d'exclusion. Les mesures positives égalisent le terrain sur lequel le mérite est jugé; la vérification du recrutement de la Commission de la fonction publique est arrivée à la conclusion empirique correspondante." },
+  fell:{ en:"Learning does not bind anyone. Two years later her own study documented Black executives being told, in effect, that their positions were owed to race rather than merit, the same weaponized definition the lecture had historicized.",
+         fr:"L'apprentissage ne lie personne. Deux ans plus tard, sa propre étude documentait des cadres noirs à qui l'on faisait comprendre que leur poste devait tout à la race plutôt qu'au mérite, la même définition instrumentalisée que la conférence avait historicisée." },
+  links:[ {t:{en:"CSPS lecture: The Time is Now for Black Canadians in the Public Service",fr:"Conférence de l'EFPC : Le moment est venu pour les Canadiens noirs"}, u:"https://www.csps-efpc.gc.ca/video/scholar-lecture-black-canadians-eng.aspx"},
+          {t:{en:"CSPS: Dr. Rachel Zellars, Jocelyne Bourgon Visiting Scholar",fr:"EFPC : Dre Rachel Zellars, chercheuse invitée Jocelyne Bourgon"}, u:"https://www.csps-efpc.gc.ca/faculty/rachel-zellars-eng.aspx"} ] },
+
+{ id:"y2024b", year:"Nov. 2024", sortYear:2024.8, era:"era6", cat:["report"], grp:["black"],
+  title:{ en:"The Black executive study: what happens after the glass ceiling",
+          fr:"L'étude sur les cadres noirs : ce qui arrive après le plafond de verre" },
+  sum:{ en:"A Study on the Black Executive Community in the Federal Public Service, a peer-reviewed, government-funded study by Dr. Rachel Zellars commissioned by the Black Executives Network, draws on interviews with more than 60 current and former Black executives. Black executives grew from 68 in 2016 to 203 by the end of 2023 yet remain significantly under-represented, and the study documents five recurring barriers: harassment, intimidation and reputational harm, including challenges to their merit; denial of career-advancing opportunities; performance review issues; denial of language training; and unjust, excessive workloads. It makes 15 recommendations, including a Black Equity Commissioner, and is entered as evidence at the class action certification hearing.",
+        fr:"L'Étude sur la communauté des cadres noirs de la fonction publique fédérale, une étude révisée par les pairs et financée par le gouvernement, menée par Dre Rachel Zellars à la demande du Réseau des cadres noirs, s'appuie sur des entrevues avec plus de 60 cadres noirs, actuels et anciens. Les cadres noirs sont passés de 68 en 2016 à 203 fin 2023, mais restent nettement sous-représentés, et l'étude documente cinq obstacles récurrents : harcèlement, intimidation et atteinte à la réputation, y compris la contestation de leur mérite; refus d'occasions d'avancement; problèmes d'évaluation du rendement; refus de formation linguistique; et charges de travail injustes et excessives. Elle formule 15 recommandations, dont un commissaire à l'équité pour les personnes noires, et est déposée en preuve à l'audience d'autorisation du recours collectif." },
+  worked:{ en:"It closed the last evidentiary gap: even Black employees who reach the executive ranks face documented, patterned mistreatment, so under-representation cannot be explained by pipeline alone. The Clerk and senior leaders publicly committed to act on it, and it armed both the litigation and the policy debate with peer-reviewed evidence.",
+           fr:"Elle a comblé la dernière lacune de preuve : même les employés noirs qui atteignent la direction subissent des mauvais traitements documentés et récurrents; la sous-représentation ne s'explique donc pas par le seul bassin. Le greffier et les hauts dirigeants se sont publiquement engagés à y donner suite, et elle a armé le litige comme le débat de politiques d'une preuve révisée par les pairs." },
+  fell:{ en:"The recommendations join a queue: the Black Equity Commissioner it echoes from the Senate still does not exist, and responsibility for implementing change again rests with the leadership structures the study found wanting. Her related 2024 review of a central agency documented normalized racial stereotyping in one of the government's highest offices.",
+         fr:"Les recommandations rejoignent une file d'attente : le commissaire à l'équité pour les personnes noires, repris du Sénat, n'existe toujours pas, et la mise en œuvre du changement repose encore sur les structures de direction que l'étude a trouvées défaillantes. Son examen connexe de 2024 d'un organisme central a documenté des stéréotypes raciaux normalisés dans l'un des plus hauts bureaux du gouvernement." },
+  links:[ {t:{en:"The study (full PDF)",fr:"L'étude (PDF intégral)"}, u:"https://wiki.gccollab.ca/images/f/f8/A_Study_of_the_Black_Executive_Community_in_the_Federal_Public_Service_compressed_2MB.pdf"},
+          {t:{en:"Deputy ministers' message acknowledging the study",fr:"Message des sous-ministres reconnaissant l'étude"}, u:"https://www.canada.ca/en/department-national-defence/maple-leaf/defence/2024/11/dm-cds-message-study-on-black-executive-community-federal-public-service.html"},
+          {t:{en:"Union summary of the related central agency review",fr:"Résumé syndical de l'examen connexe d'un organisme central"}, u:"https://psacunion.ca/shocking-internal-report-exposes-rampant"} ] }
 ];
 
 /* =========================================================
@@ -1160,9 +1319,9 @@ var NETWORKS = [
        fr:"Le réseau de la base dont les demandes de données désagrégées, de programmes propres aux employés noirs et de soutiens en santé mentale ont façonné une grande partie du programme des années 2020."},
   url:"https://www.fbec-cefn.ca/" },
 { name:{en:"Black Executives Network",fr:"Réseau des cadres noirs"},
-  meta:{en:"Interdepartmental · executives",fr:"Interministériel · cadres"},
-  sum:{en:"Connects and supports Black executives across the public service and advises on the leadership pipeline, sponsorship and executive development.",
-       fr:"Relie et soutient les cadres noirs de la fonction publique et conseille sur le bassin de leadership, le parrainage et le perfectionnement des cadres."},
+  meta:{en:"Interdepartmental · executives · housed at ISED",fr:"Interministériel · cadres · hébergé à ISDE"},
+  sum:{en:"Connects and supports Black executives across the public service, advises on the leadership pipeline and sponsorship, and commissioned the 2024 Study on the Black Executive Community that documented merit challenges and other barriers at the top.",
+       fr:"Relie et soutient les cadres noirs de la fonction publique, conseille sur le bassin de leadership et le parrainage, et a commandé l'étude de 2024 sur la communauté des cadres noirs qui a documenté la contestation du mérite et d'autres obstacles au sommet."},
   url:null },
 { name:{en:"Knowledge Circle for Indigenous Inclusion",fr:"Cercle du savoir sur l'inclusion autochtone"},
   meta:{en:"Interdepartmental · Indigenous employees",fr:"Interministériel · employés autochtones"},
@@ -1288,7 +1447,11 @@ var PEOPLE = [
 { name:"Michael Gottheil",
   role:{en:"First Accessibility Commissioner",fr:"Premier commissaire à l'accessibilité"},
   sum:{en:"Holds the first federal enforcement office dedicated to accessibility, the model equity advocates cite when arguing other files need a commissioner too.",
-       fr:"Titulaire du premier poste fédéral d'application dédié à l'accessibilité, le modèle que citent les défenseurs de l'équité pour réclamer des commissaires dans d'autres dossiers."} }
+       fr:"Titulaire du premier poste fédéral d'application dédié à l'accessibilité, le modèle que citent les défenseurs de l'équité pour réclamer des commissaires dans d'autres dossiers."} },
+{ name:"Rachel Zellars",
+  role:{en:"Inaugural Jocelyne Bourgon Visiting Scholar, Canada School of Public Service; researcher",fr:"Première chercheuse invitée Jocelyne Bourgon, École de la fonction publique du Canada; chercheuse"},
+  sum:{en:"Historicized merit for the public service's own learning institution and authored the 2024 Black executive study, connecting a century of unevenly applied merit criteria to the lived evidence of Black leaders today.",
+       fr:"A historicisé le mérite pour l'institution d'apprentissage de la fonction publique et signé l'étude de 2024 sur les cadres noirs, reliant un siècle de critères de mérite appliqués inégalement à la preuve vécue des dirigeants noirs d'aujourd'hui."} }
 ];
 
 /* =========================================================
@@ -1318,14 +1481,17 @@ var GLOSSARY = [
        fr:"Le grief suit la convention collective et peut être renvoyé à la CRTESPF, qui peut appliquer la Loi canadienne sur les droits de la personne. La plainte va à la Commission canadienne des droits de la personne et peut atteindre le Tribunal. La plupart des fonctionnaires doivent d'abord passer par le grief; les syndicats peuvent déposer des griefs de principe sur des enjeux systémiques."} },
 { term:{en:"Psychosocial hazard",fr:"Danger psychosocial"},
   def:{en:"A workplace condition that can harm mental or physical health, such as harassment, violence or discrimination. Under the Canada Labour Code and the 2021 harassment and violence regulations, such hazards must be assessed and prevented like any physical hazard.",
-       fr:"Une condition de travail pouvant nuire à la santé mentale ou physique, comme le harcèlement, la violence ou la discrimination. Sous le Code canadien du travail et le règlement de 2021 sur le harcèlement et la violence, ces dangers doivent être évalués et prévenus comme tout danger physique."} }
+       fr:"Une condition de travail pouvant nuire à la santé mentale ou physique, comme le harcèlement, la violence ou la discrimination. Sous le Code canadien du travail et le règlement de 2021 sur le harcèlement et la violence, ces dangers doivent être évalués et prévenus comme tout danger physique."} },
+{ term:{en:"Merit, and how it gets applied",fr:"Le mérite, et son application"},
+  def:{en:"Merit means appointing people on qualifications, not connections, and it is the public service's founding principle. The record shows the catch: who defines the criteria, who does the assessing, and whose credentials count have themselves been sites of exclusion, from 1908 exams built for one demographic to the merit challenges Black executives reported in 2024. Equity measures are corrections to how merit is applied, not exceptions to it; the 1992 reform Act settled that in law.",
+       fr:"Le mérite signifie nommer les gens selon leurs qualifications, non leurs relations, et c'est le principe fondateur de la fonction publique. Le dossier montre le piège : qui définit les critères, qui évalue et quels titres comptent ont eux-mêmes été des lieux d'exclusion, des examens de 1908 conçus pour un seul groupe jusqu'aux contestations du mérite rapportées par les cadres noirs en 2024. Les mesures d'équité corrigent l'application du mérite, elles n'y font pas exception; la loi de réforme de 1992 l'a tranché en droit."} }
 ];
 
 /* =========================================================
    RENDERING. No storage APIs are used; preferences last for
    the session. Language can be shared via the #fr hash.
    ========================================================= */
-var state = { lang:"en", hc:false, size:0, cat:"all", grp:"all", q:"" };
+var state = { lang:"en", hc:false, size:0, cat:"all", grp:[], q:"", brief:false, excluded:{} };
 
 function esc(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -1352,18 +1518,21 @@ function applyChrome(){
   var sizes = ["A","A+","A++"];
   document.getElementById("sizeBtn").textContent = S("sizeBtnBase") + ": " + sizes[state.size];
   document.getElementById("searchBox").setAttribute("placeholder", S("searchPh"));
+  document.getElementById("briefBtn").textContent = S("briefBtn");
   document.title = state.lang === "fr"
     ? "De l'exclusion \u00E0 la responsabilisation | Fonction publique du Canada"
     : "From Exclusion to Accountability | Public Service of Canada";
 }
 
-function chipRow(containerId, dict, activeKey, labelKey, onPick){
+function chipRow(containerId, dict, labelKey, mode, onPick){
   var el = document.getElementById(containerId);
+  var on = (mode === "multi") ? state.grp.length === 0 : state.cat === "all";
   var html = '<span class="chip-row-label">' + esc(S(labelKey)) + '</span>';
-  html += '<button class="chip" data-k="all" aria-pressed="' + (activeKey==="all") + '">' + esc(S("all")) + '</button>';
+  html += '<button class="chip" data-k="all" aria-pressed="' + on + '">' + esc(S("all")) + '</button>';
   for (var k in dict){
     if (!dict.hasOwnProperty(k) || k === "all") continue;
-    html += '<button class="chip" data-k="' + k + '" aria-pressed="' + (activeKey===k) + '">' + esc(T(dict[k])) + '</button>';
+    on = (mode === "multi") ? state.grp.indexOf(k) !== -1 : state.cat === k;
+    html += '<button class="chip" data-k="' + k + '" aria-pressed="' + on + '">' + esc(T(dict[k])) + '</button>';
   }
   el.innerHTML = html;
   var btns = el.querySelectorAll(".chip");
@@ -1374,7 +1543,13 @@ function chipRow(containerId, dict, activeKey, labelKey, onPick){
 
 function matches(ev){
   if (state.cat !== "all" && ev.cat.indexOf(state.cat) === -1) return false;
-  if (state.grp !== "all" && ev.grp.indexOf(state.grp) === -1 && ev.grp.indexOf("all") === -1) return false;
+  if (state.grp.length){
+    var gok = ev.grp.indexOf("all") !== -1;
+    for (var gi = 0; gi < state.grp.length && !gok; gi++){
+      if (ev.grp.indexOf(state.grp[gi]) !== -1) gok = true;
+    }
+    if (!gok) return false;
+  }
   if (state.q){
     var hay = (ev.year + " " + T(ev.title) + " " + T(ev.sum) + " " + T(ev.worked||null) + " " + T(ev.fell||null)).toLowerCase();
     if (hay.indexOf(state.q) === -1) return false;
@@ -1415,37 +1590,101 @@ function renderEraNav(){
     var e = ERAS[i];
     html += '<a href="#' + e.id + '">' + e.start + "\u2013" + e.end + " \u00B7 " + esc(T(e.title)) + '</a>';
   }
+  html += '<a href="#main">\u2191 ' + esc(S("topLink")) + '</a>';
   el.innerHTML = html;
+}
+
+var ROWS = ["indigenous","black","racialized","disability","women","lgbtq","lang","all"];
+
+function filteredEvents(){
+  return EVENTS.slice().sort(function(a,b){ return a.sortYear - b.sortYear; }).filter(matches);
+}
+function countIncluded(evs){
+  var n = 0;
+  for (var i=0;i<evs.length;i++) if (!state.excluded[evs[i].id]) n++;
+  return n;
+}
+function briefCover(evs){
+  var names = [];
+  if (state.grp.length){ for (var i=0;i<state.grp.length;i++) names.push(T(GRPS[state.grp[i]])); }
+  else names.push(T(GRPS.all));
+  var d = new Date().toLocaleDateString(state.lang === "fr" ? "fr-CA" : "en-CA", {year:"numeric",month:"long",day:"numeric"});
+  var colon = state.lang === "fr" ? "\u00A0: " : ": ";
+  return '<div class="brief-cover"><h2>' + esc(S("briefTitle")) + '</h2>' +
+    '<p class="bmeta">' + esc(d) + ' \u00B7 ' + esc(S("briefGroups")) + colon + esc(names.join(", ")) + ' \u00B7 ' + countIncluded(evs) + ' ' + esc(S("briefEntries")) + '</p>' +
+    '<p>' + esc(S("briefIntro")) + '</p></div>';
+}
+function renderChart(evs){
+  var rows = [];
+  if (state.grp.length){
+    for (var r=0;r<ROWS.length;r++) if (state.grp.indexOf(ROWS[r]) !== -1) rows.push(ROWS[r]);
+    rows.push("all");
+  } else { rows = ROWS.slice(); }
+  var padL = 150, padR = 15, W = 1000, rowH = 24, topPad = 8;
+  var axisY = topPad + rows.length * rowH + 6;
+  var H = axisY + 22;
+  function X(y){ return padL + (y - 1860) / (2032 - 1860) * (W - padL - padR); }
+  var svg = '<div class="chart-wrap"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(S("chartAria")) + '">';
+  var ticks = [1880,1900,1920,1940,1960,1980,2000,2020];
+  for (var t=0;t<ticks.length;t++){
+    var tx = X(ticks[t]);
+    svg += '<line class="chart-tick" x1="' + tx + '" y1="' + topPad + '" x2="' + tx + '" y2="' + axisY + '"></line>';
+    svg += '<text class="chart-year" x="' + tx + '" y="' + (axisY + 16) + '" text-anchor="middle">' + ticks[t] + '</text>';
+  }
+  for (var r2=0;r2<rows.length;r2++){
+    var ry = topPad + r2 * rowH + rowH / 2;
+    svg += '<line class="chart-row-line" x1="' + padL + '" y1="' + ry + '" x2="' + (W - padR) + '" y2="' + ry + '"></line>';
+    svg += '<text class="chart-label" x="' + (padL - 8) + '" y="' + (ry + 4) + '" text-anchor="end">' + esc(T(GRPS[rows[r2]])) + '</text>';
+  }
+  for (var e=0;e<evs.length;e++){
+    var ev = evs[e];
+    for (var g=0;g<ev.grp.length;g++){
+      var ri = rows.indexOf(ev.grp[g]);
+      if (ri === -1) continue;
+      var cy = topPad + ri * rowH + rowH / 2, cx = X(ev.sortYear);
+      svg += '<a href="#' + ev.id + '" aria-label="' + esc(ev.year) + ' \u00B7 ' + esc(T(ev.title)) + '"><circle class="dot e-' + ev.era + '" cx="' + cx + '" cy="' + cy + '" r="5.5"><title>' + esc(ev.year) + ' \u00B7 ' + esc(T(ev.title)) + '</title></circle></a>';
+    }
+  }
+  svg += '</svg></div>';
+  var lg = '<div class="legend"><span>' + esc(S("legendLab")) + '</span>';
+  for (var l=0;l<ERAS.length;l++){
+    lg += '<span><span class="sw e-' + ERAS[l].id + '"></span>' + ERAS[l].start + '\u2013' + ERAS[l].end + '</span>';
+  }
+  lg += '</div>';
+  return svg + lg;
 }
 
 function renderTimeline(){
   var el = document.getElementById("timeline");
-  var shown = 0, html = "";
-  var sorted = EVENTS.slice().sort(function(a,b){ return a.sortYear - b.sortYear; });
-  for (var i=0;i<ERAS.length;i++){
-    var era = ERAS[i];
-    var evs = [];
-    for (var j=0;j<sorted.length;j++){
-      if (sorted[j].era === era.id && matches(sorted[j])) evs.push(sorted[j]);
+  var evs = filteredEvents();
+  var html = "";
+  if (state.brief) html += briefCover(evs);
+  html += renderChart(evs);
+  var lastEra = "";
+  for (var k=0;k<evs.length;k++){
+    var ev = evs[k];
+    if (ev.era !== lastEra){
+      lastEra = ev.era;
+      var era = null;
+      for (var i2=0;i2<ERAS.length;i2++) if (ERAS[i2].id === ev.era) era = ERAS[i2];
+      html += '<div class="era-band" id="' + era.id + '"><span class="years">' + era.start + "\u2013" + era.end + '</span>' +
+              '<h2>' + esc(T(era.title)) + '</h2><p>' + esc(T(era.blurb)) + '</p></div>';
     }
-    if (!evs.length) continue;
-    html += '<div class="era-band" id="' + era.id + '"><span class="years">' + era.start + "\u2013" + era.end + '</span>' +
-            '<h2>' + esc(T(era.title)) + '</h2><p>' + esc(T(era.blurb)) + '</p></div>';
-    for (var k=0;k<evs.length;k++){
-      var ev = evs[k];
-      shown++;
-      html += '<article class="entry" id="' + ev.id + '"><div class="card">' +
-              '<span class="date">' + esc(ev.year) + '</span>' +
-              '<h3>' + esc(T(ev.title)) + '</h3>' +
-              tagList(ev) +
-              '<p class="sum">' + esc(T(ev.sum)) + '</p>' +
-              assessBlock(ev) +
-              linkBlock(ev.links) +
-              '</div></article>';
+    var exc = state.excluded[ev.id] === true;
+    html += '<article class="entry' + (exc ? " excluded" : "") + '" id="' + ev.id + '"><div class="card">';
+    if (state.brief){
+      html += '<label class="inc"><input type="checkbox" data-inc="' + ev.id + '"' + (exc ? "" : " checked") + '> ' + esc(S("includeLab")) + '</label>';
     }
+    html += '<span class="date">' + esc(ev.year) + '</span>' +
+            '<h3>' + esc(T(ev.title)) + '</h3>' +
+            tagList(ev) +
+            '<p class="sum">' + esc(T(ev.sum)) + '</p>' +
+            assessBlock(ev) +
+            linkBlock(ev.links) +
+            '</div></article>';
   }
   el.innerHTML = html;
-  document.getElementById("countOut").textContent = shown + " " + S("countOf") + " " + EVENTS.length;
+  document.getElementById("countOut").textContent = evs.length + " " + S("countOf") + " " + EVENTS.length;
 }
 
 function renderCases(){
@@ -1503,8 +1742,15 @@ function renderGlossary(){
 function renderAll(){
   applyChrome();
   renderEraNav();
-  chipRow("catChips", CATS, state.cat, "typeLab", function(k){ state.cat = k; renderAll(); });
-  chipRow("grpChips", GRPS, state.grp, "grpLab", function(k){ state.grp = k; renderAll(); });
+  chipRow("catChips", CATS, "typeLab", "single", function(k){ state.cat = k; renderAll(); });
+  chipRow("grpChips", GRPS, "grpLab", "multi", function(k){
+    if (k === "all"){ state.grp = []; }
+    else {
+      var gi = state.grp.indexOf(k);
+      if (gi === -1) state.grp.push(k); else state.grp.splice(gi, 1);
+    }
+    renderAll();
+  });
   renderTimeline();
   renderCases();
   renderNetworks();
@@ -1532,6 +1778,35 @@ document.getElementById("sizeBtn").addEventListener("click", function(){
 document.getElementById("searchBox").addEventListener("input", function(){
   state.q = this.value.trim().toLowerCase();
   renderTimeline();
+});
+document.getElementById("briefBtn").addEventListener("click", function(){
+  state.brief = !state.brief;
+  document.body.classList.toggle("brief", state.brief);
+  this.setAttribute("aria-pressed", state.brief ? "true" : "false");
+  var bar = document.getElementById("briefBar");
+  if (state.brief) bar.removeAttribute("hidden"); else bar.setAttribute("hidden", "");
+  renderTimeline();
+});
+document.getElementById("briefAllBtn").addEventListener("click", function(){
+  var evs = filteredEvents();
+  for (var i=0;i<evs.length;i++) delete state.excluded[evs[i].id];
+  renderTimeline();
+});
+document.getElementById("briefNoneBtn").addEventListener("click", function(){
+  var evs = filteredEvents();
+  for (var i=0;i<evs.length;i++) state.excluded[evs[i].id] = true;
+  renderTimeline();
+});
+document.getElementById("briefPrintBtn").addEventListener("click", function(){
+  if (typeof window !== "undefined" && window.print) window.print();
+});
+document.getElementById("timeline").addEventListener("change", function(e){
+  var t = e.target || e.srcElement;
+  if (t && t.getAttribute && t.getAttribute("data-inc")){
+    var id = t.getAttribute("data-inc");
+    if (t.checked) delete state.excluded[id]; else state.excluded[id] = true;
+    renderTimeline();
+  }
 });
 
 if ((location.hash || "").toLowerCase().indexOf("fr") !== -1) state.lang = "fr";
