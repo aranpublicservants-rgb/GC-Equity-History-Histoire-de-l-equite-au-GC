@@ -106,6 +106,9 @@ h3{font-size:1.08rem;margin:1.4rem 0 .5rem}
 .band{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);padding:.8rem .8rem .4rem;margin-bottom:1.6rem;overflow-x:auto}
 .band svg{display:block;min-width:640px;width:100%;height:auto}
 .band text{font-family:ui-monospace,Menlo,Consolas,monospace}
+.band rect[data-era]{cursor:pointer}
+.era-blurb{color:var(--ink2);margin:.1rem 0 .9rem;font-size:.93rem;max-width:70ch}
+.era-h .count{margin-left:auto}
 
 /* ============ TIMELINE ENTRIES ============ */
 .era-h{display:flex;align-items:baseline;gap:12px;margin:2rem 0 .8rem;padding-top:.4rem}
@@ -207,13 +210,13 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
   <div class="wrap">
     <div class="row">
       <a class="brand" href="#top" id="brandlink">From Exclusion to Accountability</a>
-      <div class="controls" role="group" aria-label="Display settings">
+      <div class="controls" id="dispctl" role="group" aria-label="Display settings">
         <button class="ctl" id="langbtn" aria-pressed="false">Français</button>
         <button class="ctl" id="hcbtn" aria-pressed="false" data-i="hc">High contrast</button>
         <button class="ctl" id="fsbtn" data-i="fs">Text size: A</button>
       </div>
     </div>
-    <nav class="nav" aria-label="Sections">
+    <nav class="nav" id="secnav" aria-label="Sections">
       <a href="#timeline" data-i="nav_tl">Timeline</a>
       <a href="#builder" data-i="nav_bb">Briefing builder</a>
       <a href="#cases" data-i="nav_ca">Key cases</a>
@@ -233,13 +236,13 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
   <h1 data-i="h1">From Exclusion to Accountability</h1>
   <p class="dek" data-i="dek">A history of anti-racism, equity, inclusion and accessibility in the Public Service of Canada. Every entry names what moved things forward and what fell short, with a source you can check.</p>
   <div class="levers" data-i="levers"><strong>The pattern in one sentence:</strong> the reforms that produced durable change were written into law, were enforceable, measured results with disaggregated data, and had organized employees keeping pressure on. Announcements without those four traits tended to fade.</div>
-  <p class="note" data-i="heronote">This is an independent educational resource, not a Government of Canada site. Links were last checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, verify against the linked primary source and let the maintainer know.</p>
+  <p class="note" data-i="heronote">This is an independent educational resource, not a Government of Canada site. Links were last checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, verify against the linked primary source and report it to the site maintainer.</p>
 </div>
 
 <section id="howto" aria-labelledby="howto-h">
   <h2 id="howto-h" data-i="howto_h">How to use this site</h2>
   <div class="guide">
-    <div class="g"><b data-i="g1b">Explore the timeline.</b><span data-i="g1t">Filter 71 entries by community, era, type or keyword. Open any entry for the plain-language record and its source.</span></div>
+    <div class="g"><b data-i="g1b">Explore the timeline.</b><span data-i="g1t">Filter 80 entries by community, era, type or keyword. Open any entry for the plain-language record and its source.</span></div>
     <div class="g"><b data-i="g2b">Build a briefing.</b><span data-i="g2t">Pick one or more communities and the builder assembles a sourced briefing note for exactly that scope. Add a group, and its record folds in automatically.</span></div>
     <div class="g"><b data-i="g3b">Check the assessments.</b><span data-i="g3t">Green notes mark what moved things forward. Red notes mark what fell short. Both come from documented outcomes, not opinion.</span></div>
     <div class="g"><b data-i="g4b">Print or copy.</b><span data-i="g4t">Briefings print clean (or save as PDF) with sources attached, ready to adapt for your network, class or team.</span></div>
@@ -250,7 +253,7 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
   <h2 id="tl-h" data-i="tl_h">Explore the timeline</h2>
   <p class="sec-dek" data-i="tl_dek">Laws, commissions, audits, cases, programs, data milestones and employee organizing, 1867 to July 2026. Entries marked with a heavy left edge are key milestones.</p>
 
-  <div class="filterbar" role="search" aria-label="Timeline filters">
+  <div class="filterbar" id="filterbar" role="search" aria-label="Timeline filters">
     <div class="frow">
       <span class="flabel" data-i="f_search">Search</span>
       <input type="search" class="search" id="q" data-ip="f_ph" placeholder="Try: pay equity, NCARR, accessibility, ombuds...">
@@ -274,6 +277,7 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
   </div>
 
   <div class="band" id="band" aria-hidden="true"></div>
+  <p class="count" id="bandlegend" style="margin:-0.9rem 0 1.4rem"></p>
   <div id="entries"></div>
 </section>
 
@@ -282,7 +286,7 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
   <p class="sec-dek" data-i="bb_dek">Choose the communities your briefing is about. The builder pulls every relevant entry from the record, writes a cover and summary for that exact scope, and updates live as you add or remove groups. Everything in the output carries its source.</p>
 
   <div class="builder">
-    <div class="panel" aria-label="Briefing settings">
+    <div class="panel" id="bbpanel" aria-label="Briefing settings">
       <fieldset>
         <legend data-i="bb_groups">1. Communities covered</legend>
         <div id="bb-groups"></div>
@@ -303,7 +307,7 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
       </fieldset>
       <fieldset>
         <legend data-i="bb_for">4. Cover line (optional)</legend>
-        <input type="text" class="search" id="bb-purpose" data-ip="bb_forph" placeholder="e.g. Prepared for the ISC network learning session">
+        <input type="text" class="search" id="bb-purpose" data-ip="bb_forph" placeholder="e.g. Prepared for a departmental network learning session">
       </fieldset>
       <div class="btnrow">
         <button class="btn" id="bb-print" data-i="bb_print">Print or save as PDF</button>
@@ -370,12 +374,12 @@ footer{padding:1.6rem 0 2.6rem;color:var(--ink2);font-size:.85rem}
 const META = { asOf: {en:"July 2026", fr:"juillet 2026"} };
 
 const ERAS = [
- {id:0, span:"1867 to 1944", spanFr:"1867 à 1944", en:"Foundations built on exclusion", fr:"Des fondations bâties sur l'exclusion", y0:1867, y1:1944},
- {id:1, span:"1945 to 1975", spanFr:"1945 à 1975", en:"Rights language arrives", fr:"Le langage des droits fait son entrée", y0:1945, y1:1975},
- {id:2, span:"1976 to 1995", spanFr:"1976 à 1995", en:"The equality framework", fr:"Le cadre de l'égalité", y0:1976, y1:1995},
- {id:3, span:"1996 to 2015", spanFr:"1996 à 2015", en:"Naming systemic discrimination", fr:"Nommer la discrimination systémique", y0:1996, y1:2015},
- {id:4, span:"2016 to 2020", spanFr:"2016 à 2020", en:"Data, networks and reckoning", fr:"Données, réseaux et prise de conscience", y0:2016, y1:2020},
- {id:5, span:"2021 to 2026", spanFr:"2021 à 2026", en:"The accountability test", fr:"L'épreuve de la responsabilisation", y0:2021, y1:2026}
+ {id:0, span:"1867 to 1944", spanFr:"1867 à 1944", en:"Foundations built on exclusion", fr:"Des fondations bâties sur l'exclusion", y0:1867, y1:1944, d:{en:"Explicit exclusion is written into the founding rules.", fr:"L'exclusion explicite est inscrite dans les règles fondatrices."}},
+ {id:1, span:"1945 to 1975", spanFr:"1945 à 1975", en:"Rights language arrives", fr:"Le langage des droits fait son entrée", y0:1945, y1:1975, d:{en:"Rights language enters law, and the first written barriers fall.", fr:"Le langage des droits entre dans la loi, et les premiers obstacles écrits tombent."}},
+ {id:2, span:"1976 to 1995", spanFr:"1976 à 1995", en:"The equality framework", fr:"Le cadre de l'égalité", y0:1976, y1:1995, d:{en:"Canada builds its equality architecture: the Charter, human rights law and employment equity.", fr:"Le Canada bâtit son architecture de l'égalité : la Charte, les droits de la personne et l'équité en emploi."}},
+ {id:3, span:"1996 to 2015", spanFr:"1996 à 2015", en:"Naming systemic discrimination", fr:"Nommer la discrimination systémique", y0:1996, y1:2015, d:{en:"Tribunals and task forces prove the discrimination is systemic; enforcement stays optional.", fr:"Tribunaux et groupes de travail prouvent que la discrimination est systémique; l'application demeure facultative."}},
+ {id:4, span:"2016 to 2020", spanFr:"2016 à 2020", en:"Data, networks and reckoning", fr:"Données, réseaux et prise de conscience", y0:2016, y1:2020, d:{en:"Employees organize, data gets disaggregated, and settlements show what redress looks like.", fr:"Les employés s'organisent, les données se désagrègent, et des règlements montrent à quoi ressemble la réparation."}},
+ {id:5, span:"2021 to 2026", spanFr:"2021 à 2026", en:"The accountability test", fr:"L'épreuve de la responsabilisation", y0:2021, y1:2026, d:{en:"Findings pile up on the public record; the test is whether law and orders follow.", fr:"Les constats s'accumulent au dossier public; le test est de savoir si la loi et les ordonnances suivront."}}
 ];
 
 const GROUPS = [
@@ -522,7 +526,7 @@ const ENTRIES = [
     fr:"Des rapports ultérieurs documentent que les exigences linguistiques, appliquées sans véritable accès à la formation, sont devenues un obstacle en soi pour certains candidats autochtones et racisés. Le remède d'une iniquité peut créer du travail pour la suivante."},
  src:{en:"Official Languages Act (Justice Laws)", fr:"Loi sur les langues officielles (Lois sur la justice)", url:"https://laws-lois.justice.gc.ca/eng/acts/o-3.01/", urlFr:"https://laws-lois.justice.gc.ca/fra/lois/o-3.01/"}},
 
-{id:"bird1970", y:"1970", sort:1970, era:1, key:true, groups:["wom"], type:"report",
+{id:"bird1970", y:"1970", sort:1970.8, era:1, key:true, groups:["wom"], type:"report",
  t:{en:"Royal Commission on the Status of Women", fr:"Commission royale d'enquête sur la situation de la femme"},
  s:{en:"The Bird Commission delivers 167 recommendations, many aimed squarely at the federal government as an employer: end discrimination in hiring and promotion, open all competitions to women, and treat the public service as a model employer.",
     fr:"La commission Bird dépose 167 recommandations, dont plusieurs visent directement le gouvernement fédéral comme employeur : mettre fin à la discrimination à l'embauche et en promotion, ouvrir tous les concours aux femmes et faire de la fonction publique un employeur modèle."},
@@ -534,23 +538,23 @@ const ENTRIES = [
 
 {id:"oeow1971", y:"1971", sort:1971, era:1, key:false, groups:["wom"], type:"program",
  t:{en:"Office of Equal Opportunities for Women", fr:"Bureau de l'égalité des chances pour les femmes"},
- s:{en:"The Public Service Commission establishes a dedicated office to advance women's employment and advancement in the federal service, the first institutional home for the file.",
-    fr:"La Commission de la fonction publique crée un bureau voué à l'emploi et à l'avancement des femmes dans l'administration fédérale, premier port d'attache institutionnel du dossier."},
+ s:{en:"The Public Service Commission establishes a dedicated office to advance women's employment and advancement in the federal service, the first institutional home for the file. It also pressed women's participation in the Career Assignment Program, the senior-manager development stream launched with Treasury Board in 1968.",
+    fr:"La Commission de la fonction publique crée un bureau voué à l'emploi et à l'avancement des femmes dans l'administration fédérale, premier port d'attache institutionnel du dossier. Il a aussi encouragé la participation des femmes au programme de perfectionnement des cadres supérieurs lancé avec le Conseil du Trésor en 1968 (Career Assignment Program)."},
  w:{en:"Named responsibility inside the system: someone's job was now to notice.",
     fr:"Une responsabilité nommée à l'intérieur du système : c'était désormais le travail de quelqu'un de remarquer."},
  f:{en:"An office without targets or enforcement moved slowly; women's share of senior ranks barely shifted through the 1970s.",
     fr:"Un bureau sans cibles ni pouvoir de contrainte avançait lentement; la part des femmes dans les postes supérieurs a à peine bougé durant les années 1970."},
- src:{en:"Public Service Commission annual reports of the period (cited by title)", fr:"Rapports annuels de la Commission de la fonction publique de l'époque (cités par titre)", url:null}},
+ src:{en:"PSC, The 100 Years of the Public Service Commission of Canada (Canada.ca)", fr:"CFP, Les 100 ans de la Commission de la fonction publique du Canada (Canada.ca, page en anglais)", url:"https://www.canada.ca/en/public-service-commission/services/publications/publications/100-years-public-service-commission-canada-1908-2008.html"}},
 
 {id:"one1970s", y:"1970s", sort:1974, era:1, key:false, groups:["ind"], type:"program",
  t:{en:"First Indigenous employment programs", fr:"Premiers programmes d'emploi pour les Autochtones"},
- s:{en:"During the 1970s the Public Service Commission creates dedicated structures, including an Office of Native Employment and northern careers programming, to recruit Indigenous employees into the federal service.",
-    fr:"Au cours des années 1970, la Commission de la fonction publique crée des structures dédiées, dont un Bureau de l'emploi des Autochtones et des programmes de carrières dans le Nord, pour recruter des employés autochtones dans l'administration fédérale."},
+ s:{en:"During the 1970s the Public Service Commission creates dedicated structures, including an Office of Native Employment and northern careers programming, to recruit Indigenous employees into the federal service. Later in the decade the Commission also establishes an Anti-Discrimination Branch.",
+    fr:"Au cours des années 1970, la Commission de la fonction publique crée des structures dédiées, dont un Bureau de l'emploi des Autochtones et des programmes de carrières dans le Nord, pour recruter des employés autochtones dans l'administration fédérale. Plus tard dans la décennie, la Commission met aussi sur pied une direction de l'antidiscrimination."},
  w:{en:"The first official admission that neutral process alone would not produce Indigenous representation.",
     fr:"Le premier aveu officiel qu'un processus neutre, à lui seul, ne produirait pas la représentation autochtone."},
  f:{en:"The programs sat at the margins of the staffing system, and such targets as existed were not binding on anyone.",
     fr:"Les programmes restaient en marge du système de dotation, et les cibles existantes ne liaient personne."},
- src:{en:"Public Service Commission annual reports of the period (cited by title)", fr:"Rapports annuels de la Commission de la fonction publique de l'époque (cités par titre)", url:null}},
+ src:{en:"PSC, The 100 Years of the Public Service Commission of Canada (Canada.ca)", fr:"CFP, Les 100 ans de la Commission de la fonction publique du Canada (Canada.ca, page en anglais)", url:"https://www.canada.ca/en/public-service-commission/services/publications/publications/100-years-public-service-commission-canada-1908-2008.html"}},
 
 /* ===== ERA 2 : 1976 to 1995 ===== */
 {id:"chra1977", y:"1977", sort:1977, era:2, key:true, groups:["sys"], type:"law",
@@ -583,7 +587,7 @@ const ENTRIES = [
     fr:"Volontaire et pauvre en cibles. Les résultats ont été modestes et, en deux ans, l'approche a été dépassée par le cadre plus solide d'Abella."},
  src:{en:"Government announcement, June 1983 (cited by title)", fr:"Annonce gouvernementale, juin 1983 (citée par titre)", url:null}},
 
-{id:"abella1984", y:"1984", sort:1984, era:2, key:true, groups:["wom","ind","dis","rac"], type:"report",
+{id:"abella1984", y:"1984", sort:1984.6, era:2, key:true, groups:["wom","ind","dis","rac"], type:"report",
  t:{en:"The Abella Commission invents employment equity", fr:"La commission Abella invente l'équité en matière d'emploi"},
  s:{en:"Judge Rosalie Silberman Abella's Royal Commission on Equality in Employment coins the term employment equity, defines systemic discrimination as something that needs no intent, and recommends mandatory measures, data collection and enforcement for four designated groups.",
     fr:"La Commission royale sur l'égalité en matière d'emploi, présidée par la juge Rosalie Silberman Abella, forge l'expression équité en matière d'emploi, définit la discrimination systémique comme un phénomène sans intention requise, et recommande des mesures obligatoires, la collecte de données et des mécanismes de contrainte pour quatre groupes désignés."},
@@ -595,8 +599,8 @@ const ENTRIES = [
 
 {id:"charter1985", y:"1985", sort:1985, era:2, key:false, groups:["sys"], type:"law",
  t:{en:"Charter equality rights take effect", fr:"Les droits à l'égalité de la Charte entrent en vigueur"},
- s:{en:"Section 15 of the Canadian Charter of Rights and Freedoms comes into force, guaranteeing equality before and under the law and expressly protecting programs that ameliorate the conditions of disadvantaged groups.",
-    fr:"L'article 15 de la Charte canadienne des droits et libertés entre en vigueur, garantissant l'égalité devant la loi et dans son application, et protégeant expressément les programmes destinés à améliorer la situation des groupes défavorisés."},
+ s:{en:"Section 15 of the Canadian Charter of Rights and Freedoms comes into force, guaranteeing equality before and under the law and expressly protecting programs that ameliorate the conditions of disadvantaged groups. Section 15's promise is substantive equality, giving constitutional form to commitments Canada made internationally, including the 1970 ratification of the Convention against racial discrimination.",
+    fr:"L'article 15 de la Charte canadienne des droits et libertés entre en vigueur, garantissant l'égalité devant la loi et dans son application, et protégeant expressément les programmes destinés à améliorer la situation des groupes défavorisés. La promesse de l'article 15 est l'égalité réelle, donnant forme constitutionnelle aux engagements internationaux du Canada, dont la ratification en 1970 de la Convention contre la discrimination raciale."},
  w:{en:"A constitutional floor under every later equity program and case.",
     fr:"Un plancher constitutionnel sous chaque programme et chaque cause d'équité ultérieurs."},
  f:{en:"Charter litigation is slow and costly. It set the frame more than it fixed workplaces.",
@@ -1098,8 +1102,100 @@ const ENTRIES = [
     fr:"La base de preuve et la mobilisation sont plus fortes qu'à aucun autre moment de ce dossier."},
  f:{en:"The two levers that historically produced durable change, law with teeth and binding orders, are the two still pending.",
     fr:"Les deux leviers qui ont historiquement produit un changement durable, une loi avec du mordant et des ordonnances contraignantes, sont les deux encore en attente."},
- src:{en:"Synthesis of the sources on this page, verified July 2026", fr:"Synthèse des sources de cette page, vérifiée en juillet 2026", url:null}}
+ src:{en:"Synthesis of the sources on this page, verified July 2026", fr:"Synthèse des sources de cette page, vérifiée en juillet 2026", url:null}},
+
+/* ===== Additions from the July 2026 verification pass ===== */
+{id:"icerd1970", y:"1970", sort:1970.2, era:1, key:true, groups:["rac","black","ind"], type:"law",
+ t:{en:"Canada ratifies the Convention against racial discrimination", fr:"Le Canada ratifie la Convention contre la discrimination raciale"},
+ s:{en:"Canada ratifies the International Convention on the Elimination of All Forms of Racial Discrimination, committing the state to pursue substantive equality and to eliminate racial discrimination in public life, including public employment, with periodic reporting to a United Nations committee of experts. The commitment is later given constitutional form in section 15 of the Canadian Charter of Rights and Freedoms, which protects both equality before the law and programs that correct disadvantage.",
+    fr:"Le Canada ratifie la Convention internationale sur l'élimination de toutes les formes de discrimination raciale, s'engageant à poursuivre l'égalité réelle et à éliminer la discrimination raciale dans la vie publique, y compris l'emploi public, avec des rapports périodiques à un comité d'experts des Nations Unies. Cet engagement prend plus tard forme constitutionnelle à l'article 15 de la Charte canadienne des droits et libertés, qui protège à la fois l'égalité devant la loi et les programmes qui corrigent les désavantages."},
+ w:{en:"Anchored substantive equality in binding international law that Canada must answer to; the 2023 task force report grounds modernization of the Employment Equity Act in these commitments.",
+    fr:"A ancré l'égalité réelle dans un droit international contraignant dont le Canada doit répondre; le rapport du groupe de travail de 2023 fonde la modernisation de la Loi sur l'équité en matière d'emploi sur ces engagements."},
+ f:{en:"A treaty binds the state but gives an individual worker no direct remedy at home; the domestic tools took another decade and a half to arrive (1977, 1985, 1986).",
+    fr:"Un traité lie l'État mais n'offre au travailleur individuel aucun recours direct au pays; les outils internes ont mis encore quinze ans à arriver (1977, 1985, 1986)."},
+ src:{en:"International Convention on the Elimination of All Forms of Racial Discrimination, ratified by Canada in 1970 (cited by title; text available through the United Nations)", fr:"Convention internationale sur l'élimination de toutes les formes de discrimination raciale, ratifiée par le Canada en 1970 (citée par titre; texte disponible auprès des Nations Unies)", url:null}},
+
+{id:"obstacles1981", y:"1981", sort:1981, era:2, key:true, groups:["dis"], type:"report",
+ t:{en:"Obstacles: Parliament reports on disability", fr:"Obstacles : le Parlement fait rapport sur le handicap"},
+ s:{en:"During the International Year of Disabled Persons, the House of Commons Special Committee on the Disabled and the Handicapped publishes Obstacles, cataloguing barriers across areas of federal responsibility, including employment in the federal government, with follow-up reports tracking the response.",
+    fr:"Pendant l'Année internationale des personnes handicapées, le Comité spécial de la Chambre des communes concernant les invalides et les handicapés publie Obstacles, qui recense les obstacles dans les champs de responsabilité fédérale, y compris l'emploi au gouvernement fédéral, avec des rapports de suivi sur la réponse."},
+ w:{en:"Framed disability as barrier removal rather than charity on Parliament's own record, and helped build the case that put disability into section 15 of the Charter and into Abella's designated groups.",
+    fr:"A présenté le handicap comme une affaire d'élimination d'obstacles plutôt que de charité, au dossier même du Parlement, et a contribué à inscrire le handicap à l'article 15 de la Charte et parmi les groupes désignés d'Abella."},
+ f:{en:"Nearly four decades passed between Obstacles and framework legislation in 2019; the community's file advanced report by report while others gained statutes.",
+    fr:"Près de quatre décennies séparent Obstacles de la loi-cadre de 2019; le dossier de la communauté a avancé rapport par rapport pendant que d'autres obtenaient des lois."},
+ src:{en:"Obstacles: Report of the Special Committee on the Disabled and the Handicapped, 1981 (cited by title; publications.gc.ca)", fr:"Obstacles : rapport du Comité spécial concernant les invalides et les handicapés, 1981 (cité par titre; publications.gc.ca)", url:null}},
+
+{id:"equalitynow1984", y:"1984", sort:1984.2, era:2, key:true, groups:["rac","black"], type:"report",
+ t:{en:"Equality Now! names racial barriers", fr:"Equality Now! nomme les obstacles raciaux"},
+ s:{en:"The House of Commons Special Committee on Participation of Visible Minorities in Canadian Society reports Equality Now!, recommending action across employment and public life, including that the federal government address the under-representation of visible minorities in its own workforce.",
+    fr:"Le Comité spécial de la Chambre des communes sur la participation des minorités visibles à la société canadienne dépose le rapport Equality Now! (l'égalité, maintenant), recommandant des mesures dans l'emploi et la vie publique, y compris que le gouvernement fédéral s'attaque à la sous-représentation des minorités visibles dans son propre effectif."},
+ w:{en:"With the Abella commission reporting months later, 1984 became the year a parliamentary committee and a royal commission converged on the same diagnosis; the visible minority category entered federal policy through this period.",
+    fr:"Avec la commission Abella qui a fait rapport quelques mois plus tard, 1984 est devenue l'année où un comité parlementaire et une commission royale ont convergé vers le même diagnostic; la catégorie des minorités visibles est entrée dans la politique fédérale à cette période."},
+ f:{en:"The urgency was in the title; the public service piece of its agenda still waited until 1995 for law.",
+    fr:"L'urgence était dans le titre; le volet fonction publique de son programme a tout de même attendu la loi jusqu'en 1995."},
+ src:{en:"Equality Now! Report of the Special Committee on Participation of Visible Minorities in Canadian Society, 1984 (cited by title; publications.gc.ca)", fr:"Equality Now! Rapport du Comité spécial sur la participation des minorités visibles à la société canadienne, 1984 (cité par titre; publications.gc.ca)", url:null}},
+
+{id:"redway1992", y:"1992", sort:1992.4, era:2, key:false, groups:["wom","ind","dis","rac"], type:"report",
+ t:{en:"Parliament reviews the first Act", fr:"Le Parlement examine la première Loi"},
+ s:{en:"A parliamentary committee chaired by Alan Redway reviews the 1986 Employment Equity Act and reports on how it should be strengthened. The 1995 Act adopts many of its recommendations, including extending coverage to the federal public service and requiring equity plans with short-term numerical goals.",
+    fr:"Un comité parlementaire présidé par Alan Redway examine la Loi sur l'équité en matière d'emploi de 1986 et fait rapport sur la façon de la renforcer. La Loi de 1995 reprend nombre de ses recommandations, dont l'extension de la couverture à la fonction publique fédérale et l'exigence de plans d'équité assortis d'objectifs chiffrés à court terme."},
+ w:{en:"Proof the Act's built-in review cycle can work: this review produced the strongest version of the law.",
+    fr:"La preuve que le cycle d'examen prévu par la Loi peut fonctionner : cet examen a produit la version la plus solide de la loi."},
+ f:{en:"It took a statutory review, a new bill and a decade of pressure to fix what advocates had flagged at royal assent in 1986.",
+    fr:"Il a fallu un examen légal, un nouveau projet de loi et une décennie de pression pour corriger ce que les défenseurs signalaient dès la sanction royale de 1986."},
+ src:{en:"ESDC, Employment Equity Act review backgrounder (Canada.ca)", fr:"EDSC, document d'information sur l'examen de la Loi sur l'équité en matière d'emploi (Canada.ca)", url:"https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/reports/act-review-overview-backgrounder-policy-issues.html"}},
+
+{id:"rcap1996", y:"1996", sort:1996, era:3, key:true, groups:["ind"], type:"report",
+ t:{en:"The Royal Commission on Aboriginal Peoples reports", fr:"La Commission royale sur les peuples autochtones fait rapport"},
+ s:{en:"The Royal Commission on Aboriginal Peoples delivers its five-volume final report on the Crown-Indigenous relationship, including the machinery of government, with recommendations on federal employment of Indigenous people and on the public service's capacity to work respectfully with First Nations, Métis and Inuit nations.",
+    fr:"La Commission royale sur les peuples autochtones remet son rapport final en cinq volumes sur la relation entre la Couronne et les Autochtones, y compris l'appareil gouvernemental, avec des recommandations sur l'emploi fédéral des Autochtones et sur la capacité de la fonction publique à travailler respectueusement avec les nations des Premières Nations, des Métis et des Inuits."},
+ w:{en:"The most comprehensive evidentiary record of the relationship ever assembled; the TRC (2015) and Many Voices One Mind (2017) build on ground it mapped.",
+    fr:"Le dossier de preuve le plus complet jamais assemblé sur cette relation; la CVR (2015) et Unis dans la diversité (2017) bâtissent sur le terrain qu'il a cartographié."},
+ f:{en:"The federal response implemented little of the core architecture, and nineteen years later the TRC was still calling for change on ground the commission had mapped.",
+    fr:"La réponse fédérale a mis en œuvre peu de l'architecture centrale, et dix-neuf ans plus tard la CVR réclamait encore des changements sur un terrain que la commission avait cartographié."},
+ src:{en:"Report of the Royal Commission on Aboriginal Peoples, 1996 (cited by title; publications.gc.ca)", fr:"Rapport de la Commission royale sur les peuples autochtones, 1996 (cité par titre; publications.gc.ca)", url:null}},
+
+{id:"eepmp1998", y:"1998", sort:1998.5, era:3, key:false, groups:["wom","ind","dis","rac"], type:"program",
+ t:{en:"Money attaches to equity plans", fr:"De l'argent se rattache aux plans d'équité"},
+ s:{en:"The Employment Equity Positive Measures Program funds departmental initiatives, from targeted recruitment to career development and enabling supports, to help the public service meet its new obligations under the Act that came into force in 1996.",
+    fr:"Le Programme de mesures positives d'équité en emploi finance des initiatives ministérielles, du recrutement ciblé au perfectionnement professionnel et aux mesures de soutien, pour aider la fonction publique à respecter ses nouvelles obligations sous la Loi entrée en vigueur en 1996."},
+ w:{en:"For the first sustained period, money was attached to equity plans rather than expectations alone.",
+    fr:"Pour la première période soutenue, de l'argent accompagnait les plans d'équité plutôt que de simples attentes."},
+ f:{en:"The fund sunset in the early 2000s and much of the activity it paid for sunset with it; the 2002 parliamentary review objected to the termination, without effect.",
+    fr:"Le fonds s'est éteint au début des années 2000 et une bonne part de l'activité qu'il finançait s'est éteinte avec lui; l'examen parlementaire de 2002 s'est opposé à sa fin, sans effet."},
+ src:{en:"PSC, History of Employment Equity in the Public Service and the Public Service Commission of Canada, 2011 (publications.gc.ca)", fr:"CFP, History of Employment Equity in the Public Service and the Public Service Commission of Canada, 2011 (publications.gc.ca, document en anglais)", url:"https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf"}},
+
+{id:"review2002", y:"2002", sort:2002, era:3, key:false, groups:["wom","ind","dis","rac"], type:"report",
+ t:{en:"The 2002 statutory review finds progress and gaps", fr:"L'examen légal de 2002 constate des progrès et des lacunes"},
+ s:{en:"Parliament's review of the 1995 Act hears that the law is working but unevenly. Representation of persons with disabilities in the public service had nearly doubled since 1987 and, for the first time, reached the employer's availability benchmark, while the committee objected to the winding down of funded equity programs.",
+    fr:"L'examen parlementaire de la Loi de 1995 entend que la loi fonctionne, mais inégalement. La représentation des personnes en situation de handicap dans la fonction publique avait presque doublé depuis 1987 et atteignait pour la première fois le repère de disponibilité de l'employeur, tandis que le comité s'opposait à l'abandon des programmes d'équité financés."},
+ w:{en:"The review cycle again did its job: public evidence, on the record, at a fixed interval.",
+    fr:"Le cycle d'examen a de nouveau fait son travail : des preuves publiques, au dossier, à intervalle fixe."},
+ f:{en:"Recommendations to keep program funding were not taken up, and the next comprehensive look at the Act waited nineteen years (2021).",
+    fr:"Les recommandations de maintenir le financement des programmes n'ont pas été retenues, et le prochain examen complet de la Loi a attendu dix-neuf ans (2021)."},
+ src:{en:"House of Commons, Review of the Employment Equity Act, 2002 (ourcommons.ca)", fr:"Chambre des communes, examen de la Loi sur l'équité en matière d'emploi, 2002 (ourcommons.ca, document en anglais)", url:"https://www.ourcommons.ca/Content/Committee/371/HUMA/Reports/RP1032138/humarp09/humarp09-e.pdf"}},
+
+{id:"chrcaudit2024", y:"2024", sort:2024.2, era:5, key:true, groups:["rac","black"], type:"report",
+ t:{en:"The human rights commission audits the management ranks", fr:"La Commission des droits de la personne vérifie les rangs de gestion"},
+ s:{en:"In March 2024 the Canadian Human Rights Commission publishes sector-wide findings from its employment equity audit of racialized people in management and executive positions across the federal public service: significant barriers to hiring and promotion persist, particularly into management, and organizations aware of systemic barriers are not doing enough to remove them.",
+    fr:"En mars 2024, la Commission canadienne des droits de la personne publie les constats sectoriels de sa vérification de l'équité en emploi visant les personnes racisées dans les postes de gestion et de direction de la fonction publique fédérale : des obstacles importants à l'embauche et à la promotion persistent, surtout vers la gestion, et les organisations au fait des obstacles systémiques n'en font pas assez pour les éliminer."},
+ w:{en:"The Act's audit power used horizontally across the service, with published findings: the compliance lever working as designed.",
+    fr:"Le pouvoir de vérification de la Loi utilisé horizontalement dans toute la fonction publique, avec des constats publiés : le levier de conformité fonctionnant comme prévu."},
+ f:{en:"Its conclusion, awareness without sufficient action, matches the Auditor General's from five months earlier. Two watchdogs, one finding.",
+    fr:"Sa conclusion, la conscience sans action suffisante, rejoint celle de la vérificatrice générale cinq mois plus tôt. Deux chiens de garde, un même constat."},
+ src:{en:"TBS, Employment Equity in the Public Service of Canada, 2024 to 2025 (Canada.ca)", fr:"SCT, L'équité en matière d'emploi dans la fonction publique du Canada, 2024-2025 (Canada.ca)", url:"https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/employment-equity-annual-reports/employment-equity-public-service-canada-2024-2025.html"}},
+
+{id:"eldp2025", y:"2025", sort:2025.5, era:5, key:false, groups:["black","ind"], type:"program",
+ t:{en:"Executive leadership programs for Indigenous and Black leaders", fr:"Programmes de leadership pour cadres autochtones et noirs"},
+ s:{en:"Executive Leadership Development Programs for Indigenous leaders and for Black leaders launch across the core public administration, graduating first cohorts of 28 and 50 respectively, alongside continuing career and mental health initiatives under the Action Plan for Black Public Servants.",
+    fr:"Des programmes de perfectionnement en leadership pour cadres, l'un pour les dirigeants autochtones et l'autre pour les dirigeants noirs, sont lancés dans l'administration publique centrale, avec de premières cohortes de 28 et de 50 diplômés respectivement, parallèlement aux initiatives de carrière et de santé mentale du Plan d'action pour les fonctionnaires noirs."},
+ w:{en:"Development aimed where the Zellars study located the blockage: entry into and survival within the executive ranks.",
+    fr:"Un perfectionnement visant là où l'étude Zellars situait le blocage : l'entrée dans les rangs de la direction et la capacité d'y rester."},
+ f:{en:"Cohorts of dozens against gaps measured in thousands; the promotion system, not the program calendar, still decides the trend line.",
+    fr:"Des cohortes de quelques dizaines face à des écarts qui se comptent en milliers; c'est le système de promotion, pas le calendrier des programmes, qui décide encore de la tendance."},
+ src:{en:"TBS, Employment Equity in the Public Service of Canada, 2024 to 2025 (Canada.ca)", fr:"SCT, L'équité en matière d'emploi dans la fonction publique du Canada, 2024-2025 (Canada.ca)", url:"https://www.canada.ca/en/government/publicservice/wellness-inclusion-diversity-public-service/diversity-inclusion-public-service/employment-equity-annual-reports/employment-equity-public-service-canada-2024-2025.html"}}
 ];
+
 
 const CASES = [
 {n:{en:"Robichaud v. Canada (1987)", fr:"Robichaud c. Canada (1987)"},
@@ -1134,7 +1230,7 @@ const NETWORKS = [
 {n:{en:"Black Executives Network (BEN)", fr:"Réseau des cadres noirs"},
  s:{en:"A community of Black executives across the public service. In 2024 it commissioned Dr. Rachel Zellars' study of Black executive careers, which deputy heads are publicly expected to act on with the Network.", fr:"Une communauté de cadres noirs de toute la fonction publique. En 2024, il a commandé l'étude de la Dre Rachel Zellars sur les carrières des cadres noirs, à laquelle les administrateurs généraux sont publiquement appelés à donner suite avec le Réseau."}},
 {n:{en:"Knowledge Circle for Indigenous Inclusion (KCII)", fr:"Cercle du savoir sur l'inclusion autochtone"},
- s:{en:"An interdepartmental hub, hosted at Indigenous Services Canada, supporting the Deputy Minister Champion and the implementation of Many Voices One Mind, including progress scorecards, career navigators and tools for Indigenous employees.", fr:"Un carrefour interministériel, hébergé à Services aux Autochtones Canada, qui appuie la sous-ministre championne et la mise en œuvre d'Unis dans la diversité, y compris les tableaux de bord, les navigateurs de carrière et les outils pour les employés autochtones."}},
+ s:{en:"An interdepartmental hub supporting the Deputy Minister Champion and the implementation of Many Voices One Mind, including progress scorecards, career navigators and tools for Indigenous employees.", fr:"Un carrefour interministériel qui appuie la sous-ministre championne et la mise en œuvre d'Unis dans la diversité, y compris les tableaux de bord, les navigateurs de carrière et les outils pour les employés autochtones."}},
 {n:{en:"Interdepartmental Circles on Indigenous Representation", fr:"Cercles interministériels sur la représentation autochtone"},
  s:{en:"The deputy-and-executive platform whose year of evidence-gathering produced Many Voices One Mind in 2017, a rare case of a strategy authored through Indigenous leadership inside the system.", fr:"La plateforme de sous-ministres et de cadres dont l'année de collecte de preuves a produit Unis dans la diversité en 2017, un cas rare de stratégie rédigée sous un leadership autochtone à l'intérieur du système."}},
 {n:{en:"Public Service Pride Network", fr:"Réseau de la Fierté à la fonction publique"},
@@ -1185,7 +1281,8 @@ const GLOSS = [
 {t:{en:"Self-identification", fr:"Auto-identification"}, d:{en:"The voluntary process by which employees indicate membership in equity groups. All representation data depends on it, which is why trust in how the data is used is itself an equity issue.", fr:"Le processus volontaire par lequel les employés indiquent leur appartenance à des groupes d'équité. Toutes les données de représentation en dépendent, d'où le fait que la confiance dans l'usage des données est elle-même un enjeu d'équité."}},
 {t:{en:"Policy grievance", fr:"Grief de principe"}, d:{en:"A union grievance about the interpretation or application of a collective agreement across a workplace, not just one member's case. The vehicle that produced the 2023 CHRC finding.", fr:"Un grief syndical portant sur l'interprétation ou l'application d'une convention collective à l'échelle d'un milieu de travail, pas seulement le cas d'un membre. Le véhicule qui a produit le constat de 2023 sur la CCDP."}},
 {t:{en:"GBA Plus", fr:"ACS Plus"}, d:{en:"Gender-based analysis plus: the government's tool for assessing how policies affect different groups of people. Audited in 2015 and 2022, both times found unevenly applied.", fr:"L'analyse comparative entre les sexes plus : l'outil gouvernemental pour évaluer l'effet des politiques sur différents groupes. Auditée en 2015 et en 2022, jugée les deux fois d'application inégale."}},
-{t:{en:"The four levers", fr:"Les quatre leviers"}, d:{en:"This site's shorthand for the traits shared by reforms that lasted: written into law, enforceable, measured with disaggregated data, and backed by organized employees.", fr:"Le raccourci de ce site pour les traits communs des réformes qui ont duré : inscrites dans la loi, exécutoires, mesurées par des données désagrégées et appuyées par des employés organisés."}}
+{t:{en:"The four levers", fr:"Les quatre leviers"}, d:{en:"This site's shorthand for the traits shared by reforms that lasted: written into law, enforceable, measured with disaggregated data, and backed by organized employees.", fr:"Le raccourci de ce site pour les traits communs des réformes qui ont duré : inscrites dans la loi, exécutoires, mesurées par des données désagrégées et appuyées par des employés organisés."}},
+{t:{en:"Substantive equality", fr:"Égalité réelle"}, d:{en:"Equality in real conditions and outcomes, not just identical treatment. The Employment Equity Act's purpose clause says equity means more than treating persons the same way and requires special measures and the accommodation of differences. Canada committed to it internationally in 1970 through the Convention against racial discrimination, section 15 of the Charter gives it constitutional form, and the 2023 task force report is built around achieving and sustaining it.", fr:"L'égalité dans les conditions et les résultats réels, pas seulement le traitement identique. La disposition d'objet de la Loi sur l'équité en matière d'emploi précise que l'équité signifie plus que traiter les personnes de la même façon et exige des mesures spéciales et la prise en compte des différences. Le Canada s'y est engagé sur le plan international en 1970 par la Convention contre la discrimination raciale, l'article 15 de la Charte lui donne forme constitutionnelle, et le rapport du groupe de travail de 2023 est construit autour de son atteinte et de son maintien."}}
 ];
 
 const BRIEF = {
@@ -1194,8 +1291,8 @@ const BRIEF = {
        fr:"Pour les employés autochtones, ce dossier va d'une loi conçue pour effacer l'identité à des stratégies rédigées sous un leadership autochtone. La Loi sur les Indiens faisait payer l'avancement en statut. Des programmes ciblés sont arrivés dans les années 1970, en marge. La Commission de vérité et réconciliation a fait de la formation des fonctionnaires une obligation nommée en 2015, et Unis dans la diversité (2017) a documenté les obstacles à chaque étape de carrière avec des tableaux de bord au niveau des sous-ministres, tandis que le poste d'ombudsman pour la réconciliation autochtone qu'elle recommandait n'a jamais été créé. Les données fondées sur les distinctions pour les Premières Nations, les Métis et les Inuits ne sont devenues courantes que dans les années 2020, et le rapport Blackett de 2023 recommande d'inscrire l'approche fondée sur les distinctions dans la loi elle-même."},
   black:{en:"For Black employees, the through-line is a fight to be counted separately and to make findings enforceable. Buried for decades inside the visible minority category, Black public servants organized (FBEC in 2018, then the Black Executives Network), won disaggregated data by 2021, and put anti-Black racism on the legal record: the 2020 grievance that produced the employer's own 2023 finding at the human rights commission, the Senate's 2023 call for a Black Equity Commissioner, the Zellars study at the executive level in 2024, and the class action whose 2025 procedural dismissal redirected the systemic question to the Canadian Human Rights Tribunal, which will now hear it following the February 2026 referral. The Blackett report's recommended Black employment equity group remains unlegislated.",
        fr:"Pour les employés noirs, le fil conducteur est un combat pour être comptés séparément et rendre les constats exécutoires. Longtemps noyés dans la catégorie des minorités visibles, les fonctionnaires noirs se sont organisés (le CEFN en 2018, puis le Réseau des cadres noirs), ont obtenu des données désagrégées dès 2021 et ont inscrit le racisme anti-Noirs au dossier juridique : le grief de 2020 qui a mené au constat de l'employeur lui-même en 2023 à la commission des droits de la personne, l'appel du Sénat en 2023 pour un commissaire à l'équité pour les Noirs, l'étude Zellars au niveau des cadres en 2024, et le recours collectif dont le rejet procédural de 2025 a réorienté la question systémique vers le Tribunal canadien des droits de la personne, qui l'entendra à la suite du renvoi de février 2026. Le groupe visé pour les travailleurs noirs recommandé par le rapport Blackett n'est toujours pas inscrit dans la loi."},
-  rac:{en:"For racialized employees, the record moves from citizenship-level exclusion to tribunal victories to a still-open enforcement question. Grover (1992), NCARR (1997) and Chopra (2001) proved individual and systemic discrimination in federal careers. Embracing Change (2000) set 1-in-5 benchmarks and became the defining case of targets without consequences. The 2023 Auditor General audit found, once again, activity not connected to results. The 2023 Blackett report proposes racialized workers as the legal term and stronger oversight, and the modernized Act had not been tabled as of July 2026.",
-       fr:"Pour les employés racisés, le dossier va de l'exclusion au niveau de la citoyenneté à des victoires devant le Tribunal, jusqu'à une question d'application toujours ouverte. Grover (1992), NCARR (1997) et Chopra (2001) ont prouvé la discrimination individuelle et systémique dans les carrières fédérales. Faire place au changement (2000) a fixé des repères de 1 sur 5 et est devenu le cas d'école des cibles sans conséquences. L'audit de la vérificatrice générale de 2023 a constaté, encore une fois, des activités sans lien démontré avec des résultats. Le rapport Blackett de 2023 propose le terme juridique de personnes racisées et une surveillance renforcée, et la Loi modernisée n'avait pas été déposée en juillet 2026."},
+  rac:{en:"Canada committed itself to substantive equality in 1970 by ratifying the International Convention on the Elimination of All Forms of Racial Discrimination, a commitment section 15 of the Charter later gave constitutional form; the workplace record tests it. For racialized employees, the record moves from citizenship-level exclusion to tribunal victories to a still-open enforcement question. Grover (1992), NCARR (1997) and Chopra (2001) proved individual and systemic discrimination in federal careers. Embracing Change (2000) set 1-in-5 benchmarks and became the defining case of targets without consequences. The 2023 Auditor General audit found, once again, activity not connected to results. The 2023 Blackett report proposes racialized workers as the legal term and stronger oversight, and the modernized Act had not been tabled as of July 2026.",
+       fr:"Le Canada s'est engagé envers l'égalité réelle en 1970 en ratifiant la Convention internationale sur l'élimination de toutes les formes de discrimination raciale, un engagement auquel l'article 15 de la Charte a ensuite donné forme constitutionnelle; le dossier du milieu de travail le met à l'épreuve. Pour les employés racisés, le dossier va de l'exclusion au niveau de la citoyenneté à des victoires devant le Tribunal, jusqu'à une question d'application toujours ouverte. Grover (1992), NCARR (1997) et Chopra (2001) ont prouvé la discrimination individuelle et systémique dans les carrières fédérales. Faire place au changement (2000) a fixé des repères de 1 sur 5 et est devenu le cas d'école des cibles sans conséquences. L'audit de la vérificatrice générale de 2023 a constaté, encore une fois, des activités sans lien démontré avec des résultats. Le rapport Blackett de 2023 propose le terme juridique de personnes racisées et une surveillance renforcée, et la Loi modernisée n'avait pas été déposée en juillet 2026."},
   wom:{en:"For women, this is the oldest arc in the record and the closest to a full cycle: explicit exclusion (the 1921 marriage bar), deletion of the written rule (1955), diagnosis of the unwritten ones (Bird 1970, Beneath the Veneer 1990), landmark liability and pay victories (Robichaud 1987, the 3.5 billion dollar settlement of 1999), a legislated step backwards (2009), and finally the structural fix Abella recommended in 1984: a proactive Pay Equity Act, in force since 2021, whose plans are now being implemented and tested.",
        fr:"Pour les femmes, c'est l'arc le plus ancien du dossier et le plus proche d'un cycle complet : exclusion explicite (l'interdiction de 1921 visant les femmes mariées), suppression de la règle écrite (1955), diagnostic des règles non écrites (Bird 1970, Au-delà des apparences 1990), victoires marquantes en responsabilité et en rémunération (Robichaud 1987, le règlement de 3,5 milliards de dollars de 1999), un recul législatif (2009), puis enfin le correctif structurel qu'Abella recommandait en 1984 : une Loi sur l'équité salariale proactive, en vigueur depuis 2021, dont les plans sont maintenant mis en œuvre et mis à l'épreuve."},
   dis:{en:"For persons with disabilities, the record is the youngest in law and the clearest test of targets. Named in the 1983 program and the 1986 Act, the community waited until 2019 for framework legislation: the Accessible Canada Act, with its commissioner, and Nothing Without Us, with its 5,000-hire goal. That goal was exceeded by 2025 with close to 7,000 net new hires, the strongest recent evidence that specific, dated, owned targets move numbers. Yet persons with disabilities remain the group furthest below workforce availability, and survey results still show weaker inclusion: the difference between being hired and belonging.",
@@ -1231,11 +1328,11 @@ const I18N = {
       fr:"Une histoire de l'antiracisme, de l'équité, de l'inclusion et de l'accessibilité dans la fonction publique du Canada. Chaque entrée nomme ce qui a fait avancer les choses et ce qui a échoué, avec une source vérifiable."},
  levers:{en:"<strong>The pattern in one sentence:</strong> the reforms that produced durable change were written into law, were enforceable, measured results with disaggregated data, and had organized employees keeping pressure on. Announcements without those four traits tended to fade.",
          fr:"<strong>Le constat en une phrase :</strong> les réformes qui ont produit un changement durable étaient inscrites dans la loi, étaient exécutoires, mesuraient les résultats avec des données désagrégées et pouvaient compter sur des employés organisés pour maintenir la pression. Les annonces dépourvues de ces quatre traits ont eu tendance à s'estomper."},
- heronote:{en:"This is an independent educational resource, not a Government of Canada site. Links were last checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, verify against the linked primary source and let the maintainer know.",
+ heronote:{en:"This is an independent educational resource, not a Government of Canada site. Links were last checked in July 2026. Reports that predate the web are cited by title and year; most can be found through publications.gc.ca or the Library of Parliament. If you spot an error, verify against the linked primary source and report it to the site maintainer.",
            fr:"Ceci est une ressource éducative indépendante, et non un site du gouvernement du Canada. Les liens ont été vérifiés en juillet 2026. Les rapports antérieurs au Web sont cités par titre et année; la plupart se trouvent via publications.gc.ca ou la Bibliothèque du Parlement. Si vous repérez une erreur, vérifiez la source primaire liée et prévenez le responsable du site."},
  howto_h:{en:"How to use this site", fr:"Comment utiliser ce site"},
  g1b:{en:"Explore the timeline.", fr:"Explorez la chronologie."},
- g1t:{en:"Filter 71 entries by community, era, type or keyword. Open any entry for the plain-language record and its source.", fr:"Filtrez 71 entrées par communauté, époque, type ou mot-clé. Ouvrez une entrée pour le récit en langage clair et sa source."},
+ g1t:{en:"Filter 80 entries by community, era, type or keyword. Open any entry for the plain-language record and its source.", fr:"Filtrez 80 entrées par communauté, époque, type ou mot-clé. Ouvrez une entrée pour le récit en langage clair et sa source."},
  g2b:{en:"Build a briefing.", fr:"Générez une note d'information."},
  g2t:{en:"Pick one or more communities and the builder assembles a sourced briefing note for exactly that scope. Add a group, and its record folds in automatically.", fr:"Choisissez une ou plusieurs communautés et le générateur assemble une note d'information sourcée pour exactement cette portée. Ajoutez un groupe, et son dossier s'y intègre automatiquement."},
  g3b:{en:"Check the assessments.", fr:"Consultez les évaluations."},
@@ -1272,7 +1369,7 @@ const I18N = {
  bb_gloss:{en:"Plain-language glossary", fr:"Glossaire en langage clair"},
  bb_src:{en:"Sources list", fr:"Liste des sources"},
  bb_for:{en:"4. Cover line (optional)", fr:"4. Ligne de couverture (facultative)"},
- bb_forph:{en:"e.g. Prepared for the ISC network learning session", fr:"p. ex. Préparé pour la séance d'apprentissage du réseau de SAC"},
+ bb_forph:{en:"e.g. Prepared for a departmental network learning session", fr:"p. ex. Préparé pour une séance d'apprentissage d'un réseau ministériel"},
  bb_print:{en:"Print or save as PDF", fr:"Imprimer ou enregistrer en PDF"},
  bb_copy:{en:"Copy as text", fr:"Copier en texte"},
  bb_copied:{en:"Copied to clipboard", fr:"Copié dans le presse-papiers"},
@@ -1309,42 +1406,45 @@ const I18N = {
  gl_dek:{en:"The terms this record depends on, in everyday language.", fr:"Les termes dont ce dossier dépend, en langage courant."},
  ab_h:{en:"About and method", fr:"À propos et méthode"},
  toplink:{en:"Top", fr:"Haut"},
- eraword:{en:"Era", fr:"Époque"}
+ eraword:{en:"Era", fr:"Époque"},
+ a_display:{en:"Display settings", fr:"Paramètres d'affichage"},
+ a_nav:{en:"Sections", fr:"Sections"},
+ a_filters:{en:"Timeline filters", fr:"Filtres de la chronologie"},
+ a_panel:{en:"Briefing settings", fr:"Paramètres de la note"},
+ a_purpose:{en:"Cover line", fr:"Ligne de couverture"},
+ band_legend:{en:"Overview: the numbered blocks are the six eras; select one to filter. Large dots on the upper row are key milestones, smaller dots are other entries, and pale dots are excluded by the current filters.", fr:"Aperçu : les blocs numérotés sont les six époques; sélectionnez-en un pour filtrer. Les gros points de la rangée supérieure sont des jalons clés, les petits points sont les autres entrées, et les points pâles sont exclus par les filtres actuels."},
+ era_count:{en:"{n} entries", fr:"{n} entrées"}
 };
 
 const ABOUT = {
  en:`<p><strong>What this is.</strong> An independent educational record of how the Public Service of Canada has treated its own people, built so that any public servant, network member, student or researcher can trace the documented history and assemble a sourced briefing in minutes. It was created in a personal capacity. It is not a Government of Canada site, does not speak for any department, and receives no government direction or funding.</p>
 <h3>Method</h3>
-<p>Every entry is drawn from public primary sources: statutes, tribunal and court decisions, royal commission and task force reports, audits, parliamentary committee reports, settlement documents and official announcements. Where a stable public link exists, the entry links to it; older material is cited by title and year and can be located through publications.gc.ca or the Library of Parliament. Figures appear only where a named source states them. Nothing here is invented, estimated or filled in from memory. Links and statuses were last verified in July 2026, and time-sensitive entries say so in their text. The assessments of what moved things forward and what fell short summarize documented outcomes, including the system's own audits, evaluations and scorecards, and are written to be checkable against the cited sources.</p>
+<p>Every entry is drawn from public primary sources: statutes, tribunal and court decisions, royal commission and task force reports, audits, parliamentary committee reports, settlement documents and official announcements. Where a stable public link exists, the entry links to it; older material is cited by title and year and can be located through publications.gc.ca or the Library of Parliament. Figures appear only where a named source states them. Nothing here is invented, estimated or filled in from memory. Coverage was also cross-checked against the Public Service Commission's <a href="https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf">History of Employment Equity in the Public Service and the Public Service Commission of Canada</a> (2011). Links and statuses were last verified in July 2026, and time-sensitive entries say so in their text. The assessments of what moved things forward and what fell short summarize documented outcomes, including the system's own audits, evaluations and scorecards, and are written to be checkable against the cited sources.</p>
 <h3>Alignment with public service values and ethics</h3>
 <p>This resource is built to be usable inside the federal workplace, and it holds itself to the spirit of the Values and Ethics Code for the Public Sector:</p>
 <div class="vals">
 <div class="v"><b>Respect for democracy.</b> Non-partisan throughout. The record covers actions of governments of every stripe across 159 years, and describes them by what they did, not by party. Parliament's and the courts' roles are presented as the legitimate channels they are.</div>
 <div class="v"><b>Respect for people.</b> Plain, dignified language about communities and individuals. People are named for what they contributed or endured on the public record, and described in the terms their communities use.</div>
-<div class="v"><b>Integrity.</b> Public sources only. No protected, internal or privileged information appears anywhere on this site. Errors, once verified, get corrected, not defended.</div>
+<div class="v"><b>Integrity.</b> Public sources only. No protected, internal or privileged information appears anywhere on this site. Verified errors are corrected.</div>
 <div class="v"><b>Stewardship.</b> A free, dependency-light, single-file site that runs on any device, sets no cookies and runs no analytics.</div>
-<div class="v"><b>Excellence.</b> Bilingual by design, WCAG-informed accessibility (contrast mode, text sizing, keyboard operation, reduced-motion support), and sources attached to every claim.</div>
+<div class="v"><b>Excellence.</b> Bilingual by design, accessibility designed to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA (contrast mode, text sizing, keyboard operation, reduced-motion support), and sources attached to every claim.</div>
 </div>
 <p>A practical note for public servants: this is a reference and drafting aid, not an official position. Anything you take from it into official work should go through your organization's normal review, and criticism of institutions here is always of documented decisions and outcomes, never of colleagues.</p>
-<h3>New in this edition</h3>
-<p>This edition adds entries the earlier version had not yet captured, including the franchise-era exclusions, the wartime record, the Bilingualism and Biculturalism Commission, the Bird Commission, the D'Avignon Committee, Beneath the Veneer (1990), the Douglas case, the first PSES, the 2015 and 2022 GBA audits, Many Voices One Mind (2017), the Egale inclusion report (2020), the 2023 Auditor General audit, the Senate's 2023 report, the 2024 restorative engagement panel and consultation, and the full 2025 to 2026 sequence: the certification dismissal and appeal, the move to the human rights system, the February 2026 Tribunal referral, and the still-untabled modernized Act. The briefing builder is new in this form: it composes a scoped, sourced briefing for any combination of communities.</p>
 <h3>Corrections</h3>
 <p>If you find an error of fact, date or attribution, check the cited source first; if the error stands, use the contact channel on the repository that hosts this page. Corrections are logged in the page source.</p>`,
  fr:`<p><strong>Ce que c'est.</strong> Un dossier éducatif indépendant sur la façon dont la fonction publique du Canada a traité ses propres gens, conçu pour que toute fonctionnaire, tout membre de réseau, toute étudiante ou tout chercheur puisse retracer l'histoire documentée et assembler une note d'information sourcée en quelques minutes. Il a été créé à titre personnel. Ce n'est pas un site du gouvernement du Canada, il ne parle au nom d'aucun ministère et ne reçoit ni directive ni financement gouvernemental.</p>
 <h3>Méthode</h3>
-<p>Chaque entrée provient de sources primaires publiques : lois, décisions de tribunaux, rapports de commissions royales et de groupes de travail, audits, rapports de comités parlementaires, documents de règlement et annonces officielles. Lorsqu'un lien public stable existe, l'entrée y renvoie; les documents plus anciens sont cités par titre et année et se trouvent via publications.gc.ca ou la Bibliothèque du Parlement. Les chiffres ne figurent que lorsqu'une source nommée les énonce. Rien ici n'est inventé, estimé ou comblé de mémoire. Les liens et les statuts ont été vérifiés en juillet 2026, et les entrées sensibles au temps l'indiquent dans leur texte. Les évaluations de ce qui a fait avancer les choses et de ce qui a échoué résument des résultats documentés, y compris les audits, évaluations et tableaux de bord du système lui-même, et sont rédigées pour être vérifiables contre les sources citées.</p>
+<p>Chaque entrée provient de sources primaires publiques : lois, décisions de tribunaux, rapports de commissions royales et de groupes de travail, audits, rapports de comités parlementaires, documents de règlement et annonces officielles. Lorsqu'un lien public stable existe, l'entrée y renvoie; les documents plus anciens sont cités par titre et année et se trouvent via publications.gc.ca ou la Bibliothèque du Parlement. Les chiffres ne figurent que lorsqu'une source nommée les énonce. Rien ici n'est inventé, estimé ou comblé de mémoire. La couverture a aussi été recoupée avec le document de la Commission de la fonction publique <a href="https://publications.gc.ca/collections/collection_2012/cfp-psc/SC3-159-2011-eng.pdf">History of Employment Equity in the Public Service and the Public Service Commission of Canada</a> (2011, en anglais). Les liens et les statuts ont été vérifiés en juillet 2026, et les entrées sensibles au temps l'indiquent dans leur texte. Les évaluations de ce qui a fait avancer les choses et de ce qui a échoué résument des résultats documentés, y compris les audits, évaluations et tableaux de bord du système lui-même, et sont rédigées pour être vérifiables contre les sources citées.</p>
 <h3>Conformité aux valeurs et à l'éthique du secteur public</h3>
 <p>Cette ressource est conçue pour être utilisable dans le milieu de travail fédéral et s'astreint à l'esprit du Code de valeurs et d'éthique du secteur public :</p>
 <div class="vals">
 <div class="v"><b>Respect de la démocratie.</b> Non partisan de bout en bout. Le dossier couvre les gestes de gouvernements de toutes allégeances sur 159 ans et les décrit par leurs actes, pas par leur parti. Les rôles du Parlement et des tribunaux sont présentés comme les voies légitimes qu'ils sont.</div>
 <div class="v"><b>Respect envers les personnes.</b> Un langage simple et digne au sujet des communautés et des personnes. Les gens sont nommés pour ce qu'ils ont apporté ou subi au dossier public, et décrits dans les termes que leurs communautés emploient.</div>
-<div class="v"><b>Intégrité.</b> Des sources publiques seulement. Aucune information protégée, interne ou privilégiée ne figure sur ce site. Les erreurs, une fois vérifiées, sont corrigées, pas défendues.</div>
+<div class="v"><b>Intégrité.</b> Des sources publiques seulement. Aucune information protégée, interne ou privilégiée ne figure sur ce site. Les erreurs vérifiées sont corrigées.</div>
 <div class="v"><b>Intendance.</b> Un site gratuit, léger, en un seul fichier, qui fonctionne sur tout appareil, ne dépose aucun témoin et n'exécute aucun outil d'analyse.</div>
-<div class="v"><b>Excellence.</b> Bilingue par conception, accessibilité inspirée des WCAG (mode contraste, taille du texte, navigation au clavier, respect du mouvement réduit), et une source rattachée à chaque affirmation.</div>
+<div class="v"><b>Excellence.</b> Bilingue par conception, accessibilité conçue selon les WCAG 2.1, niveau AA (mode contraste, taille du texte, navigation au clavier, respect du mouvement réduit), et une source rattachée à chaque affirmation.</div>
 </div>
 <p>Note pratique pour les fonctionnaires : ceci est un outil de référence et de rédaction, pas une position officielle. Tout ce que vous en tirez pour un travail officiel doit passer par la révision normale de votre organisation, et la critique des institutions porte ici toujours sur des décisions et des résultats documentés, jamais sur des collègues.</p>
-<h3>Nouveautés de cette édition</h3>
-<p>Cette édition ajoute des entrées que la version précédente n'avait pas encore saisies, notamment les exclusions liées au droit de vote, le dossier du temps de guerre, la Commission sur le bilinguisme et le biculturalisme, la commission Bird, le comité D'Avignon, Au-delà des apparences (1990), l'affaire Douglas, le premier SAFF, les audits de l'ACS de 2015 et 2022, Unis dans la diversité (2017), le rapport d'inclusion d'Egale (2020), l'audit de la vérificatrice générale de 2023, le rapport du Sénat de 2023, le comité d'experts sur l'engagement réparateur et la consultation de 2024, ainsi que toute la séquence 2025-2026 : le rejet de la certification et l'appel, le passage au régime des droits de la personne, le renvoi au Tribunal de février 2026 et la Loi modernisée toujours non déposée. Le générateur de notes est nouveau sous cette forme : il compose une note ciblée et sourcée pour toute combinaison de communautés.</p>
 <h3>Corrections</h3>
 <p>Si vous repérez une erreur de fait, de date ou d'attribution, vérifiez d'abord la source citée; si l'erreur tient, utilisez le canal de contact du dépôt qui héberge cette page. Les corrections sont consignées dans le code source de la page.</p>`
 };
@@ -1393,6 +1493,13 @@ function applyI18n(){
   var lb = el('langbtn'); lb.textContent = t('langbtn'); lb.setAttribute('aria-pressed', LANG==='fr' ? 'true':'false');
   lb.setAttribute('lang', LANG==='fr' ? 'en' : 'fr');
   el('fsbtn').textContent = t('fs') + ['','+','++'][FS-1];
+  el('q').setAttribute('aria-label', t('f_search'));
+  el('bb-purpose').setAttribute('aria-label', t('a_purpose'));
+  el('dispctl').setAttribute('aria-label', t('a_display'));
+  el('secnav').setAttribute('aria-label', t('a_nav'));
+  el('filterbar').setAttribute('aria-label', t('a_filters'));
+  el('bbpanel').setAttribute('aria-label', t('a_panel'));
+  el('bandlegend').textContent = t('band_legend');
 }
 
 /* ---------- filter chips ---------- */
@@ -1450,7 +1557,8 @@ function entryNode(e, forBrief, withAssess){
   host.className='entry'+(e.key?' key':'');
   var sum=document.createElement('summary');
   var tagHtml='';
-  e.groups.forEach(function(gid){ var g=groupById(gid); if(g) tagHtml+='<span class="tag">'+L(g)+'</span>'; });
+  e.groups.slice(0,3).forEach(function(gid){ var g=groupById(gid); if(g) tagHtml+='<span class="tag">'+L(g)+'</span>'; });
+  if(e.groups.length>3){ tagHtml+='<span class="tag">+'+(e.groups.length-3)+'</span>'; }
   tagHtml+='<span class="tag">'+L(TYPES[e.type])+'</span>';
   if(e.key) tagHtml+='<span class="tag">'+t('keybadge')+'</span>';
   sum.innerHTML='<span class="yr">'+esc(e.y)+'</span><span><span class="ti">'+L(e.t)+'</span><span class="tags">'+tagHtml+'</span></span>';
@@ -1482,8 +1590,9 @@ function renderEntries(){
     var list=ENTRIES.filter(function(e){ return e.era===er.id && entryMatches(e); });
     if(!list.length) return;
     var h=document.createElement('div'); h.className='era-h';
-    h.innerHTML='<span class="yr">'+(LANG==='fr'?er.spanFr:er.span)+'</span><h3>'+L({en:er.en,fr:er.fr})+'</h3>';
+    h.innerHTML='<span class="yr">'+(LANG==='fr'?er.spanFr:er.span)+'</span><h3>'+L({en:er.en,fr:er.fr})+'</h3><span class="count">'+fmt(t('era_count'),{n:list.length})+'</span>';
     host.appendChild(h);
+    var bl=document.createElement('p'); bl.className='era-blurb'; bl.textContent=L(er.d); host.appendChild(bl);
     list.sort(function(a,b){return a.sort-b.sort;}).forEach(function(e){ host.appendChild(entryNode(e,false,true)); shown++; });
   });
   el('count').textContent = fmt(t('count'), {n:shown, t:ENTRIES.length});
@@ -1492,24 +1601,36 @@ function renderEntries(){
 
 /* ---------- era band ---------- */
 function renderBand(){
-  var Y0=1867, Y1=2027, W=1000, H=110, PAD=8;
+  var Y0=1867, Y1=2027, W=1000, H=124, PAD=10;
   function x(y){ return PAD + (y-Y0)/(Y1-Y0)*(W-2*PAD); }
-  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" xmlns="http://www.w3.org/2000/svg">';
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  for(var yy=1880; yy<=2020; yy+=20){
+    var tx=x(yy);
+    s+='<line x1="'+tx+'" y1="36" x2="'+tx+'" y2="72" stroke="#C9CFC8" stroke-width="1"/>';
+    if((yy-1880)%40===0){ s+='<text x="'+(tx-13)+'" y="88" font-size="10" fill="#4C5652">'+yy+'</text>'; }
+  }
   ERAS.forEach(function(er,i){
-    var x0=x(er.y0), x1=x(er.y1+1);
-    s+='<rect x="'+x0+'" y="34" width="'+(x1-x0-2)+'" height="26" rx="3" fill="'+(i%2?'#E7EBE5':'#DFE5DE')+'"/>';
-    s+='<text x="'+(x0+4)+'" y="26" font-size="11" fill="#4C5652">'+(LANG==='fr'?er.spanFr:er.span)+'</text>';
+    var x0=x(er.y0), x1=x(er.y1+1), cx=(x0+x1)/2;
+    var on=!!FILT.eras[er.id];
+    s+='<rect data-era="'+er.id+'" x="'+x0+'" y="36" width="'+(x1-x0-2)+'" height="36" rx="3" fill="'+(on?'#C6D2CB':(i%2?'#E7EBE5':'#DFE5DE'))+'" stroke="'+(on?'#31463F':'none')+'"><title>'+(LANG==='fr'?er.spanFr:er.span)+' : '+L({en:er.en,fr:er.fr})+'</title></rect>';
+    s+='<text x="'+(cx-4)+'" y="30" font-size="12" font-weight="bold" fill="#31463F">'+(i+1)+'</text>';
   });
   ENTRIES.forEach(function(e){
     var vis=entryMatches(e);
     var cx=x(Math.min(2026.9, Math.max(1867, e.sort)));
-    var cy = e.key ? 47 : 47;
-    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(e.key?5:3.2)+'" fill="'+(vis?(e.key?'#1A1F1D':'#4C5652'):'#C9CFC8')+'"/>';
+    s+='<circle cx="'+cx+'" cy="'+(e.key?46:62)+'" r="'+(e.key?4.6:3)+'" fill="'+(vis?(e.key?'#1A1F1D':'#4C5652'):'#D2D7D1')+'"/>';
   });
-  s+='<text x="'+PAD+'" y="86" font-size="11" fill="#4C5652">1867</text>';
-  s+='<text x="'+(W-PAD-34)+'" y="86" font-size="11" fill="#4C5652">2026</text>';
+  s+='<text x="'+PAD+'" y="112" font-size="10" fill="#4C5652">1867</text>';
+  s+='<text x="'+(W-PAD-30)+'" y="112" font-size="10" fill="#4C5652">2026</text>';
   s+='</svg>';
-  el('band').innerHTML=s;
+  var band=el('band'); band.innerHTML=s;
+  band.querySelectorAll('rect[data-era]').forEach(function(r){
+    r.addEventListener('click',function(){
+      var id=parseInt(r.getAttribute('data-era'),10);
+      FILT.eras[id]=!FILT.eras[id];
+      renderChips(); renderEntries();
+    });
+  });
 }
 
 /* ---------- reference sections ---------- */
